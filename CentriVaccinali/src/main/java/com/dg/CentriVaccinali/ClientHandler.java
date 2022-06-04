@@ -59,7 +59,15 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "cercaInfo":
+					Statement stmt = conn.createStatement();
+                	ResultSet rs = stmt.executeQuery("SELECT * FROM centrivaccinali"
+                			+ " where nome='"+requestArray[1]+"'");					
+					rs.next();
+					String resultQ=requestArray[1]+";";
 					
+					resultQ+=rs.getString("indirizzo")+";";
+					resultQ+=rs.getString("tipologia");
+					out.println(resultQ);
 				break;
 				
 				case "inserisciSegnalazione":
@@ -67,15 +75,15 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "centriDisp":
-		            Statement stmt = conn.createStatement();		            
-		            ResultSet rs = stmt.executeQuery("SELECT nome FROM centrivaccinali");
+		            Statement stmt1 = conn.createStatement();		            
+		            ResultSet rs1 = stmt1.executeQuery("SELECT nome FROM centrivaccinali");
 		            String centri="";
-		            rs.next();
+		            rs1.next();
 		            
 		            do {
-		            	centri+=rs.getString("nome")+";";
+		            	centri+=rs1.getString("nome")+";";
 		            }
-		            while(rs.next());
+		            while(rs1.next());
 		            out.println(centri);
 				break;
 				
