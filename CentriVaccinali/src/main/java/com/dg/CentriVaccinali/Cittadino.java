@@ -58,7 +58,7 @@ public class Cittadino extends JFrame {
 		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, cittadino);
 		cittadino.add(lblNewLabel);
 		
-		JComboBox cvaccinale = new JComboBox();
+		final JComboBox cvaccinale = new JComboBox();
 		sl_login.putConstraint(SpringLayout.EAST, cvaccinale, -52, SpringLayout.EAST, cittadino);
 		try {
 			Socket socket = new Socket(SERVER_IP, SERVER_PORT);
@@ -82,15 +82,6 @@ public class Cittadino extends JFrame {
 		}
 		cittadino.add(cvaccinale);
 		
-		JButton cerca = new JButton("Cerca");
-		cerca.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		sl_login.putConstraint(SpringLayout.NORTH, cerca, 6, SpringLayout.SOUTH, cvaccinale);
-		sl_login.putConstraint(SpringLayout.EAST, cerca, 0, SpringLayout.EAST, cvaccinale);
-		cittadino.add(cerca);
-		
 		JLabel lblNewLabel_1 = new JLabel("Centro vaccinale da consultare");
 		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 19, SpringLayout.SOUTH, lblNewLabel);
 		sl_login.putConstraint(SpringLayout.NORTH, cvaccinale, -4, SpringLayout.NORTH, lblNewLabel_1);
@@ -113,20 +104,47 @@ public class Cittadino extends JFrame {
 		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel_4, 0, SpringLayout.WEST, lblNewLabel);
 		cittadino.add(lblNewLabel_4);
 		
-		JLabel jindirizzo = new JLabel("N/D");
+		final JLabel jindirizzo = new JLabel("N/D");
 		sl_login.putConstraint(SpringLayout.WEST, jindirizzo, 6, SpringLayout.EAST, lblNewLabel_3);
 		sl_login.putConstraint(SpringLayout.SOUTH, jindirizzo, 0, SpringLayout.SOUTH, lblNewLabel_3);
 		cittadino.add(jindirizzo);
 		
-		JLabel jtipologia = new JLabel("N/D");
+		final JLabel jtipologia = new JLabel("N/D");
 		sl_login.putConstraint(SpringLayout.NORTH, jtipologia, 6, SpringLayout.SOUTH, lblNewLabel_3);
 		sl_login.putConstraint(SpringLayout.WEST, jtipologia, 0, SpringLayout.WEST, jindirizzo);
 		cittadino.add(jtipologia);
 		
-		JLabel jnome = new JLabel("N/D");
+		final JLabel jnome = new JLabel("N/D");
 		sl_login.putConstraint(SpringLayout.WEST, jnome, 0, SpringLayout.WEST, jindirizzo);
 		sl_login.putConstraint(SpringLayout.SOUTH, jnome, 0, SpringLayout.SOUTH, lblNewLabel_2);
 		cittadino.add(jnome);
+		
+		JButton btnNewButton = new JButton("Cerca");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+					PrintStream out = new PrintStream( socket.getOutputStream() );
+					BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+					String request="cercaInfo;"+cvaccinale.getSelectedObjects().toString();
+					
+					out.println(request);
+					
+					String response= in.readLine();
+					String[] risposta =response.split(";");					
+					
+					jnome.setText(risposta[0]);
+					jindirizzo.setText(risposta[1]);
+					jtipologia.setText(risposta[2]);
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, cvaccinale);
+		sl_login.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, cvaccinale);
+		cittadino.add(btnNewButton);
 
 	}
 }
