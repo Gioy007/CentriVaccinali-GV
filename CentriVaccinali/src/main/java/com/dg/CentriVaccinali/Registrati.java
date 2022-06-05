@@ -15,6 +15,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -24,6 +30,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
 
 public class Registrati extends JFrame {
+	
+	private static final String SERVER_IP = "127.0.0.1";
+	private static final int SERVER_PORT = 9090;
 
 	private JPanel registrati;
 	private JLabel lblNewLabel_1;
@@ -57,24 +66,21 @@ public class Registrati extends JFrame {
 
 	
 	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) throws SQLException {
-		
-		String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
-        String username = "eclipse";
-        String password = "1234";
+        try {        	
+        	Socket socket =Cittadino.socket;
+			
+			PrintStream out = new PrintStream( socket.getOutputStream() );
+			BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+			
+			out.println("registraCitt");
+			
+			String response= in.readLine();					
 
-        try {
-        	
-            Connection conn = DriverManager.getConnection(url, username, password);
-            Statement stmt = conn.createStatement();
+            if(response.equals("OK")) {
+            	JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
+            }
             
-            String query = "INSERT INTO utenti (nome, cognome, cf, password, email)"
-            			+ "VALUES ('"+nome+"', '"+cognome+"', '"+cf+"', '"+email+"', '"+psw+"');";
-
-            stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
-            conn.close();
-            
-        } catch (SQLException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             return false;
         }
@@ -134,6 +140,11 @@ public class Registrati extends JFrame {
 		
 		JLabel lblNewLabel_6 = new JLabel("Ripeti password");
 		SpringLayout sl_registrati = new SpringLayout();
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 9, SpringLayout.SOUTH, lblNewLabel);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 114, SpringLayout.NORTH, registrati);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 12, SpringLayout.SOUTH, lblNewLabel_3);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_5, 12, SpringLayout.SOUTH, lblNewLabel_4);
+		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_6, 12, SpringLayout.SOUTH, lblNewLabel_5);
 		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_6, 0, SpringLayout.WEST, registrati);
 		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_5, 0, SpringLayout.WEST, lblNewLabel_2);
 		sl_registrati.putConstraint(SpringLayout.EAST, lblNewLabel_5, -497, SpringLayout.EAST, registrati);
@@ -150,10 +161,8 @@ public class Registrati extends JFrame {
 		
 		jnome = new JTextField();
 		sl_registrati.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, jnome);
-		sl_registrati.putConstraint(SpringLayout.WEST, jnome, 60, SpringLayout.EAST, lblNewLabel_1);
-		sl_registrati.putConstraint(SpringLayout.EAST, jnome, -290, SpringLayout.EAST, registrati);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 3, SpringLayout.NORTH, jnome);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jnome, 6, SpringLayout.SOUTH, lblNewLabel);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jnome, -3, SpringLayout.NORTH, lblNewLabel_1);
+		sl_registrati.putConstraint(SpringLayout.WEST, jnome, 88, SpringLayout.EAST, lblNewLabel_1);
 		jnome.setColumns(10);
 		registrati.add(jnome);
 		registrati.add(lblNewLabel_2);
@@ -166,42 +175,39 @@ public class Registrati extends JFrame {
 		registrati.add(lblNewLabel_6);
 		
 		jcognome = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.NORTH, jcognome, 6, SpringLayout.SOUTH, jnome);
-		sl_registrati.putConstraint(SpringLayout.WEST, jcognome, 0, SpringLayout.WEST, jnome);
-		sl_registrati.putConstraint(SpringLayout.EAST, jcognome, 0, SpringLayout.EAST, jnome);
+		sl_registrati.putConstraint(SpringLayout.WEST, jcognome, 70, SpringLayout.EAST, lblNewLabel_2);
+		sl_registrati.putConstraint(SpringLayout.EAST, jcognome, -262, SpringLayout.EAST, registrati);
+		sl_registrati.putConstraint(SpringLayout.EAST, jnome, 0, SpringLayout.EAST, jcognome);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jcognome, -3, SpringLayout.NORTH, lblNewLabel_2);
 		registrati.add(jcognome);
 		jcognome.setColumns(10);
 		
 		jcf = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 3, SpringLayout.NORTH, jcf);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jcf, 6, SpringLayout.SOUTH, jcognome);
-		sl_registrati.putConstraint(SpringLayout.WEST, jcf, 0, SpringLayout.WEST, jnome);
-		sl_registrati.putConstraint(SpringLayout.EAST, jcf, 166, SpringLayout.WEST, jnome);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jcf, -3, SpringLayout.NORTH, lblNewLabel_3);
+		sl_registrati.putConstraint(SpringLayout.WEST, jcf, 102, SpringLayout.EAST, lblNewLabel_3);
+		sl_registrati.putConstraint(SpringLayout.EAST, jcf, -262, SpringLayout.EAST, registrati);
 		registrati.add(jcf);
 		jcf.setColumns(10);
 		
 		jemail = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 3, SpringLayout.NORTH, jemail);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jemail, 6, SpringLayout.SOUTH, jcf);
-		sl_registrati.putConstraint(SpringLayout.WEST, jemail, 87, SpringLayout.WEST, registrati);
-		sl_registrati.putConstraint(SpringLayout.EAST, jemail, 0, SpringLayout.EAST, jnome);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jemail, -3, SpringLayout.NORTH, lblNewLabel_4);
+		sl_registrati.putConstraint(SpringLayout.WEST, jemail, 115, SpringLayout.WEST, registrati);
 		registrati.add(jemail);
 		jemail.setColumns(10);
 		
 		jpsw = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_5, 3, SpringLayout.NORTH, jpsw);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jpsw, 6, SpringLayout.SOUTH, jemail);
-		sl_registrati.putConstraint(SpringLayout.WEST, jpsw, 0, SpringLayout.WEST, jnome);
-		sl_registrati.putConstraint(SpringLayout.EAST, jpsw, 253, SpringLayout.WEST, registrati);
+		sl_registrati.putConstraint(SpringLayout.EAST, jemail, 0, SpringLayout.EAST, jpsw);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jpsw, -3, SpringLayout.NORTH, lblNewLabel_5);
+		sl_registrati.putConstraint(SpringLayout.EAST, jpsw, 281, SpringLayout.WEST, registrati);
 		registrati.add(jpsw);
 		jpsw.setColumns(10);
 		
 		jrpsw = new JTextField();
 		sl_registrati.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, jrpsw);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_6, 3, SpringLayout.NORTH, jrpsw);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jrpsw, 6, SpringLayout.SOUTH, jpsw);
-		sl_registrati.putConstraint(SpringLayout.WEST, jrpsw, 0, SpringLayout.WEST, jnome);
-		sl_registrati.putConstraint(SpringLayout.EAST, jrpsw, -290, SpringLayout.EAST, registrati);
+		sl_registrati.putConstraint(SpringLayout.WEST, jpsw, 0, SpringLayout.WEST, jrpsw);
+		sl_registrati.putConstraint(SpringLayout.NORTH, jrpsw, -3, SpringLayout.NORTH, lblNewLabel_6);
+		sl_registrati.putConstraint(SpringLayout.WEST, jrpsw, 39, SpringLayout.EAST, lblNewLabel_6);
+		sl_registrati.putConstraint(SpringLayout.EAST, jrpsw, -262, SpringLayout.EAST, registrati);
 		registrati.add(jrpsw);
 		jrpsw.setColumns(10);
 	}
