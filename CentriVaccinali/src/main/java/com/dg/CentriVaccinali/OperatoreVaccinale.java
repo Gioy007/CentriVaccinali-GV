@@ -266,6 +266,7 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia;
     	Cittadino.getOut().println(request);
     	
+    	
         try {
 			if(Cittadino.getIn().readLine().equals("OK")) {
 				JOptionPane.showMessageDialog(jPanel, "Nuovo vaccinato registrato correttamente");

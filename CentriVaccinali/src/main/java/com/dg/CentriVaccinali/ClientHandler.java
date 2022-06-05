@@ -54,6 +54,7 @@ public class ClientHandler implements Runnable{
 				
 				case "nuovoVaccinato": //bisogna aggiungere nella tab utenti l'id del centro al quale si è registrati 
 					
+					
 					System.out.println("nuovo vaccinato");
 					Statement stmt3 = conn.createStatement(); 
 					String queryGetCVbyCF = "SELECT * FROM utenti WHERE cf = '"+requestArray[1]+"'";
