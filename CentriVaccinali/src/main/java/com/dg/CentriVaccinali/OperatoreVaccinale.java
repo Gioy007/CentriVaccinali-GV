@@ -1,6 +1,15 @@
 package com.dg.CentriVaccinali;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+
+import javax.swing.JOptionPane;
+
 public class OperatoreVaccinale extends javax.swing.JFrame {
+	
 	
     public OperatoreVaccinale() {
         initComponents();
@@ -248,27 +257,49 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
         pack();
     }
 	
-    private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-
-    	String s = "";
-    	s+="nuovoVaccinato;";
-    	String codiceVaccinazione = "";// da sistemare come è nel db
-    	String UserID ="";// da prendere  dal db []
-    	String IDCentroVaccinale =""; // da prendere dal db [select]
-    	s+="INSERT INTO Vaccinati(UserID, DataSomm, TipoVacc, IDCentroVacc) "
-        		+ "VALUES ('";
+    private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    	
+    	String cf = cfTextField.getText();	//1
+    	String data = dataTextField.getText();//2
+    	String tipologia = ""+tipoVaccinoComboBox.getSelectedItem();//3
+    	
+    	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia;
+    	Cittadino.getOut().println(request);
+    	
+        try {
+			if(Cittadino.getIn().readLine().equals("OK")) {
+				JOptionPane.showMessageDialog(jPanel, "Nuovo vaccinato registrato correttamente");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
     }                                                      
 
-    private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) {     
-    	String s = "";
-        s+="nuovoCentroVaccinale;";
-        s+="INSERT INTO CentriVaccinali(Nome, Indirizzo, Tipologia) "
-        		+ "VALUES ('"+nomeTextField.getText()+"', '"+indirizzoTextField.getText()+" "+nCivicoTextField.getText()+"', '"+tipologiaComboBox.getSelectedItem()+"');";
-        
+    private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) { 
+    	String nome = nomeTextField.getText();	//1
+    	String comune = comuneTextField.getText();//2
+    	String CAP = CAPTextField.getText();	//3
+    	String provincia = provinciaTextField.getText();//4
+    	String indirizzo = indirizzoTextField.getText();//5
+    	String nCivico = nCivicoTextField.getText();//6
+    	String tipologia = ""+tipologiaComboBox.getSelectedItem();//7
     	
-        	
+    	String request = "nuovoCentroVaccinale;"+nome+";"+comune+";"+CAP+";"+provincia
+    			+";"+indirizzo+";"+nCivico+";"+tipologia;
+    	Cittadino.getOut().println(request);
+    	
+        try {
+			if(Cittadino.getIn().readLine().equals("OK")) {
+				JOptionPane.showMessageDialog(jPanel, "Centro registrato correttamente");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }           
     public static void main(String args[]) {
+    	
+    	
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
