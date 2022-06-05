@@ -156,7 +156,7 @@ public class Cittadino extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Login r=new Login();
+				Login r=new Login(socket);
 				r.setVisible(true);
 			}
 		});
@@ -168,7 +168,7 @@ public class Cittadino extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Registrati r=new Registrati();
+				Registrati r=new Registrati(socket);
 				r.setVisible(true);
 				
 			}

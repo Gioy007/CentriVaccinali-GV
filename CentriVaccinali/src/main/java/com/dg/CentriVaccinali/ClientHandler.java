@@ -60,7 +60,7 @@ public class ClientHandler implements Runnable{
 	            			+ "VALUES ('"+requestArray[1]+"', '"+requestArray[2]+"', '"+requestArray[3]+
 	            			"', '"+requestArray[4]+"', '"+requestArray[5]+"');";
 					
-                	ResultSet rs2 = stmt2.executeQuery(queryRegistra);
+					stmt2.executeUpdate(queryRegistra);
                 	out.println("OK");
 				break;
 				
