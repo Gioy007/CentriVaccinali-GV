@@ -55,8 +55,14 @@ public class ClientHandler implements Runnable{
 				
 				break;
 				
-				case "registratiACV":
+				case "registraCitt":
+					Statement stmt2 = conn.createStatement();
+					String queryRegistra = "INSERT INTO utenti (nome, cognome, cf, password, email)"
+	            			+ "VALUES ('"+requestArray[1]+"', '"+requestArray[2]+"', '"+requestArray[3]+
+	            			"', '"+requestArray[4]+"', '"+requestArray[5]+"');";
 					
+                	ResultSet rs2 = stmt2.executeQuery(queryRegistra);
+                	out.println("OK");
 				break;
 				
 				case "cercaInfo":

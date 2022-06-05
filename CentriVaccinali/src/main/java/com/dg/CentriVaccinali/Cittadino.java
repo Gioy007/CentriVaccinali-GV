@@ -13,9 +13,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.awt.event.ActionEvent;
 
 public class Cittadino extends JFrame {
@@ -23,7 +25,7 @@ public class Cittadino extends JFrame {
 	private JPanel cittadino;
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 9090;
-
+	static Socket socket;
 	/**
 	 * Launch the application.
 	 */
@@ -44,6 +46,11 @@ public class Cittadino extends JFrame {
 	 * Create the frame.
 	 */
 	public Cittadino() {
+		try {
+			socket = new Socket(SERVER_IP, SERVER_PORT);
+		} catch (Exception e) {
+
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 406, 381);
 		cittadino = new JPanel();
@@ -61,7 +68,6 @@ public class Cittadino extends JFrame {
 		final JComboBox cvaccinale = new JComboBox();
 		sl_login.putConstraint(SpringLayout.EAST, cvaccinale, -52, SpringLayout.EAST, cittadino);
 		try {
-			Socket socket = new Socket(SERVER_IP, SERVER_PORT);
 			PrintStream out = new PrintStream( socket.getOutputStream() );
 			BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
@@ -123,12 +129,12 @@ public class Cittadino extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-					System.out.println("connesso al server");
+			
 					PrintStream out = new PrintStream( socket.getOutputStream() );
 					BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
-					String request="cercaInfo;"+cvaccinale.getSelectedObjects().toString();
-					System.out.println("mando il comando");
+					String request="cercaInfo;"+cvaccinale.getSelectedItem();
+					
+
 					out.println(request);
 					System.out.println("mandato");
 					String response= in.readLine();
@@ -146,6 +152,31 @@ public class Cittadino extends JFrame {
 		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, cvaccinale);
 		sl_login.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, cvaccinale);
 		cittadino.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Login");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Login r=new Login();
+				r.setVisible(true);
+			}
+		});
+		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -10, SpringLayout.SOUTH, cittadino);
+		sl_login.putConstraint(SpringLayout.EAST, btnNewButton_1, 0, SpringLayout.EAST, cvaccinale);
+		cittadino.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Registrati");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Registrati r=new Registrati();
+				r.setVisible(true);
+				
+			}
+		});
+		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton_2, 0, SpringLayout.SOUTH, btnNewButton_1);
+		sl_login.putConstraint(SpringLayout.EAST, btnNewButton_2, -6, SpringLayout.WEST, btnNewButton_1);
+		cittadino.add(btnNewButton_2);
 
 	}
 }
