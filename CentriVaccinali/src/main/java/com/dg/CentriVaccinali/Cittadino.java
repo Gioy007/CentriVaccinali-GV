@@ -124,12 +124,13 @@ public class Cittadino extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+					System.out.println("connesso al server");
 					PrintStream out = new PrintStream( socket.getOutputStream() );
 					BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 					String request="cercaInfo;"+cvaccinale.getSelectedObjects().toString();
-					
+					System.out.println("mando il comando");
 					out.println(request);
-					
+					System.out.println("mandato");
 					String response= in.readLine();
 					String[] risposta =response.split(";");					
 					
