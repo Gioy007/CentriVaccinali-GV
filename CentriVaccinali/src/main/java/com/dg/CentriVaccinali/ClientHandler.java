@@ -27,6 +27,7 @@ public class ClientHandler implements Runnable{
 			while(true) {
 				System.out.println("connessione stabilita con un client");
 				String request = in.readLine();
+				System.out.println("ho ricevuto: " + request);
 				String[] requestArray;
 				try {
 					requestArray = request.split(";");
@@ -65,9 +66,13 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "cercaInfo":
-					Statement stmt = conn.createStatement();
+					
+					System.out.println("cerco info");
+					Statement stmt = ServerCV.getConn().createStatement();//conn.createStatement();
+					System.out.println("statement fatto");
                 	ResultSet rs = stmt.executeQuery("SELECT * FROM centrivaccinali"
-                			+ " where nome='"+requestArray[1]+"'");					
+                			+ " where nome='"+requestArray[1]+"'");
+                	System.out.println("query fatta");
 					rs.next();
 					String resultQ=requestArray[1]+";";
 					

@@ -129,13 +129,14 @@ public class Cittadino extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
+			
 					PrintStream out = new PrintStream( socket.getOutputStream() );
 					BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 					String request="cercaInfo;"+cvaccinale.getSelectedItem();
 					
+
 					out.println(request);
-					
+					System.out.println("mandato");
 					String response= in.readLine();
 					String[] risposta =response.split(";");					
 					
