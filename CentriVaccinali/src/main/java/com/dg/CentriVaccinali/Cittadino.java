@@ -25,7 +25,9 @@ public class Cittadino extends JFrame {
 	private JPanel cittadino;
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 9090;
-	static Socket socket;
+	private static Socket socket;
+	private static PrintStream out;
+	private static BufferedReader in;
 	/**
 	 * Launch the application.
 	 */
@@ -40,6 +42,18 @@ public class Cittadino extends JFrame {
 				}
 			}
 		});
+	}
+	
+	public static Socket getSocket() {
+		return socket;
+	}
+	
+	public static PrintStream getOut() {
+		return out;
+	}
+	
+	public static BufferedReader getIn() {
+		return in;
 	}
 
 	/**
@@ -68,8 +82,8 @@ public class Cittadino extends JFrame {
 		final JComboBox cvaccinale = new JComboBox();
 		sl_login.putConstraint(SpringLayout.EAST, cvaccinale, -52, SpringLayout.EAST, cittadino);
 		try {
-			PrintStream out = new PrintStream( socket.getOutputStream() );
-			BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+			out = new PrintStream( socket.getOutputStream() );
+			in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
 			
 			out.println("centriDisp");
