@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 public class Login extends JFrame {
 
 	private JPanel login;
+	private Socket socketl;
 	private JPasswordField jpsw;
 	private JTextField jemail;
 	private static final String SERVER_IP = "127.0.0.1";
@@ -40,7 +41,8 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+					Login frame = new Login(socket);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +54,8 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public Login(Socket socket) {
+		socketl=socket;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 274, 306);
 		login = new JPanel();
@@ -103,10 +106,9 @@ public class Login extends JFrame {
 				String psw=String.valueOf(jpsw.getPassword());
 				
 				try {
-					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
 					String request="login;"+email+";"+psw;
-					PrintStream out = new PrintStream( socket.getOutputStream() );
-					BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+					PrintStream out = new PrintStream( socketl.getOutputStream());
+					BufferedReader in = new BufferedReader( new InputStreamReader( socketl.getInputStream()));
 
 					
 					out.println(request);
@@ -139,7 +141,7 @@ public class Login extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Registrati r=new Registrati();
+				Registrati r=new Registrati(socketl);
 				r.setVisible(true);
 				
 			}

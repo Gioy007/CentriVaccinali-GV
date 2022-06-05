@@ -33,6 +33,7 @@ public class Registrati extends JFrame {
 	
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 9090;
+	private Socket socketr;
 
 	private JPanel registrati;
 	private JLabel lblNewLabel_1;
@@ -55,7 +56,8 @@ public class Registrati extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Registrati frame = new Registrati();
+					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+					Registrati frame = new Registrati(socket);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,12 +69,11 @@ public class Registrati extends JFrame {
 	
 	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) throws SQLException {
         try {        	
-        	Socket socket =Cittadino.socket;
-			
-			PrintStream out = new PrintStream( socket.getOutputStream() );
-			BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
-			
-			out.println("registraCitt");
+        	
+			PrintStream out = new PrintStream( socketr.getOutputStream() );
+			BufferedReader in = new BufferedReader( new InputStreamReader( socketr.getInputStream()));
+			String outString="registraCitt;"+nome+";"+cognome+";"+cf+";"+psw+";"+email;
+			out.println(outString);
 			
 			String response= in.readLine();					
 
@@ -88,7 +89,9 @@ public class Registrati extends JFrame {
 		return true;
 	}
 	
-	public Registrati() {
+	public Registrati(Socket socket) {
+		this.socketr=socket;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 569, 429);
 		registrati = new JPanel();
@@ -121,15 +124,15 @@ public class Registrati extends JFrame {
 				String rpsw= jrpsw.getText();
 				
 				if(psw.equals(rpsw)&& !psw.equals("")) {
-					
 					try {
 						registraCittadino(nome, cognome, cf, email, psw);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 					
 					setVisible(false);
-					Login l=new Login();
+					Login l=new Login(socketr);
 					l.setVisible(true);
 				}
 				else {
