@@ -23,9 +23,10 @@ public class ClientHandler implements Runnable{
 		
 	}
 	public void run(Connection conn) {
+		System.out.println("connessione stabilita con un client");
 		try {
 			while(true) {
-				System.out.println("connessione stabilita con un client");
+				
 				String request = in.readLine();
 				System.out.println("ho ricevuto: " + request);
 				String[] requestArray;
@@ -51,11 +52,23 @@ public class ClientHandler implements Runnable{
 					out.println(result.getString("admin")+";"+result.getString("userid"));	
 				break;
 				
-				case "nuovoVaccinato":
-				
+				case "nuovoVaccinato": //bisogna aggiungere nella tab utenti l'id del centro al quale si è registrati 
+					
+					
+					System.out.println("nuovo vaccinato");
+					Statement stmt3 = conn.createStatement(); 
+					String queryGetCVbyCF = "SELECT * FROM utenti WHERE cf = '"+requestArray[1]+"'";
+					ResultSet result2 = stmt3.executeQuery(queryGetCVbyCF);
+					result2.next();
+					String queryNewVaccinato = "INSERT INTO vaccinati (userid, datasomm, tipovacc, idcentrovacc)"
+											+ "VALUES ('"+result2.getString("userid")+"', '"+requestArray[2]+"', '"
+													+requestArray[3]+"', '" + result2.getString("idcentrovacc")+"');";
+					
+					stmt3.executeUpdate(queryNewVaccinato);
+                	out.println("OK");
 				break;
 				
-				case "registraCitt":
+				case "registraCitt": 
 					Statement stmt2 = conn.createStatement();
 					String queryRegistra = "INSERT INTO utenti (nome, cognome, cf, password, email)"
 	            			+ "VALUES ('"+requestArray[1]+"', '"+requestArray[2]+"', '"+requestArray[3]+
@@ -68,7 +81,7 @@ public class ClientHandler implements Runnable{
 				case "cercaInfo":
 					
 					System.out.println("cerco info");
-					Statement stmt = ServerCV.getConn().createStatement();//conn.createStatement();
+					Statement stmt = conn.createStatement();
 					System.out.println("statement fatto");
                 	ResultSet rs = stmt.executeQuery("SELECT * FROM centrivaccinali"
                 			+ " where nome='"+requestArray[1]+"'");
@@ -99,6 +112,15 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "nuovoCentroVaccinale":
+					
+					Statement stmt4 = conn.createStatement(); 
+					String indirizzo = requestArray[5] + " " + requestArray[6];
+					String queryNewCV =  "INSERT INTO centrivaccinali (nome, comune, indirizzo, cap, provincia, tipologia)" //COMUNE INDIRIZZO CAP PROVINCIA SONO DA AGGIUNGERE NEL DB
+											+ "VALUES ('"+requestArray[1]+"', '"+ requestArray[2]+"', '" + indirizzo + requestArray[3]+"', '"
+													+requestArray[4]+"', '" +requestArray[7]+"');";
+																							
+					stmt4.executeUpdate(queryNewCV);
+                	out.println("OK");
 				
 				default:
 				}
