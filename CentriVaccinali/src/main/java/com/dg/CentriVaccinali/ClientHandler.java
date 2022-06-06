@@ -10,19 +10,43 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * 
+ * @author Giacomelli Davide 781844
+ *
+ */
 public class ClientHandler implements Runnable{
 
 	private Socket client;
 	private BufferedReader in;
 	private PrintWriter out;
+	private String url = "";
+	private String user= "";
+	private String psw = "";
+	private Connection conn;
 	
-	public ClientHandler(Socket clientSocket) throws IOException {
-		this.client=clientSocket;
+	/**
+	 * 
+	 * @param clientSocket
+	 * @param url per il database
+	 * @param user username per
+	 * @param psw
+	 * @throws IOException
+	 */
+	public ClientHandler(Socket clientSocket, String url, String user, String psw) throws IOException {
+		this.client = clientSocket;
 		in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		out = new PrintWriter(client.getOutputStream(), true);
 		
+		this.url = url;
+		this.user = user;
+		this.psw = psw;
+		
 	}
-	public void run(Connection conn) {
+	
+	
+	@Override
+	public void run() {
 		System.out.println("connessione stabilita con un client");
 		try {
 			while(true) {
@@ -36,26 +60,31 @@ public class ClientHandler implements Runnable{
 					requestArray=new String[1];
 					requestArray[0]=request;
 				}
-				
 				switch(requestArray[0]) {
 				case "login":
 					String query = "SELECT *"
 							+ "FROM utenti "
 							+ "WHERE email = '" + requestArray[1] + "' AND password = '" + requestArray[2]+"'"; 
 					
+					conn = DriverManager.getConnection(url, user, psw); 
 					Statement statement = conn.createStatement();
 					ResultSet result = statement.executeQuery(query);
+					conn.close();
 					
 					result.next();
 					System.out.println(result.getString("admin"));
 					System.out.println(result.getString("userid"));
-					out.println(result.getString("admin")+";"+result.getString("userid"));	
+					out.println(result.getString("admin")+";"+result.getString("userid"));
+					
+					
 				break;
 				
 				case "nuovoVaccinato": //bisogna aggiungere nella tab utenti l'id del centro al quale si è registrati 
 					
 					
 					System.out.println("nuovo vaccinato");
+					
+					conn = DriverManager.getConnection(url, user, psw); 
 					Statement stmt3 = conn.createStatement(); 
 					String queryGetCVbyCF = "SELECT * FROM utenti WHERE cf = '"+requestArray[1]+"'";
 					ResultSet result2 = stmt3.executeQuery(queryGetCVbyCF);
@@ -65,33 +94,38 @@ public class ClientHandler implements Runnable{
 													+requestArray[3]+"', '" + result2.getString("idcentrovacc")+"');";
 					
 					stmt3.executeUpdate(queryNewVaccinato);
+					conn.close();
+					
                 	out.println("OK");
 				break;
 				
 				case "registraCitt": 
+					
+					conn = DriverManager.getConnection(url, user, psw); 
 					Statement stmt2 = conn.createStatement();
 					String queryRegistra = "INSERT INTO utenti (nome, cognome, cf, password, email)"
 	            			+ "VALUES ('"+requestArray[1]+"', '"+requestArray[2]+"', '"+requestArray[3]+
 	            			"', '"+requestArray[4]+"', '"+requestArray[5]+"');";
 					
 					stmt2.executeUpdate(queryRegistra);
+					conn.close();
                 	out.println("OK");
 				break;
 				
 				case "cercaInfo":
 					
-					System.out.println("cerco info");
+					conn = DriverManager.getConnection(url, user, psw); 
 					Statement stmt = conn.createStatement();
-					System.out.println("statement fatto");
                 	ResultSet rs = stmt.executeQuery("SELECT * FROM centrivaccinali"
                 			+ " where nome='"+requestArray[1]+"'");
-                	System.out.println("query fatta");
+                	conn.close();
 					rs.next();
 					String resultQ=requestArray[1]+";";
 					
 					resultQ+=rs.getString("indirizzo")+";";
 					resultQ+=rs.getString("tipologia");
 					out.println(resultQ);
+					conn.close();
 				break;
 				
 				case "inserisciSegnalazione":
@@ -99,8 +133,11 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "centriDisp":
+					
+					conn = DriverManager.getConnection(url, user, psw); 
 		            Statement stmt1 = conn.createStatement();		            
 		            ResultSet rs1 = stmt1.executeQuery("SELECT nome FROM centrivaccinali");
+		            conn.close();
 		            String centri="";
 		            rs1.next();
 		            
@@ -113,6 +150,7 @@ public class ClientHandler implements Runnable{
 				
 				case "nuovoCentroVaccinale":
 					
+					conn = DriverManager.getConnection(url, user, psw); 
 					Statement stmt4 = conn.createStatement(); 
 					String indirizzo = requestArray[5] + " " + requestArray[6];
 					String queryNewCV =  "INSERT INTO centrivaccinali (nome, comune, indirizzo, cap, provincia, tipologia)" //COMUNE INDIRIZZO CAP PROVINCIA SONO DA AGGIUNGERE NEL DB
@@ -120,6 +158,7 @@ public class ClientHandler implements Runnable{
 													+requestArray[4]+"', '" +requestArray[7]+"');";
 																							
 					stmt4.executeUpdate(queryNewCV);
+					conn.close();
                 	out.println("OK");
 				
 				default:
@@ -129,19 +168,6 @@ public class ClientHandler implements Runnable{
 			System.out.println(e);
 		}
 		
-		
-		//mi aspetto le credenziali per il login
-		
-		//controllo
-		
-		//mando la response con codice per dire quale finestra aprire(cittadini/operatori)
-		
-		//attendo nuove disposizioni
-		
-	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
 		
 	} 
 	

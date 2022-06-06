@@ -8,13 +8,17 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Giacomelli Davide 781844
+ *
+ */
 public class OperatoreVaccinale extends javax.swing.JFrame {
-	
 	
     public OperatoreVaccinale() {
         initComponents();
-    }
-    @SuppressWarnings("unchecked")                      
+    } 
+
     private void initComponents() {
 
         jPanel = new javax.swing.JPanel();
@@ -257,6 +261,10 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
         pack();
     }
 	
+    /**
+     * 
+     * @param evt
+     */
     private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {
     	
     	String cf = cfTextField.getText();	//1
@@ -277,6 +285,10 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     	
     }                                                      
 
+    /**
+     * 
+     * @param evt
+     */
     private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) { 
     	String nome = nomeTextField.getText();	//1
     	String comune = comuneTextField.getText();//2
@@ -299,7 +311,6 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
 		}
     }           
     public static void main(String args[]) {
-    	
     	
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
