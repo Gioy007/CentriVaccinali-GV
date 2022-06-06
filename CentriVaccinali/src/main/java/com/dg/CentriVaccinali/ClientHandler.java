@@ -82,6 +82,61 @@ public class ClientHandler implements Runnable{
 					
 				break;
 				
+				case "cercaNome":
+					
+					conn = DriverManager.getConnection(url, user, psw); 
+					Statement stmt = conn.createStatement();
+                	ResultSet rs = stmt.executeQuery("SELECT * FROM centrivaccinali"
+                			+ " where nome='"+requestArray[1]+"' AND tipologia = '" + requestArray[2]+"'");
+                	conn.close();
+                	
+                	String centri="";
+                	while(rs.next()) {
+                		centri+=rs.getString("nome")+";";
+                	}
+                	
+                	out.println(centri);
+					
+				break;
+				
+				
+				case "cercaComune":
+					
+					conn = DriverManager.getConnection(url, user, psw); 
+					Statement stmt1 = conn.createStatement();
+                	ResultSet rs1 = stmt1.executeQuery("SELECT * FROM centrivaccinali"
+                			+ " where comune='"+requestArray[1]+"' AND tipologia = '" + requestArray[2]+"'");
+                	conn.close();
+                	
+                	String centri1="";
+                	while(rs1.next()) {
+                		centri1+=rs1.getString("comune")+";";
+                	}
+                	
+                	out.println(centri1);
+                	
+					
+				break;
+					
+				
+				case "cercaTipologia":
+					
+					conn = DriverManager.getConnection(url, user, psw); 
+					Statement stmt2 = conn.createStatement();
+                	ResultSet rs2 = stmt2.executeQuery("SELECT * FROM centrivaccinali"
+                			+ " where tipologia='"+requestArray[1]+"'");
+                	conn.close();
+                	
+                	String centri2="";
+                	while(rs2.next()) {
+                		centri2+=rs2.getString("tipologia")+";";
+                	}
+                	
+                	out.println(centri2);
+                	
+					
+				break;
+				
 				case "nuovoVaccinato": //bisogna aggiungere nella tab utenti l'id del centro al quale si è registrati 
 										
 					System.out.println("nuovo vaccinato");
@@ -104,24 +159,24 @@ public class ClientHandler implements Runnable{
 				case "registraCitt": 
 					
 					conn = DriverManager.getConnection(url, user, psw); 
-					Statement stmt2 = conn.createStatement();
+					Statement stmt4 = conn.createStatement();
 					String queryRegistra = "INSERT INTO utenti (nome, cognome, cf, password, email)"
 	            			+ "VALUES ('"+requestArray[1]+"', '"+requestArray[2]+"', '"+requestArray[3]+
 	            			"', '"+requestArray[4]+"', '"+requestArray[5]+"');";
 					
-					stmt2.executeUpdate(queryRegistra);
+					stmt4.executeUpdate(queryRegistra);
 					conn.close();
                 	out.println("OK");
 				break;
-				
+				/*
 				case "cercaInfo":
 					
 					conn = DriverManager.getConnection(url, user, psw); 
-					Statement stmt = conn.createStatement();
-                	ResultSet rs = stmt.executeQuery("SELECT * FROM centrivaccinali"
+					Statement stmt4 = conn.createStatement();
+                	ResultSet rs4 = stmt.executeQuery("SELECT * FROM centrivaccinali"
                 			+ " where nome='"+requestArray[1]+"'");
                 	conn.close();
-					rs.next();
+					rs4.next();
 					String resultQ=requestArray[1]+";";
 					
 					resultQ+=rs.getString("indirizzo")+";";
@@ -129,7 +184,7 @@ public class ClientHandler implements Runnable{
 					out.println(resultQ);
 					conn.close();
 				break;
-				
+				*/
 				case "inserisciSintomo":
 					Statement stmt10 = conn.createStatement();
 					String querySintomo="select idevento from eventi where nome='"+requestArray[2]+"'";
@@ -152,13 +207,13 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "aggiungiSintomo":
-					Statement stmt4 = conn.createStatement();
+					Statement stmt5 = conn.createStatement();
 					String queryNuovo = "INSERT INTO eventi (nome) VALUES ('"+requestArray[1]+"');";
 					
-					stmt4.executeUpdate(queryNuovo);
+					stmt5.executeUpdate(queryNuovo);
                 	out.println("OK");
 				break;
-				
+				/*
 				case "centriDisp":
 					
 					conn = DriverManager.getConnection(url, user, psw); 
@@ -174,7 +229,7 @@ public class ClientHandler implements Runnable{
 		            while(rs1.next());
 		            out.println(centri);
 				break;
-				
+				*/
 				case "vaccini":
 					Statement stmt6 = conn.createStatement();
 					String queryVacc="select idvacc, tipovacc from vaccinati v left join utenti on v.userid=utenti.userid "
@@ -202,14 +257,14 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "nomeEventi":
-					Statement stmt5 = conn.createStatement();
-					ResultSet rs5 = stmt5.executeQuery("SELECT nome FROM eventi");
+					Statement stmt9 = conn.createStatement();
+					ResultSet rs9 = stmt9.executeQuery("SELECT nome FROM eventi");
 					String eventi="";
-					rs5.next();
+					rs9.next();
 					
 					do {
-						eventi+=rs5.getString("nome")+";";
-					}while(rs5.next());
+						eventi+=rs9.getString("nome")+";";
+					}while(rs9.next());
 					
 					eventi.substring(0, eventi.length() - 1);  
 					out.println(eventi);
