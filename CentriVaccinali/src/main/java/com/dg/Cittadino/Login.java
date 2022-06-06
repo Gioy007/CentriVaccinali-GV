@@ -1,4 +1,4 @@
-package com.dg.CentriVaccinali;
+package com.dg.Cittadino;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -38,22 +38,6 @@ public class Login extends JFrame {
 	private JPasswordField jpsw;
 	private JTextField jemail;
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

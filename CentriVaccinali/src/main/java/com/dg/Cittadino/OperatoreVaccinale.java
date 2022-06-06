@@ -1,4 +1,4 @@
-package com.dg.CentriVaccinali;
+package com.dg.Cittadino;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -339,31 +339,6 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
     }           
-    
-    public static void main(String args[]) {
-    	
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OperatoreVaccinale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OperatoreVaccinale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OperatoreVaccinale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OperatoreVaccinale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new OperatoreVaccinale().setVisible(true);
-            }
-        });
-    }
               
     private javax.swing.JLabel CAPLabel;
     private javax.swing.JTextField CAPTextField;

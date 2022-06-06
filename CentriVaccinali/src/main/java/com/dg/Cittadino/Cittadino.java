@@ -1,4 +1,4 @@
-package com.dg.CentriVaccinali;
+package com.dg.Cittadino;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.dg.CentriVaccinali;
+package com.dg.Cittadino;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

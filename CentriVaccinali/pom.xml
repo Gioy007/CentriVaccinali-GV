@@ -35,6 +35,18 @@
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>/CentriVaccinali/src/main/java/com/dg/CentriVaccinali/ServerCV.java</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>

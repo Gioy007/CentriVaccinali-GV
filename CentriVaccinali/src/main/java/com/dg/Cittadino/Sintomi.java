@@ -1,4 +1,4 @@
-package com.dg.CentriVaccinali;
+package com.dg.Cittadino;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -40,22 +40,6 @@ public class Sintomi extends JFrame {
 	private JPanel contentPane;
 	private JTextField jnote;
 	private static Map<String, String> Hvaccini;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Cittadino.setIdutente("5");
-					Sintomi frame = new Sintomi();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Creazione del frame

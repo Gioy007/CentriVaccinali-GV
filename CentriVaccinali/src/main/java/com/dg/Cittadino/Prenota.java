@@ -1,4 +1,4 @@
-package com.dg.CentriVaccinali;
+package com.dg.Cittadino;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -22,23 +22,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class Prenota extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Cittadino.setSelectedCV("1");
-					Prenota frame = new Prenota();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
