@@ -115,8 +115,14 @@ public class Login extends JFrame {
 					if(risposta[0].equals("f")) {
 		            	setVisible(false);
 		            	Cittadino.setIdutente(risposta[1]);
-		            	Sintomi s=new Sintomi();
-		            	s.setVisible(true);
+		            	if(Cittadino.getScelta().equals("prenota")) {
+		            		Prenota p=new Prenota();
+		            		p.setVisible(true);
+		            	}else if (Cittadino.getScelta().equals("sintomi")) {	
+		            		Sintomi s=new Sintomi();
+		            		s.setVisible(true);
+		            	}
+		            	
 					}
 					
 				} catch (Exception e1) {

@@ -147,8 +147,8 @@ public class ClientHandler implements Runnable{
 					String queryGetCVbyCF = "SELECT * FROM utenti WHERE cf = '"+requestArray[1]+"'";
 					ResultSet result2 = stmt3.executeQuery(queryGetCVbyCF);
 					result2.next();
-					String queryNewVaccinato = "INSERT INTO vaccinati (userid, datasomm, tipovacc, idcentrovacc)"
-											+ "VALUES ('"+result2.getString("userid")+"', '"+requestArray[2]+"', '"
+					String queryNewVaccinato = "INSERT INTO vaccinati (idvacc, userid, datasomm, tipovacc, idcentrovacc)"
+											+ "VALUES ('"+requestArray[4]+"', '"+result2.getString("userid")+"', '"+requestArray[2]+"', '"
 													+requestArray[3]+"', '" + result2.getString("idcentrovacc")+"');";
 					
 					stmt3.executeUpdate(queryNewVaccinato);
