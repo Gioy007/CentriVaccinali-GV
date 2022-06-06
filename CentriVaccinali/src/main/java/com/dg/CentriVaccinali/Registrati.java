@@ -30,10 +30,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
 
 public class Registrati extends JFrame {
-	
-	private static final String SERVER_IP = "127.0.0.1";
-	private static final int SERVER_PORT = 9090;
-	private Socket socketr;
 
 	private JPanel registrati;
 	private JLabel lblNewLabel_1;
@@ -55,9 +51,8 @@ public class Registrati extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-					Registrati frame = new Registrati(socket);
+				try {					
+					Registrati frame = new Registrati();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,15 +64,10 @@ public class Registrati extends JFrame {
 	
 	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) throws SQLException {
         try {        	
-        	
-			PrintStream out = new PrintStream( socketr.getOutputStream() );
-			BufferedReader in = new BufferedReader( new InputStreamReader( socketr.getInputStream()));
 			String outString="registraCitt;"+nome+";"+cognome+";"+cf+";"+psw+";"+email;
-			out.println(outString);
-			
-			String response= in.readLine();					
+			Cittadino.getOut().println(outString);			
 
-            if(response.equals("OK")) {
+            if(Cittadino.getIn().readLine().equals("OK")) {
             	JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
             }
             
@@ -89,9 +79,7 @@ public class Registrati extends JFrame {
 		return true;
 	}
 	
-	public Registrati(Socket socket) {
-		this.socketr=socket;
-		
+	public Registrati() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 569, 429);
 		registrati = new JPanel();
@@ -132,7 +120,7 @@ public class Registrati extends JFrame {
 					}
 					
 					setVisible(false);
-					Login l=new Login(socketr);
+					Login l=new Login();
 					l.setVisible(true);
 				}
 				else {

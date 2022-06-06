@@ -14,6 +14,11 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,7 +29,6 @@ public class NuovoSintomo extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField jnome;
-
 	/**
 	 * Launch the application.
 	 */
@@ -75,29 +79,21 @@ public class NuovoSintomo extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome= jnome.getText();
+
+				String request="aggiungiSintomo;"+nome;
 				
-				String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
-		        String username = "eclipse";
-		        String password = "1234";
-
-		        try {
-		        	
-		            Connection conn = DriverManager.getConnection(url, username, password);
-		            Statement stmt = conn.createStatement();
-		            
-		            String query = "INSERT INTO eventi (nome) VALUES ('"+nome+"');";
-
-		            stmt.executeUpdate(query);
-		            JOptionPane.showMessageDialog(null, "Tipo di evento aggiunto");
-		            conn.close();
-		            
-		            setVisible(false);
-		            Sintomi s= new Sintomi(userid);
-		            s.setVisible(true);
-		            
-		        } catch (SQLException e1) {
-		            JOptionPane.showMessageDialog(null, e1);
-		        }
+				try {
+					Cittadino.getOut().println(request);				
+					
+					if(Cittadino.getIn().readLine().equals("OK")) {						
+						JOptionPane.showMessageDialog(null, "Nuovo sintomo registrato");
+					}else {
+						JOptionPane.showMessageDialog(null, "Nuovo sintomo non registrato");
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}				
 			}
 		});
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton, -10, SpringLayout.SOUTH, contentPane);

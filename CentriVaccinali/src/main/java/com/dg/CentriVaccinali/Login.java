@@ -28,11 +28,9 @@ import java.awt.event.ActionEvent;
 public class Login extends JFrame {
 
 	private JPanel login;
-	private Socket socketl;
 	private JPasswordField jpsw;
 	private JTextField jemail;
-	private static final String SERVER_IP = "127.0.0.1";
-	private static final int SERVER_PORT = 9090;
+
 
 	/**
 	 * Launch the application.
@@ -41,8 +39,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-					Login frame = new Login(socket);
+					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,8 +51,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login(Socket socket) {
-		socketl=socket;
+	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 274, 306);
 		login = new JPanel();
@@ -107,14 +103,9 @@ public class Login extends JFrame {
 				
 				try {
 					String request="login;"+email+";"+psw;
-					PrintStream out = new PrintStream( socketl.getOutputStream());
-					BufferedReader in = new BufferedReader( new InputStreamReader( socketl.getInputStream()));
-
+					Cittadino.getOut().println(request);
 					
-					out.println(request);
-					
-					String response= in.readLine();
-					String[] risposta =response.split(";");					
+					String[] risposta =Cittadino.getIn().readLine().split(";");					
 					
 					if(risposta[0].equals("t")) {
 						setVisible(false);
@@ -141,7 +132,7 @@ public class Login extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Registrati r=new Registrati(socketl);
+				Registrati r=new Registrati();
 				r.setVisible(true);
 				
 			}

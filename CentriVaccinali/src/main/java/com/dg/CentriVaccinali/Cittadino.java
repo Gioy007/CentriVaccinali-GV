@@ -171,7 +171,7 @@ public class Cittadino extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Login r=new Login(socket);
+				Login r=new Login();
 				r.setVisible(true);
 			}
 		});
@@ -183,7 +183,7 @@ public class Cittadino extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Registrati r=new Registrati(socket);
+				Registrati r=new Registrati();
 				r.setVisible(true);
 				
 			}
@@ -191,6 +191,15 @@ public class Cittadino extends JFrame {
 		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton_2, 0, SpringLayout.SOUTH, btnNewButton_1);
 		sl_login.putConstraint(SpringLayout.EAST, btnNewButton_2, -6, SpringLayout.WEST, btnNewButton_1);
 		cittadino.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Sintomi");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton_3, 6, SpringLayout.SOUTH, lblNewLabel_4);
+		sl_login.putConstraint(SpringLayout.WEST, btnNewButton_3, 0, SpringLayout.WEST, lblNewLabel);
+		cittadino.add(btnNewButton_3);
 
 	}
 }
