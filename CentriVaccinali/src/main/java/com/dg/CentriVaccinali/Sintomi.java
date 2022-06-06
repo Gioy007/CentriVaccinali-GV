@@ -29,6 +29,12 @@ import java.awt.event.ActionListener;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
 
+/*
+ * Classe per registrare un nuovo evento avverso di un determinato centro vaccinale
+ * 
+ * @author Giacomelli Davide 741844
+ * @author Gioele Vicini 747818
+ */
 public class Sintomi extends JFrame {
 
 	private JPanel contentPane;
@@ -52,7 +58,7 @@ public class Sintomi extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creazione del frame
 	 */
 	public Sintomi() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +84,10 @@ public class Sintomi extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.WEST, jsintomo, 6, SpringLayout.EAST, lblNewLabel_1);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 4, SpringLayout.NORTH, jsintomo);
 		contentPane.add(jsintomo);
-	        
+	    
+		/*
+		 * Inserisce gli eventi avversi nel combobox per poi selezionare quello avuto
+		 */
         try {
         	Cittadino.getOut().println("SELECT nome FROM eventi");
         	String[] risposta =Cittadino.getIn().readLine().split(";");
@@ -98,6 +107,9 @@ public class Sintomi extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, jsintomo, -6, SpringLayout.WEST, btnNewButton);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton, -4, SpringLayout.NORTH, lblNewLabel_1);
 		btnNewButton.addActionListener(new ActionListener() {
+			/*
+			 * Aggiunta al db di un nuovo sintomo non ancora registrato
+			 */
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				NuovoSintomo ns= new NuovoSintomo();
@@ -144,7 +156,9 @@ public class Sintomi extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.NORTH, jvaccino, -4, SpringLayout.NORTH, lblNewLabel_4);
 		sl_contentPane.putConstraint(SpringLayout.WEST, jvaccino, 0, SpringLayout.WEST, jsintomo);
 		sl_contentPane.putConstraint(SpringLayout.EAST, jvaccino, -118, SpringLayout.EAST, contentPane);
-		
+		/*
+		 * Selezionare il tipo di vaccino fatto
+		 */
 		try {            
             Cittadino.getOut().println("vaccini;"+Cittadino.getIdutente());
             String[] risposta=Cittadino.getIn().readLine().split(";");
@@ -164,6 +178,9 @@ public class Sintomi extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Aggiungi");		
 		btnNewButton_1.addActionListener(new ActionListener() {
+			/*
+			 * Aggiunge il nuovo evento avverso nel db
+			 */
 			public void actionPerformed(ActionEvent e) {
 				int sintomo= jsintomo.getSelectedIndex();
 				sintomo++;

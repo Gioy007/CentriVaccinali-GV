@@ -29,6 +29,12 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
 
+/*
+ * Classe per registrare cittadino al portale
+ * 
+ * @author Giacomelli Davide 741844
+ * @author Gioele Vicini 747818
+ */
 public class Registrati extends JFrame {
 
 	private JPanel registrati;
@@ -48,20 +54,10 @@ public class Registrati extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {					
-					Registrati frame = new Registrati();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
+	/*
+	 * Metodo usato per inviare una richiesta al server di registrazione con risposta
+	 */
 	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) throws SQLException {
         try {        	
 			String outString="registraCitt;"+nome+";"+cognome+";"+cf+";"+psw+";"+email;
@@ -78,7 +74,9 @@ public class Registrati extends JFrame {
 		
 		return true;
 	}
-	
+	/*
+	 * Creazione del frame
+	 */
 	public Registrati() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 569, 429);
@@ -102,6 +100,10 @@ public class Registrati extends JFrame {
 		btnNewButton = new JButton("Registrati");
 		
 		btnNewButton.addActionListener(new ActionListener() {
+			/*
+			 * Metodo invocato quando si clicca sul pulsante registrati. 
+			 * Raccoglie i dati e controlla che la password sia uguale
+			 */
 			public void actionPerformed(ActionEvent e) {
 				
 				String nome= jnome.getText();
