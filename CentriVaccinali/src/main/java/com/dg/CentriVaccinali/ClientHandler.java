@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientHandler implements Runnable{
 
@@ -53,8 +55,7 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "nuovoVaccinato": //bisogna aggiungere nella tab utenti l'id del centro al quale si è registrati 
-					
-					
+										
 					System.out.println("nuovo vaccinato");
 					Statement stmt3 = conn.createStatement(); 
 					String queryGetCVbyCF = "SELECT * FROM utenti WHERE cf = '"+requestArray[1]+"'";
@@ -94,8 +95,16 @@ public class ClientHandler implements Runnable{
 					out.println(resultQ);
 				break;
 				
-				case "inserisciSegnalazione":
+				case "inserisciSintomo":
 					
+				break;
+				
+				case "aggiungiSintomo":
+					Statement stmt4 = conn.createStatement();
+					String queryNuovo = "INSERT INTO eventi (nome) VALUES ('"+requestArray[1]+"');";
+					
+					stmt4.executeUpdate(queryNuovo);
+                	out.println("OK");
 				break;
 				
 				case "centriDisp":
@@ -111,18 +120,58 @@ public class ClientHandler implements Runnable{
 		            out.println(centri);
 				break;
 				
+				case "vaccini":
+					Statement stmt6 = conn.createStatement();
+					String queryVacc="select idvacc, tipovacc from vaccinati v left join utenti on v.userid=utenti.userid "
+		            		+ "where v.userid='"+requestArray[1]+"' order by datasomm";
+					ResultSet rs6 = stmt6.executeQuery(queryVacc);
+					rs6.next();
+					String Hvaccini="";
+					
+					do {
+						Hvaccini+=rs6.getString("tipovacc")+";"+rs6.getString("idvacc")+";";
+					}while(rs6.next());
+					
+					Hvaccini.substring(0, Hvaccini.length() - 1);  
+					out.println(Hvaccini);
+				break;
+				
+				case "aggiungiSegnalazione":
+					Statement stmt7 = conn.createStatement();
+					String querySegn = "INSERT INTO eventiavversi(idvacc, idevento, severita, note)"+
+		            		"VALUES ('"+requestArray[1]+"', '"+requestArray[2]+"', '"
+							+requestArray[3]+"','"+requestArray[4]+"')";
+					
+					stmt7.executeUpdate(querySegn);
+					out.println("OK");					
+				break;
+				
+				case "nomeEventi":
+					Statement stmt5 = conn.createStatement();
+					ResultSet rs5 = stmt5.executeQuery("SELECT nome FROM eventi");
+					String eventi="";
+					rs5.next();
+					
+					do {
+						eventi+=rs5.getString("nome")+";";
+					}while(rs5.next());
+					
+					eventi.substring(0, eventi.length() - 1);  
+					out.println(eventi);
+					
+				break;
+				
 				case "nuovoCentroVaccinale":
 					
-					Statement stmt4 = conn.createStatement(); 
+					Statement stmtNCV = conn.createStatement(); 
 					String indirizzo = requestArray[5] + " " + requestArray[6];
 					String queryNewCV =  "INSERT INTO centrivaccinali (nome, comune, indirizzo, cap, provincia, tipologia)" //COMUNE INDIRIZZO CAP PROVINCIA SONO DA AGGIUNGERE NEL DB
 											+ "VALUES ('"+requestArray[1]+"', '"+ requestArray[2]+"', '" + indirizzo + requestArray[3]+"', '"
 													+requestArray[4]+"', '" +requestArray[7]+"');";
 																							
-					stmt4.executeUpdate(queryNewCV);
+					stmtNCV.executeUpdate(queryNewCV);
                 	out.println("OK");
-				
-				default:
+					
 				}
 			}
 		}catch(Exception e) {

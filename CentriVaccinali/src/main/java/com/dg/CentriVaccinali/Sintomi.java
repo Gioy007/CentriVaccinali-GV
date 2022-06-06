@@ -26,13 +26,14 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.net.Socket;
 import java.awt.event.ActionEvent;
 
 public class Sintomi extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField jnote;
-	private static Map<String, String> Hvaccini = new HashMap<String, String>();
+	private static Map<String, String> Hvaccini;
 	/**
 	 * Launch the application.
 	 */
@@ -52,7 +53,7 @@ public class Sintomi extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Sintomi(final String idutente) {
+	public Sintomi(final String idutente) {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 396, 363);
 		contentPane = new JPanel();
@@ -76,25 +77,18 @@ public class Sintomi extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.WEST, jsintomo, 6, SpringLayout.EAST, lblNewLabel_1);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 4, SpringLayout.NORTH, jsintomo);
 		contentPane.add(jsintomo);
-		
-		String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
-        String username = "eclipse";
-        String password = "1234";        
+	        
         try {
+        	Cittadino.getOut().println("SELECT nome FROM eventi");
+        	String[] risposta =Cittadino.getIn().readLine().split(";");
         	
-        	Connection conn = DriverManager.getConnection(url, username, password);
-            Statement stmt = conn.createStatement();
-            
-            ResultSet rs = stmt.executeQuery("SELECT nome FROM eventi");
-            
-            while(rs.next()) {            	
-            	jsintomo.addItem(rs.getString("nome"));
+            for(int i=0;i<risposta.length;i++) {
+            	jsintomo.addItem(risposta[i]);
             }
 
             jsintomo.setSelectedIndex(-1);
-            
-            conn.close();            
-        } catch (SQLException e) {
+                       
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }		
 		
@@ -150,26 +144,18 @@ public class Sintomi extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.WEST, jvaccino, 0, SpringLayout.WEST, jsintomo);
 		sl_contentPane.putConstraint(SpringLayout.EAST, jvaccino, -118, SpringLayout.EAST, contentPane);
 		
-		try {
-        	
-        	Connection conn = DriverManager.getConnection(url, username, password);
-            Statement stmt = conn.createStatement();
-            String query="select idvacc, tipovacc from vaccinati v left join utenti on v.userid=utenti.userid "
-            		+ "where v.userid='"+idutente+"' order by datasomm";
-            ResultSet rs = stmt.executeQuery(query);
+		try {            
+            Cittadino.getOut().println("vaccini;"+idutente);
+            String[] risposta=Cittadino.getIn().readLine().split(";");
+            Hvaccini=new HashMap<String, String>();
             
-            while(rs.next()) {
-            	String nomeVacc=rs.getString("tipovacc");
-            	String idvacc=rs.getString("idvacc");
-            	
-            	Hvaccini.put(nomeVacc, idvacc);
-            	jvaccino.addItem(nomeVacc);
+            for(int i=0;i<risposta.length;i=i+2) {
+            	jsintomo.addItem(risposta[i]);
+            	Hvaccini.put(risposta[i], risposta[++i]);
             }
 
-            jsintomo.setSelectedIndex(-1);
-            
-            conn.close();            
-        } catch (SQLException e) {
+            jsintomo.setSelectedIndex(-1);           
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
 		
@@ -184,24 +170,19 @@ public class Sintomi extends JFrame {
 				String note=jnote.getText();
 				String idvacc=Hvaccini.get(jvaccino.getSelectedItem().toString());			
 				 
-				/*try {
-			        	
-			        	Connection conn = DriverManager.getConnection(url, username, password);
-			        	Statement stmt = conn.createStatement();
-			            
-			            String query = "INSERT INTO eventiavversi(idvacc, idevento, severita, note)"+
-			            		"VALUES ('"+idvacc+"', '"+sintomo+"', '"+severita+"','"+note+"')";
+				try {
+					Cittadino.getOut().println("aggiungiSegnalazione"+idvacc+";"+sintomo+";"+severita+";"+note);
+			           	
 
-			            stmt.executeUpdate(query);
-			            JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
-			            conn.close();
-			            
-			            setVisible(false);
-			            Sintomi s= new Sintomi(idutente);
-			            s.setVisible(true);
-				 } catch (SQLException e1) {
+		            if(Cittadino.getIn().readLine().equals("OK")) {
+		            	JOptionPane.showMessageDialog(null, "Segnalazione registrata");
+		            }
+		            else {
+		            	JOptionPane.showMessageDialog(null, "Errore di segnalazione");
+		            }   
+				 } catch (Exception e1) {
 			            JOptionPane.showMessageDialog(null, e1);
-			        }*/
+			        }
 
 			}
 		});
