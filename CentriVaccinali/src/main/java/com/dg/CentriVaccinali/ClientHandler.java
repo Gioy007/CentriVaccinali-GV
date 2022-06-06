@@ -186,7 +186,24 @@ public class ClientHandler implements Runnable{
 				break;
 				*/
 				case "inserisciSintomo":
+					Statement stmt10 = conn.createStatement();
+					String querySintomo="select idevento from eventi where nome='"+requestArray[2]+"'";
+					ResultSet idevento = stmt10.executeQuery(querySintomo);
 					
+					String queryInserisciS = "INSERT INTO eventiavversi (idvacc, idevento, severita, note) VALUES ('"+requestArray[1]+"','"
+							+idevento+"','"+requestArray[3]+"','"+requestArray[4]+"');";
+					
+					stmt10.executeUpdate(queryInserisciS);
+                	out.println("OK");
+				break;
+				
+				case "prenotaVacc":
+					Statement stmt9 = conn.createStatement();
+					String queryPrenota = "INSERT INTO prenotati (userid, data, idcentro) VALUES ('"+requestArray[1]+"','"
+							+requestArray[2]+"','"+requestArray[3]+"');";
+					
+					stmt9.executeUpdate(queryPrenota);
+                	out.println("OK");
 				break;
 				
 				case "aggiungiSintomo":

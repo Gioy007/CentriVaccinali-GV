@@ -15,7 +15,8 @@ public class Cittadino extends javax.swing.JFrame {
 	private static Socket socket;
 	private static PrintStream out;
 	private static BufferedReader in;
-	private static String selectedCV="";
+	private static String idutente;
+	private static String selectedCV;
 	
     public Cittadino() {
         initComponents();
@@ -299,6 +300,112 @@ public class Cittadino extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Cittadino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 		
+		JLabel lblNewLabel_3 = new JLabel("Indirizzo:");
+		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 6, SpringLayout.SOUTH, lblNewLabel_2);
+		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel_3, 0, SpringLayout.WEST, lblNewLabel);
+		cittadino.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Tipologia:");
+		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 6, SpringLayout.SOUTH, lblNewLabel_3);
+		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel_4, 0, SpringLayout.WEST, lblNewLabel);
+		cittadino.add(lblNewLabel_4);
+		
+		final JLabel jindirizzo = new JLabel("N/D");
+		sl_login.putConstraint(SpringLayout.WEST, jindirizzo, 6, SpringLayout.EAST, lblNewLabel_3);
+		sl_login.putConstraint(SpringLayout.SOUTH, jindirizzo, 0, SpringLayout.SOUTH, lblNewLabel_3);
+		cittadino.add(jindirizzo);
+		
+		final JLabel jtipologia = new JLabel("N/D");
+		sl_login.putConstraint(SpringLayout.NORTH, jtipologia, 6, SpringLayout.SOUTH, lblNewLabel_3);
+		sl_login.putConstraint(SpringLayout.WEST, jtipologia, 0, SpringLayout.WEST, jindirizzo);
+		cittadino.add(jtipologia);
+		
+		final JLabel jnome = new JLabel("N/D");
+		sl_login.putConstraint(SpringLayout.WEST, jnome, 0, SpringLayout.WEST, jindirizzo);
+		sl_login.putConstraint(SpringLayout.SOUTH, jnome, 0, SpringLayout.SOUTH, lblNewLabel_2);
+		cittadino.add(jnome);
+		
+		JButton btnNewButton = new JButton("Cerca");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+			
+					PrintStream out = new PrintStream( socket.getOutputStream() );
+					BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+					String request="cercaInfo;"+cvaccinale.getSelectedItem();
+					
+
+					out.println(request);
+					System.out.println("mandato");
+					String response= in.readLine();
+					String[] risposta =response.split(";");					
+					
+					jnome.setText(risposta[0]);
+					jindirizzo.setText(risposta[1]);
+					jtipologia.setText(risposta[2]);
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, cvaccinale);
+		sl_login.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, cvaccinale);
+		cittadino.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Login");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Login r=new Login();
+				r.setVisible(true);
+			}
+		});
+		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -10, SpringLayout.SOUTH, cittadino);
+		sl_login.putConstraint(SpringLayout.EAST, btnNewButton_1, 0, SpringLayout.EAST, cvaccinale);
+		cittadino.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Registrati");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Registrati r=new Registrati();
+				r.setVisible(true);
+				
+			}
+		});
+		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton_2, 0, SpringLayout.SOUTH, btnNewButton_1);
+		sl_login.putConstraint(SpringLayout.EAST, btnNewButton_2, -6, SpringLayout.WEST, btnNewButton_1);
+		cittadino.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Sintomi");
+		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton_3, 0, SpringLayout.NORTH, btnNewButton_1);
+		sl_login.putConstraint(SpringLayout.WEST, btnNewButton_3, 0, SpringLayout.WEST, lblNewLabel);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		cittadino.add(btnNewButton_3);
+
+	}
+
+	public static String getIdutente() {
+		return idutente;
+	}
+
+	public static void setIdutente(String idutente) {
+		Cittadino.idutente = idutente;
+	}
+
+	public static String getSelectedCV() {
+		return selectedCV;
+	}
+
+	public static void setSelectedCV(String selectedCV) {
+		Cittadino.selectedCV = selectedCV;
+	}
+}
+=======
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Cittadino().setVisible(true);

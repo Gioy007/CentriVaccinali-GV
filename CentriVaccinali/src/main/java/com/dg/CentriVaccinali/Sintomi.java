@@ -41,7 +41,8 @@ public class Sintomi extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Sintomi frame = new Sintomi("5");
+					Cittadino.setIdutente("5");
+					Sintomi frame = new Sintomi();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +54,7 @@ public class Sintomi extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Sintomi(final String idutente) {		
+	public Sintomi() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 396, 363);
 		contentPane = new JPanel();
@@ -99,7 +100,7 @@ public class Sintomi extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				NuovoSintomo ns= new NuovoSintomo(idutente);
+				NuovoSintomo ns= new NuovoSintomo();
 				ns.setVisible(true);
 			}
 		});
@@ -145,7 +146,7 @@ public class Sintomi extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, jvaccino, -118, SpringLayout.EAST, contentPane);
 		
 		try {            
-            Cittadino.getOut().println("vaccini;"+idutente);
+            Cittadino.getOut().println("vaccini;"+Cittadino.getIdutente());
             String[] risposta=Cittadino.getIn().readLine().split(";");
             Hvaccini=new HashMap<String, String>();
             

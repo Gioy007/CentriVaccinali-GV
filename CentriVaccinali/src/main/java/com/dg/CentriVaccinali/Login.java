@@ -114,7 +114,8 @@ public class Login extends JFrame {
 					}
 					if(risposta[0].equals("f")) {
 		            	setVisible(false);
-		            	Sintomi s=new Sintomi(risposta[1]);
+		            	Cittadino.setIdutente(risposta[1]);
+		            	Sintomi s=new Sintomi();
 		            	s.setVisible(true);
 					}
 					

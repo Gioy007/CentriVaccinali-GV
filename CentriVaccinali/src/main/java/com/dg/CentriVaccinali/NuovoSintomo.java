@@ -36,7 +36,8 @@ public class NuovoSintomo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NuovoSintomo frame = new NuovoSintomo("5");
+					Cittadino.setIdutente("5");
+					NuovoSintomo frame = new NuovoSintomo();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +49,7 @@ public class NuovoSintomo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NuovoSintomo(final String userid) {
+	public NuovoSintomo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 251, 195);
 		contentPane = new JPanel();
