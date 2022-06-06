@@ -20,8 +20,13 @@ public class Cittadino extends javax.swing.JFrame {
 	private static Socket socket;
 	private static PrintStream out;
 	private static BufferedReader in;
-	private static String selectedCV;
+	private static String selectedCV = "";
 	private static String idutente;
+	private static String scelta = "";
+	
+	public static String getScelta() {
+		return scelta;
+	}
 	
     public Cittadino() {
         initComponents();
@@ -206,6 +211,7 @@ public class Cittadino extends javax.swing.JFrame {
         String tipologia = (String)tipologiaComboBox.getSelectedItem();
         tipologia = tipologia.toLowerCase();
         String request="";
+        
         if(!nome.isBlank()) {
         	request = "cercaNome;"+nome;
         	out.println(request);
@@ -219,6 +225,8 @@ public class Cittadino extends javax.swing.JFrame {
         	request = "cercaTipologia;"+tipologia;
         	out.println(request);
         }
+        
+        listaComboBox.removeAllItems();
         String response= in.readLine();
     	System.out.println(response);
 		String[] risposta =response.split(";");
@@ -227,7 +235,6 @@ public class Cittadino extends javax.swing.JFrame {
 			listaComboBox.addItem(r);
 		}
 		
-		//jCorr.setText(String.valueOf(risposta.length));
     }                                             
 
     private void operatoriLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
@@ -236,9 +243,11 @@ public class Cittadino extends javax.swing.JFrame {
 		r.setVisible(true);
     }                                                    
 
-    private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {    
+    private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {  
     	selectedCV = (String)listaComboBox.getSelectedItem();
-    	if(selectedCV.isEmpty()) {
+    	scelta = "prenota";
+    	
+    	if(!selectedCV.equals("")) {
     		setVisible(false);
     		Login r=new Login();
     		r.setVisible(true);
@@ -249,7 +258,16 @@ public class Cittadino extends javax.swing.JFrame {
     }                                             
 
     private void eventoAvversoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
+    	selectedCV = (String)listaComboBox.getSelectedItem();
+    	scelta = "sintomi";
+    	
+    	if(!selectedCV.equals("")) {
+    		setVisible(false);
+    		Login r = new Login();
+    		r.setVisible(true);
+    	}else {
+    		JOptionPane.showMessageDialog(jPanel2, "Si prega di selezionare un Centro Vaccinale");
+    	}
     }    
     
     public static Socket getSocket() {
