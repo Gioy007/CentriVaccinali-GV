@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
  * Classe che si occupa del primo test di connessione al DB e di gestire le connessioni al server
  * 
  * @author Giacomelli Davide 741844
+ * @author Gioele Vicini 747818
  */
 public class ServerCV extends javax.swing.JFrame {
 	
@@ -22,13 +23,22 @@ public class ServerCV extends javax.swing.JFrame {
 
 	private static final int PORT = 9090; //porta utilizzata dal server per accettare le connessioni
 	
-	//dovranno essere di input
+	/*
+	 * dovranno essere di input
+	 */
 	private static String url = ""; //jdbc:postgresql://localhost:5432/CentriVaccinali
 	private static String username = ""; //eclipse
 	private static String password = ""; //1234
 	
-	private static ExecutorService pool = Executors.newFixedThreadPool(60000000);//numero massimo di thread gestibili dal server(circa tutta la popolazione italiana)
-	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();//lista dei client connessi
+	/*
+	 * numero massimo di thread gestibili dal server(circa tutta la popolazione italiana)
+	 */
+	private static ExecutorService pool = Executors.newFixedThreadPool(60000000);
+
+	/*
+	 * lista dei client connessi
+	 */
+	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
 	
 	private Connection conn;
 

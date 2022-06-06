@@ -297,7 +297,7 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     	String ID = textField.getText();//4
     	tipologia = tipologia.toLowerCase();
     	
-    	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia+";"+ID;
+    	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia+";"+ID+Cittadino.getSelectedCV();
     	Cittadino.getOut().println(request);
     	
     	
