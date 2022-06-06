@@ -11,9 +11,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * 
+ * Classe per la gestione dei singli client
  * @author Giacomelli Davide 781844
- *
  */
 public class ClientHandler implements Runnable{
 
@@ -28,9 +27,9 @@ public class ClientHandler implements Runnable{
 	/**
 	 * 
 	 * @param clientSocket
-	 * @param url per il database
-	 * @param user username per
-	 * @param psw
+	 * @param url url del database
+	 * @param user username per connettersi al DataBase
+	 * @param psw password relativa all'utente
 	 * @throws IOException
 	 */
 	public ClientHandler(Socket clientSocket, String url, String user, String psw) throws IOException {
@@ -44,7 +43,9 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
-	
+	/**
+	 * thread che gestisce le singole connessioni al server
+	 */
 	@Override
 	public void run() {
 		System.out.println("connessione stabilita con un client");

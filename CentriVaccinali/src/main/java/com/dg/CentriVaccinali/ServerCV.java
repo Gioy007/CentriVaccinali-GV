@@ -11,21 +11,29 @@ import java.util.concurrent.Executors;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Classe che si occupa del primo test di connessione al DB e di gestire le connessioni al server
+ * 
+ * @author Giacomelli Davide 741844
+ */
 public class ServerCV extends javax.swing.JFrame {
 	
-	private static final int PORT = 9090;
+	private static final long serialVersionUID = 1L;
+
+	private static final int PORT = 9090; //porta utilizzata dal server per accettare le connessioni
 	
 	//dovranno essere di input
 	private static String url = ""; //jdbc:postgresql://localhost:5432/CentriVaccinali
 	private static String username = ""; //eclipse
-	private static String password = ""; //
+	private static String password = ""; //1234
 	
-	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
+	private static ExecutorService pool = Executors.newFixedThreadPool(60000000);//numero massimo di thread gestibili dal server(circa tutta la popolazione italiana)
+	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();//lista dei client connessi
 	
 	private Connection conn;
 
 	/**
-	 * Costruttore della classe che si occupa di gestire le connessioni al server
+	 * Costruttore della classe che chiama il metodo per disegnare la GUI
 	 */
     public ServerCV() {
         initComponents();
@@ -135,12 +143,10 @@ public class ServerCV extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
         pack();
-    }                   
-
+    }    
     /**
-     * Metodo che si occupa della connessione al db
+     * Metodo che si occupa di testare le credenziali per la connessione al db
      * 
      * @param evt click sul pulsante per connettersi al server
      * @throws SQLException eccezzione che entra in causa nel caso le credenziali siano sbagliate
@@ -163,18 +169,19 @@ public class ServerCV extends javax.swing.JFrame {
         	passwordField.setText("");
         	JOptionPane.showMessageDialog(jPanel, "Credenziali non corrette, riprovare");
         }
-    	
     }                                        
 
+    /**
+     * effettivo controllo delle credenziali precedentemente ottenute dai textField
+     * @return true se i valori sono giusti(testanto attivamente la connessione), false altrimenti
+     */
     private boolean controlloCredenziali() {
     	try {
         	conn = DriverManager.getConnection(url, username, password);   
         	conn.close();
         	return true;
-        	
         }catch(Exception e) {
         	e.printStackTrace();
-        	
         	return false;
         }
 	}
@@ -182,10 +189,7 @@ public class ServerCV extends javax.swing.JFrame {
 	/**
      * @param args the command line arguments
      */
-    
-    private static ExecutorService pool = Executors.newFixedThreadPool(4);
     public static void main(String args[]) {
-    	
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -216,7 +220,6 @@ public class ServerCV extends javax.swing.JFrame {
 		}catch (Exception e) {
 			System.out.print(e);
 		}
-	
     }
                 
     private javax.swing.JLabel adminLabel;
