@@ -242,6 +242,7 @@ public class Cittadino extends javax.swing.JFrame {
 		r.setVisible(true);
     }                                                    
 
+    
     private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {    
     	selectedCV = centriList.getSelectedValue();
     	if(selectedCV.isEmpty()) {
