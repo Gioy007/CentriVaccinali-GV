@@ -87,7 +87,7 @@ public class ClientHandler implements Runnable{
 					conn = DriverManager.getConnection(url, user, psw); 
 					Statement stmt = conn.createStatement();
                 	ResultSet rs = stmt.executeQuery("SELECT * FROM centrivaccinali"
-                			+ " where nome='%"+requestArray[1]+"%' AND tipologia = '" + requestArray[2]+"'");
+                			+ " where nome='%"+requestArray[1]+"%'");
                 	conn.close();
                 	
                 	String centri="";
