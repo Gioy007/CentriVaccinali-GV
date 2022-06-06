@@ -6,26 +6,42 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.JOptionPane;
 
+/**
+ * Classe che si occupa del primo test di connessione al DB e di gestire le connessioni al server
+ * 
+ * @author Giacomelli Davide 741844
+ */
 public class ServerCV extends javax.swing.JFrame {
 	
-	private static final int PORT = 9090;
+	private static final long serialVersionUID = 1L;
+
+	private static final int PORT = 9090; //porta utilizzata dal server per accettare le connessioni
 	
 	//dovranno essere di input
-	private static String url = "jdbc:postgresql://localhost:5432/CentriVaccinali";
-	private static String username = "eclipse";
-	private static String password = "1234";
+	private static String url = ""; //jdbc:postgresql://localhost:5432/CentriVaccinali
+	private static String username = ""; //eclipse
+	private static String password = ""; //1234
 	
-	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
+	private static ExecutorService pool = Executors.newFixedThreadPool(60000000);//numero massimo di thread gestibili dal server(circa tutta la popolazione italiana)
+	private static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();//lista dei client connessi
 	
-	private static Connection conn;
+	private Connection conn;
 
+	/**
+	 * Costruttore della classe che chiama il metodo per disegnare la GUI
+	 */
     public ServerCV() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")                     
+    /**
+     * Metodo per la creazione dell'interfaccia grafica
+     */
     private void initComponents() {
 
         jPanel = new javax.swing.JPanel();
@@ -55,7 +71,6 @@ public class ServerCV extends javax.swing.JFrame {
                 try {
 					jButton1ActionPerformed(evt);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
@@ -128,36 +143,53 @@ public class ServerCV extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
         pack();
-    }// </editor-fold>                        
-
+    }    
+    /**
+     * Metodo che si occupa di testare le credenziali per la connessione al db
+     * 
+     * @param evt click sul pulsante per connettersi al server
+     * @throws SQLException eccezzione che entra in causa nel caso le credenziali siano sbagliate
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {  
-        String url = "jdbc:postgresql://"+urlTextField.getText()+":5432/CentriVaccinali";
-        String username = adminTextField.getText();
-        String password = passwordField.getText();
+        url = "jdbc:postgresql://"+urlTextField.getText()+":5432/CentriVaccinali";
+        username = adminTextField.getText();
+        password = passwordField.getText();
         
-        System.out.println("connessione in corso...");
-        try {
-        	conn = DriverManager.getConnection(url, username, password);   
-        }catch(Exception e) {
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(jPanel, "Errore di input");
-        	
+        System.out.println("Controllo credenziali...");
+        
+        if(controlloCredenziali()) {
+        	urlTextField.setText("");
+        	adminTextField.setText("");
+        	passwordField.setText("");
+        	JOptionPane.showMessageDialog(jPanel, "Credenziali corrette, rimango in attesa di connessioni...");
+        }else {
+        	urlTextField.setText("");
+        	adminTextField.setText("");
+        	passwordField.setText("");
+        	JOptionPane.showMessageDialog(jPanel, "Credenziali non corrette, riprovare");
         }
-    	 	
-    	System.out.println("connesso");
-    	JOptionPane.showMessageDialog(jPanel, "Connessione al database effettuata, rimango in attesa di connessioni...");
-    	urlTextField.setText("");
-    	adminTextField.setText("");
-    	passwordField.setText("");
     }                                        
 
     /**
+     * effettivo controllo delle credenziali precedentemente ottenute dai textField
+     * @return true se i valori sono giusti(testanto attivamente la connessione), false altrimenti
+     */
+    private boolean controlloCredenziali() {
+    	try {
+        	conn = DriverManager.getConnection(url, username, password);   
+        	conn.close();
+        	return true;
+        }catch(Exception e) {
+        	e.printStackTrace();
+        	return false;
+        }
+	}
+
+	/**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    	
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -180,19 +212,15 @@ public class ServerCV extends javax.swing.JFrame {
 			ServerSocket listener = new ServerSocket(PORT);
 			while (true) {
 				Socket client = listener.accept();
-				ClientHandler clientThread = new ClientHandler(client);
+				ClientHandler clientThread = new ClientHandler(client, url, username, password);
 				clients.add(clientThread);
-				clientThread.run(conn);
+				//clientThread.run();
+				pool.execute(clientThread);
 			}
 		}catch (Exception e) {
 			System.out.print(e);
 		}
-	
     }
-	
-	public static Connection getConn() {
-		return conn;
-	}
                 
     private javax.swing.JLabel adminLabel;
     private javax.swing.JTextField adminTextField;

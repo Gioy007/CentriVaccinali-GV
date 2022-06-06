@@ -8,15 +8,24 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Classe che si occupa di mandare al server le informazioni per un nuovo centro vaccinale e un nuovo vaccinato
+ * 
+ * @author Giacomelli Davide 781844
+ */
 public class OperatoreVaccinale extends javax.swing.JFrame {
 	
-	
+	/**
+	 * Costruttore della classe che chiama il metodo per disegnare la GUI
+	 */
     public OperatoreVaccinale() {
         initComponents();
-    }
-    @SuppressWarnings("unchecked")                      
-    private void initComponents() {
+    } 
 
+    /**
+     * Metodo per la creazione dell'interfaccia grafica
+     */
+    private void initComponents() {
         jPanel = new javax.swing.JPanel();
         jLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -257,6 +266,11 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
         pack();
     }
 	
+    /**
+     * metodo per mandare al server le informazioni utili per registrare un nuovo vaccinato
+     * 
+     * @param evt click sul relativo pulsante
+     */
     private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {
     	
     	String cf = cfTextField.getText();	//1
@@ -277,6 +291,11 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     	
     }                                                      
 
+    /**
+     * metodo per mandare al server le informazioni utili per registrare un nuovo centro vaccinale
+     * 
+     * @param evt evt click sul relativo pulsante
+     */
     private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) { 
     	String nome = nomeTextField.getText();	//1
     	String comune = comuneTextField.getText();//2
@@ -298,8 +317,8 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
     }           
+    
     public static void main(String args[]) {
-    	
     	
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
