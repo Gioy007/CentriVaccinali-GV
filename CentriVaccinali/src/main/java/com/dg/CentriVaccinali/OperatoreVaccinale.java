@@ -273,9 +273,10 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
      */
     private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {
     	
-    	String cf = cfTextField.getText();	//1
-    	String data = dataTextField.getText();//2
-    	String tipologia = ""+tipoVaccinoComboBox.getSelectedItem();//3
+    	String cf = cfTextField.getText().toLowerCase();	//1
+    	String data = dataTextField.getText().toLowerCase();//2
+    	String tipologia = (String)tipoVaccinoComboBox.getSelectedItem();//3
+    	tipologia = tipologia.toLowerCase();
     	
     	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia;
     	Cittadino.getOut().println(request);
@@ -297,13 +298,14 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
      * @param evt evt click sul relativo pulsante
      */
     private void registraCVButtonActionPerformed(java.awt.event.ActionEvent evt) { 
-    	String nome = nomeTextField.getText();	//1
-    	String comune = comuneTextField.getText();//2
+    	String nome = nomeTextField.getText().toLowerCase();	//1
+    	String comune = comuneTextField.getText().toLowerCase();//2
     	String CAP = CAPTextField.getText();	//3
-    	String provincia = provinciaTextField.getText();//4
-    	String indirizzo = indirizzoTextField.getText();//5
+    	String provincia = provinciaTextField.getText().toLowerCase();//4
+    	String indirizzo = indirizzoTextField.getText().toLowerCase();//5
     	String nCivico = nCivicoTextField.getText();//6
     	String tipologia = ""+tipologiaComboBox.getSelectedItem();//7
+    	tipologia = tipologia.toLowerCase();
     	
     	String request = "nuovoCentroVaccinale;"+nome+";"+comune+";"+CAP+";"+provincia
     			+";"+indirizzo+";"+nCivico+";"+tipologia;

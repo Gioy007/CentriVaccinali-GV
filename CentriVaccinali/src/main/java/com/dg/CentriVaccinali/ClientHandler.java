@@ -110,7 +110,7 @@ public class ClientHandler implements Runnable{
                 	
                 	String centri1="";
                 	while(rs1.next()) {
-                		centri1+=rs1.getString("comune")+";";
+                		centri1+=rs1.getString("nome")+";";
                 	}
                 	
                 	out.println(centri1);
@@ -126,10 +126,11 @@ public class ClientHandler implements Runnable{
                 	ResultSet rs2 = stmt2.executeQuery("SELECT * FROM centrivaccinali"
                 			+ " where tipologia='"+requestArray[1]+"'");
                 	conn.close();
+                	System.out.println(rs2.toString());
                 	
                 	String centri2="";
                 	while(rs2.next()) {
-                		centri2+=rs2.getString("tipologia")+";";
+                		centri2+=rs2.getString("nome")+";";
                 	}
                 	
                 	out.println(centri2);

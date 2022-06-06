@@ -198,9 +198,10 @@ public class Cittadino extends javax.swing.JFrame {
     private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {   
     	
     	
-        String nome = nomeTextField.getText();
-        String comune = comuneTextField.getText();
+        String nome = nomeTextField.getText().toLowerCase();
+        String comune = comuneTextField.getText().toLowerCase();
         String tipologia = (String)tipologiaComboBox.getSelectedItem();
+        tipologia = tipologia.toLowerCase();
         String request="";
         if(!nome.isBlank()) {
         	request = "cercaNome;"+nome+";"+tipologia;
