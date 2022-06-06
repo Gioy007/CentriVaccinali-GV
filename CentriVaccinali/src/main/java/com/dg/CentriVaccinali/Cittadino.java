@@ -15,7 +15,8 @@ public class Cittadino extends javax.swing.JFrame {
 	private static Socket socket;
 	private static PrintStream out;
 	private static BufferedReader in;
-	private static String selectedCV="";
+	private static String selectedCV;
+	private static String idutente;
 	
     public Cittadino() {
         initComponents();
@@ -306,7 +307,21 @@ public class Cittadino extends javax.swing.JFrame {
         });
     }
                   
-    private javax.swing.JList<String> centriList;
+    public static String getIdutente() {
+		return idutente;
+	}
+	public static void setIdutente(String idutente) {
+		Cittadino.idutente = idutente;
+	}
+	
+	public static String getSelectedCV() {
+		return idutente;
+	}
+	public static void setSelectedCV(String selectedCV) {
+		Cittadino.selectedCV = selectedCV;
+	}
+
+	private javax.swing.JList<String> centriList;
     private javax.swing.JTextField comuneTextField;
     private javax.swing.JButton eventoAvversoButton;
     private javax.swing.JLabel jLabel1;
