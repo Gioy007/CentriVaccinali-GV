@@ -28,6 +28,9 @@ public class Cittadino extends JFrame {
 	private static Socket socket;
 	private static PrintStream out;
 	private static BufferedReader in;
+	private static String idutente;
+	private static String selectedCV;
+
 	/**
 	 * Launch the application.
 	 */
@@ -193,13 +196,29 @@ public class Cittadino extends JFrame {
 		cittadino.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Sintomi");
+		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton_3, 0, SpringLayout.NORTH, btnNewButton_1);
+		sl_login.putConstraint(SpringLayout.WEST, btnNewButton_3, 0, SpringLayout.WEST, lblNewLabel);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton_3, 6, SpringLayout.SOUTH, lblNewLabel_4);
-		sl_login.putConstraint(SpringLayout.WEST, btnNewButton_3, 0, SpringLayout.WEST, lblNewLabel);
 		cittadino.add(btnNewButton_3);
 
+	}
+
+	public static String getIdutente() {
+		return idutente;
+	}
+
+	public static void setIdutente(String idutente) {
+		Cittadino.idutente = idutente;
+	}
+
+	public static String getSelectedCV() {
+		return selectedCV;
+	}
+
+	public static void setSelectedCV(String selectedCV) {
+		Cittadino.selectedCV = selectedCV;
 	}
 }
