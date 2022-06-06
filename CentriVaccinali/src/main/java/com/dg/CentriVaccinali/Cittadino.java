@@ -13,6 +13,14 @@ import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+/*
+ * Classe principale del cittadino, è la prima schermata che si apre.
+ * Da qua potrà andare a compiere tutte le azioni permesse per un cittadino,
+ * invece se ci si vuole compiere azioni da operatore vaccinale bisognera prima autenticarsi come superuser
+ * 
+ * @author Giacomelli Davide 741844
+ * @author Gioele Vicini 747818
+ */
 public class Cittadino extends javax.swing.JFrame {
 	
 	private static final String SERVER_IP = "127.0.0.1";
@@ -77,8 +85,11 @@ public class Cittadino extends javax.swing.JFrame {
             }
         });
 
-        prenotaButton.setText("Prenota Centro Selezionato");
-        prenotaButton.addActionListener(new java.awt.event.ActionListener() {
+        prenotaButton.setText("Prenota Centro Selezionato");        
+        prenotaButton.addActionListener(new java.awt.event.ActionListener() {  
+        	/*
+        	 * Il metodo viene invocato quando si vuole prenotare un vaccino nel centro selezionato
+        	 */
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prenotaButtonActionPerformed(evt);
             }
@@ -86,6 +97,9 @@ public class Cittadino extends javax.swing.JFrame {
 
         eventoAvversoButton.setText("Segnala evento avverso nel Centro");
         eventoAvversoButton.addActionListener(new java.awt.event.ActionListener() {
+        	/*
+        	 * Il metodo viene invocato quando si vuole registrare un evento avverso nel centro selezionato
+        	 */
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eventoAvversoButtonActionPerformed(evt);
             }
@@ -93,6 +107,9 @@ public class Cittadino extends javax.swing.JFrame {
 
         operatoriLoginButton.setText("Login per Operatori");
         operatoriLoginButton.addActionListener(new java.awt.event.ActionListener() {
+        	/*
+        	 * Il metodo viene invocato quando si vuole accedere da operatori vaccinali
+        	 */
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 operatoriLoginButtonActionPerformed(evt);
             }
@@ -203,6 +220,10 @@ public class Cittadino extends javax.swing.JFrame {
         pack();
     }                  
 
+    /*
+     * Il metodo va a ricercare i centri vaccinali consoni ai parametri di ricerca
+     * aggiungendo i risultati nel combobox
+     */
     private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {   
     	
     	
@@ -236,13 +257,19 @@ public class Cittadino extends javax.swing.JFrame {
 		}
 		
     }                                             
-
+    
+    /*
+     * Porta alla schermata di login per autenticarsi come operatori
+     */
     private void operatoriLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
     	setVisible(false);
 		Login r=new Login();
 		r.setVisible(true);
     }                                                    
-
+    
+    /*
+     * Porta alla schermata di login per poi potersi prenotare per una nuova dose
+     */
     private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {  
     	selectedCV = (String)listaComboBox.getSelectedItem();
     	scelta = "prenota";
@@ -257,6 +284,9 @@ public class Cittadino extends javax.swing.JFrame {
     	
     }                                             
 
+    /*
+     * Porta alla schermata di login per poi potersi registrare un nuovo evento avverso
+     */
     private void eventoAvversoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
     	selectedCV = (String)listaComboBox.getSelectedItem();
     	scelta = "sintomi";
@@ -270,14 +300,23 @@ public class Cittadino extends javax.swing.JFrame {
     	}
     }    
     
+    /*
+     * Get della variabile socket
+     */
     public static Socket getSocket() {
 		return socket;
 	}
-	
+    
+	/*
+	 *	Getter del printStream necessario alla scrittura dei dati 
+	 */
 	public static PrintStream getOut() {
 		return out;
 	}
 	
+	/*
+	 * Getter del bufferReader necessario alla lettura dei dati 
+	 */
 	public static BufferedReader getIn() {
 		return in;
 	}

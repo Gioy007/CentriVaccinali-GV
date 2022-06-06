@@ -167,7 +167,7 @@ public class ClientHandler implements Runnable{
 					result2.next();
 					String queryNewVaccinato = "INSERT INTO vaccinati (idvacc, userid, datasomm, tipovacc, idcentrovacc)"
 											+ "VALUES ('"+requestArray[4]+"', '"+result2.getString("userid")+"', '"+requestArray[2]+"', '"
-													+requestArray[3]+"', '" + result2.getString("idcentrovacc")+"');";
+													+requestArray[3]+"', '" + requestArray[5]+"');";
 					
 					stmt3.executeUpdate(queryNewVaccinato);
 					conn.close();

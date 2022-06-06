@@ -53,6 +53,10 @@ public class Prenota extends JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton1.addActionListener(new ActionListener() {
+        	/*
+        	 * Metodo invocato quando ci si vuole prenotare effettivamente per un vaccino
+        	 * l'unico dato ancora non raccolto era la data, che verrà scelta dai combobox
+        	 */
         	public void actionPerformed(ActionEvent e) {
         		String giorno=jgiorno.getSelectedItem().toString();
         		String mese=jmese.getSelectedItem().toString();
