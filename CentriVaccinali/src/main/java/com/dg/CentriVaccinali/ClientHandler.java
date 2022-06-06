@@ -202,13 +202,13 @@ public class ClientHandler implements Runnable{
 				case "nuovoCentroVaccinale":
 					
 					conn = DriverManager.getConnection(url, user, psw); 
-					Statement stmt4 = conn.createStatement(); 
+					Statement stmt8 = conn.createStatement(); 
 					String indirizzo = requestArray[5] + " " + requestArray[6];
 					String queryNewCV =  "INSERT INTO centrivaccinali (nome, comune, indirizzo, cap, provincia, tipologia)" //COMUNE INDIRIZZO CAP PROVINCIA SONO DA AGGIUNGERE NEL DB
 											+ "VALUES ('"+requestArray[1]+"', '"+ requestArray[2]+"', '" + indirizzo + requestArray[3]+"', '"
 													+requestArray[4]+"', '" +requestArray[7]+"');";
 																							
-					stmt4.executeUpdate(queryNewCV);
+					stmt8.executeUpdate(queryNewCV);
 					conn.close();
                 	out.println("OK");
 					
