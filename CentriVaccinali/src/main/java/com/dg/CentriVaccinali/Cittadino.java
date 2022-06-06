@@ -12,6 +12,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 /*
  * Classe principale del cittadino, è la prima schermata che si apre.
@@ -71,7 +75,7 @@ public class Cittadino extends javax.swing.JFrame {
 
         jLabel5.setText("Tipologia:");
 
-        tipologiaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aziendale", "Hub", "Ospedaliero" }));
+        tipologiaComboBox.setModel(new DefaultComboBoxModel(new String[] {"Azienda", "Hub", "Ospedale"}));
 
         ricercaButton.setText("Avvia ricerca");
         ricercaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +119,27 @@ public class Cittadino extends javax.swing.JFrame {
             }
         });
         
+        JButton btnNewButton = new JButton("Sintomi avversi");
+        btnNewButton.addActionListener(new ActionListener() {
+        	/*
+        	 * Visualizza un messageDialog con all'interno il numero di eventi avversi e la media della severita
+        	 */
+        	public void actionPerformed(ActionEvent e) {
+        		selectedCV = (String)listaComboBox.getSelectedItem();
+        		out.println("numeroMedia;"+selectedCV);
+        		
+        		try {
+					String[] response= in.readLine().split(";");
+					
+					JOptionPane.showMessageDialog(null, "Numero di eventi avversi nel centro: "+response[0]+"\nMedia di severita dei casi: "+response[1]);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+        		
+        		
+        	}
+        });
+        
 
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -147,7 +172,9 @@ public class Cittadino extends javax.swing.JFrame {
         						.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
         							.addComponent(eventoAvversoButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         							.addComponent(prenotaButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        						.addComponent(listaComboBox, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)))
+        						.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
+        							.addComponent(btnNewButton, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(listaComboBox, Alignment.TRAILING, 0, 196, Short.MAX_VALUE))))
         				.addGroup(jPanel2Layout.createSequentialGroup()
         					.addComponent(operatoriLoginButton)
         					.addGap(0, 255, Short.MAX_VALUE)))
@@ -166,7 +193,8 @@ public class Cittadino extends javax.swing.JFrame {
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLabel4)
-        				.addComponent(comuneTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(comuneTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnNewButton))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLabel5)

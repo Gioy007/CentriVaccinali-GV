@@ -111,6 +111,34 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				/*
+				 * Caso per soddisfare la richiesta di calcolare il numero di eventi avversi e la loro media di severita
+				 */
+				case "numeroMedia":
+					conn = DriverManager.getConnection(url, user, psw); 
+					Statement stmt13 = conn.createStatement();
+					ResultSet rs13 = stmt13.executeQuery("select idcentro from centrivaccinali where nome='"+requestArray[1]+"'");
+					rs13.next();
+					String sr="select count(*), avg(severita) "
+                			+ "from (eventiavversi e left join vaccinati v on e.idvacc=v.idvacc) left join centrivaccinali cv on v.idcentrovacc=cv.idcentro "
+                			+ "where idcentrovacc="+rs13.getString("idcentro")
+                			+ " group by idcentrovacc";
+                	ResultSet rs14 = stmt13.executeQuery(sr);
+                	conn.close();
+                	
+                	
+                	try {
+                		rs14.next();
+                		String due=String.valueOf(rs14.getFloat("avg"));
+                		String uno=String.valueOf(rs14.getString("count"));
+                		//String due=String.valueOf(rs14.getFloat("avg"));
+                		out.println(uno+";"+due);
+                	}catch(Exception e) {
+                		out.println("0;0");
+                		e.printStackTrace();
+                	}
+				break;
+				
+				/*
 				 * Caso per soddisfare la richiesta di cercare un centro vaccinale tramite il comune e tipologia
 				 */
 				case "cercaComune":

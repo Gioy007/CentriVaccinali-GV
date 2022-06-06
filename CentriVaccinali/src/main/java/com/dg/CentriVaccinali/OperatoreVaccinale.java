@@ -12,6 +12,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  * Classe che si occupa di mandare al server le informazioni per un nuovo centro vaccinale e un nuovo vaccinato
@@ -86,7 +87,7 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
             }
         });
 
-        tipologiaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aziendale", "Hub", "Ospedaliero" }));
+        tipologiaComboBox.setModel(new DefaultComboBoxModel(new String[] {"azienda", "hub", "ospedale"}));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
