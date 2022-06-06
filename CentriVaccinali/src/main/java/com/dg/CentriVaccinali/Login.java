@@ -25,6 +25,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
+/*
+ * Classe per autenticarsi al portale e per poter effettuare la registrazione
+ *  di un evento avverso o per prenotare una dose
+ * 
+ * @author Giacomelli Davide 741844
+ * @author Gioele Vicini 747818
+ */
 public class Login extends JFrame {
 
 	private JPanel login;
@@ -97,6 +104,10 @@ public class Login extends JFrame {
 		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
+			/*
+			 * Viene invocato quando si clicca sul bottone Login, verifica che le credenziali
+			 * siano corrette e reidirizza l'utente alla finetra desiderata
+			 */
 			public void actionPerformed(ActionEvent e) {
 				String email= jemail.getText();
 				String psw=String.valueOf(jpsw.getPassword());
@@ -137,6 +148,11 @@ public class Login extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Registrati");
 		btnNewButton_1.addActionListener(new ActionListener() {
+			/*
+			 * Serve per fare in modo che un utente si possa registrare al portale e poter
+			 * effettuare il vaccino.
+			 * Porta alla schermata di registrazione
+			 */
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				Registrati r=new Registrati();

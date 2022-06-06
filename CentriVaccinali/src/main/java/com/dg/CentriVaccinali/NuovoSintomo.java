@@ -25,29 +25,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
+/*
+ * Classe per registrare un nuovo sintomo non presente nel db
+ * 
+ * @author Giacomelli Davide 741844
+ * @author Gioele Vicini 747818
+ */
 public class NuovoSintomo extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField jnome;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Cittadino.setIdutente("5");
-					NuovoSintomo frame = new NuovoSintomo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
-	 * Create the frame.
+	 * Creazione del frame
 	 */
 	public NuovoSintomo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +68,9 @@ public class NuovoSintomo extends JFrame {
 		
 		JButton btnNewButton = new JButton("Aggiungi");
 		btnNewButton.addActionListener(new ActionListener() {
+			/*
+			 * Metodo invocato con il click sul bottone aggiungi per registrare un nuovo tipo di sintomo
+			 */
 			public void actionPerformed(ActionEvent e) {
 				String nome= jnome.getText();
 

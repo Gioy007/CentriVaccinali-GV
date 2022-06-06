@@ -12,9 +12,11 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Classe per la gestione dei singli client
- * @author Giacomelli Davide 781844
+/*
+ * Classe per gestire il singolo client e soddisfare la richiesta fatta
+ * 
+ * @author Giacomelli Davide 741844
+ * @author Gioele Vicini 747818
  */
 public class ClientHandler implements Runnable{
 
@@ -63,7 +65,13 @@ public class ClientHandler implements Runnable{
 					requestArray=new String[1];
 					requestArray[0]=request;
 				}
+				/*
+				 * Switch per soddisfare ogni richiesta possibile fatta al server
+				 */
 				switch(requestArray[0]) {
+				/*
+				 * Caso per soddisfare la richiesta di login
+				 */
 				case "login":
 					String query = "SELECT *"
 							+ "FROM utenti "
@@ -82,6 +90,9 @@ public class ClientHandler implements Runnable{
 					
 				break;
 				
+				/*
+				 * Caso per soddisfare la richiesta di cercare un centro vaccinale tramite il nome o un pezzo di nome
+				 */
 				case "cercaNome":
 					
 					conn = DriverManager.getConnection(url, user, psw); 
@@ -99,7 +110,9 @@ public class ClientHandler implements Runnable{
 					
 				break;
 				
-				
+				/*
+				 * Caso per soddisfare la richiesta di cercare un centro vaccinale tramite il comune e tipologia
+				 */
 				case "cercaComune":
 					
 					conn = DriverManager.getConnection(url, user, psw); 
@@ -118,7 +131,9 @@ public class ClientHandler implements Runnable{
 					
 				break;
 					
-				
+				/*
+				 * Caso per soddisfare la richiesta di cercare un centro vaccinale tramite la tipologia
+				 */
 				case "cercaTipologia":
 					
 					conn = DriverManager.getConnection(url, user, psw); 
@@ -138,7 +153,10 @@ public class ClientHandler implements Runnable{
 					
 				break;
 				
-				case "nuovoVaccinato": //bisogna aggiungere nella tab utenti l'id del centro al quale si è registrati 
+				/*
+				 * Caso per soddisfare la richiesta di inserire un nuovo vaccinato nel db
+				 */
+				case "nuovoVaccinato":
 										
 					System.out.println("nuovo vaccinato");
 					
@@ -157,6 +175,9 @@ public class ClientHandler implements Runnable{
                 	out.println("OK");
 				break;
 				
+				/*
+				 * Caso per soddisfare la richiesta di registrare un nuovo cittadino al portale
+				 */
 				case "registraCitt": 
 					
 					conn = DriverManager.getConnection(url, user, psw); 
@@ -169,23 +190,10 @@ public class ClientHandler implements Runnable{
 					conn.close();
                 	out.println("OK");
 				break;
+
 				/*
-				case "cercaInfo":
-					
-					conn = DriverManager.getConnection(url, user, psw); 
-					Statement stmt4 = conn.createStatement();
-                	ResultSet rs4 = stmt.executeQuery("SELECT * FROM centrivaccinali"
-                			+ " where nome='"+requestArray[1]+"'");
-                	conn.close();
-					rs4.next();
-					String resultQ=requestArray[1]+";";
-					
-					resultQ+=rs.getString("indirizzo")+";";
-					resultQ+=rs.getString("tipologia");
-					out.println(resultQ);
-					conn.close();
-				break;
-				*/
+				 * Caso per soddisfare la richiesta di inserire un nuovo caso di evento avverso
+				 */
 				case "inserisciSintomo":
 					Statement stmt10 = conn.createStatement();
 					String querySintomo="select idevento from eventi where nome='"+requestArray[2]+"'";
@@ -198,6 +206,9 @@ public class ClientHandler implements Runnable{
                 	out.println("OK");
 				break;
 				
+				/*
+				 * Caso per soddisfare la richiesta di prenotare un vaccino presso un centro vaccinale
+				 */
 				case "prenotaVacc":
 					Statement stmt9 = conn.createStatement();
 					String queryPrenota = "INSERT INTO prenotati (userid, data, idcentro) VALUES ('"+requestArray[1]+"','"
@@ -207,6 +218,9 @@ public class ClientHandler implements Runnable{
                 	out.println("OK");
 				break;
 				
+				/*
+				 * Caso per soddisfare la richiesta di aggiungere un nuovo tipo di sintomo non ancora apparso con il vaccino
+				 */
 				case "aggiungiSintomo":
 					Statement stmt5 = conn.createStatement();
 					String queryNuovo = "INSERT INTO eventi (nome) VALUES ('"+requestArray[1]+"');";
@@ -214,23 +228,10 @@ public class ClientHandler implements Runnable{
 					stmt5.executeUpdate(queryNuovo);
                 	out.println("OK");
 				break;
+				
 				/*
-				case "centriDisp":
-					
-					conn = DriverManager.getConnection(url, user, psw); 
-		            Statement stmt1 = conn.createStatement();		            
-		            ResultSet rs1 = stmt1.executeQuery("SELECT nome FROM centrivaccinali");
-		            conn.close();
-		            String centri="";
-		            rs1.next();
-		            
-		            do {
-		            	centri+=rs1.getString("nome")+";";
-		            }
-		            while(rs1.next());
-		            out.println(centri);
-				break;
-				*/
+				 * Caso per soddisfare la richiesta di sapere che vaccino ha fatto l'utente
+				 */
 				case "vaccini":
 					Statement stmt6 = conn.createStatement();
 					String queryVacc="select idvacc, tipovacc from vaccinati v left join utenti on v.userid=utenti.userid "
@@ -247,16 +248,9 @@ public class ClientHandler implements Runnable{
 					out.println(Hvaccini);
 				break;
 				
-				case "aggiungiSegnalazione":
-					Statement stmt7 = conn.createStatement();
-					String querySegn = "INSERT INTO eventiavversi(idvacc, idevento, severita, note)"+
-		            		"VALUES ('"+requestArray[1]+"', '"+requestArray[2]+"', '"
-							+requestArray[3]+"','"+requestArray[4]+"')";
-					
-					stmt7.executeUpdate(querySegn);
-					out.println("OK");					
-				break;
-				
+				/*
+				 * Caso per soddisfare la richiesta di sapere tutti i nomi degli eventi avversi presenti
+				 */
 				case "nomeEventi":
 					Statement stmt11 = conn.createStatement();
 					ResultSet rs9 = stmt11.executeQuery("SELECT nome FROM eventi");
@@ -272,6 +266,9 @@ public class ClientHandler implements Runnable{
 					
 				break;
 				
+				/*
+				 * Caso per soddisfare la richiesta di registrare un nuovo centro vaccinale al portale
+				 */
 				case "nuovoCentroVaccinale":
 					
 					conn = DriverManager.getConnection(url, user, psw); 
