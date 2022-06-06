@@ -257,8 +257,8 @@ public class ClientHandler implements Runnable{
 				break;
 				
 				case "nomeEventi":
-					Statement stmt9 = conn.createStatement();
-					ResultSet rs9 = stmt9.executeQuery("SELECT nome FROM eventi");
+					Statement stmt11 = conn.createStatement();
+					ResultSet rs9 = stmt11.executeQuery("SELECT nome FROM eventi");
 					String eventi="";
 					rs9.next();
 					

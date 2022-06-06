@@ -405,7 +405,6 @@ public class Cittadino extends javax.swing.JFrame {
 		Cittadino.selectedCV = selectedCV;
 	}
 }
-=======
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Cittadino().setVisible(true);
