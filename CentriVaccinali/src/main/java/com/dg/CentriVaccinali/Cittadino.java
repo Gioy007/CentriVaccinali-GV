@@ -7,6 +7,10 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.GroupLayout;
+import javax.swing.JComboBox;
 
 public class Cittadino extends javax.swing.JFrame {
 	
@@ -33,12 +37,11 @@ public class Cittadino extends javax.swing.JFrame {
         nomeTextField = new javax.swing.JTextField();
         comuneTextField = new javax.swing.JTextField();
         tipologiaComboBox = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        centriList = new javax.swing.JList<>();
         ricercaButton = new javax.swing.JButton();
         prenotaButton = new javax.swing.JButton();
         eventoAvversoButton = new javax.swing.JButton();
         operatoriLoginButton = new javax.swing.JButton();
+        listaComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,9 +57,7 @@ public class Cittadino extends javax.swing.JFrame {
 
         jLabel5.setText("Tipologia:");
 
-        tipologiaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aziendale", "Hub", "Ospedaliero"}));
-
-        jScrollPane1.setViewportView(centriList);
+        tipologiaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aziendale", "Hub", "Ospedaliero" }));
 
         ricercaButton.setText("Avvia ricerca");
         ricercaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,10 +119,11 @@ public class Cittadino extends javax.swing.JFrame {
                                     .addComponent(jLabel2))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(12, 12, 12)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(eventoAvversoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(prenotaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(eventoAvversoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(prenotaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(listaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(operatoriLoginButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -130,30 +132,28 @@ public class Cittadino extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(comuneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(tipologiaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ricercaButton)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(comuneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tipologiaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ricercaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(prenotaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eventoAvversoButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(operatoriLoginButton)
                 .addContainerGap())
         );
@@ -195,7 +195,9 @@ public class Cittadino extends javax.swing.JFrame {
         pack();
     }                  
 
-    private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                              
+    private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {   
+    	
+    	
         String nome = nomeTextField.getText();
         String comune = comuneTextField.getText();
         String tipologia = (String)tipologiaComboBox.getSelectedItem();
@@ -208,7 +210,7 @@ public class Cittadino extends javax.swing.JFrame {
 			String[] risposta =response.split(";");
 			
 			for(String r : risposta) {
-				centriList.add(jScrollPane1, r);
+				listaComboBox.addItem(r);
 			}
 			
         }
@@ -217,10 +219,11 @@ public class Cittadino extends javax.swing.JFrame {
         	out.println(request);
         	
         	String response= in.readLine();
+        	
 			String[] risposta =response.split(";");
 			
 			for(String r : risposta) {
-				centriList.add(jScrollPane1, r);
+				listaComboBox.addItem(r);
 			}
 			
         }else {
@@ -228,10 +231,11 @@ public class Cittadino extends javax.swing.JFrame {
         	out.println(request);
         	
         	String response= in.readLine();
+        	System.out.println(response);
 			String[] risposta =response.split(";");
 			
 			for(String r : risposta) {
-				centriList.add(jScrollPane1, r);
+				listaComboBox.addItem(r);
 			}
 			
         }
@@ -244,7 +248,7 @@ public class Cittadino extends javax.swing.JFrame {
     }                                                    
 
     private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {    
-    	selectedCV = centriList.getSelectedValue();
+    	selectedCV = (String)listaComboBox.getSelectedItem();
     	if(selectedCV.isEmpty()) {
     		setVisible(false);
     		Login r=new Login();
@@ -320,8 +324,6 @@ public class Cittadino extends javax.swing.JFrame {
 	public static void setSelectedCV(String selectedCV) {
 		Cittadino.selectedCV = selectedCV;
 	}
-
-	private javax.swing.JList<String> centriList;
     private javax.swing.JTextField comuneTextField;
     private javax.swing.JButton eventoAvversoButton;
     private javax.swing.JLabel jLabel1;
@@ -331,10 +333,10 @@ public class Cittadino extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nomeTextField;
     private javax.swing.JButton operatoriLoginButton;
     private javax.swing.JButton prenotaButton;
     private javax.swing.JButton ricercaButton;
-    private javax.swing.JComboBox<String> tipologiaComboBox;          
+    private javax.swing.JComboBox<String> tipologiaComboBox;  
+    private javax.swing.JComboBox<String> listaComboBox;
 }
