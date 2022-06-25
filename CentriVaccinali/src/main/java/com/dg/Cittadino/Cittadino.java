@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
@@ -32,15 +33,26 @@ public class Cittadino extends javax.swing.JFrame {
 	private static Socket socket;
 	private static PrintStream out;
 	private static BufferedReader in;
-	private static String selectedCV = "";
+	private static String selectedCV;
 	private static String idutente;
 	private static String scelta = "";
 	
 	public static String getScelta() {
 		return scelta;
 	}
+	public void avviaSocket() {
+		try {
+			socket = new Socket(SERVER_IP, SERVER_PORT);
+			out = new PrintStream( socket.getOutputStream() );
+			in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+			System.out.println("GG");
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+	}
 	
     public Cittadino() {
+    	avviaSocket();
         initComponents();
     }                      
     private void initComponents() {
@@ -75,7 +87,7 @@ public class Cittadino extends javax.swing.JFrame {
 
         jLabel5.setText("Tipologia:");
 
-        tipologiaComboBox.setModel(new DefaultComboBoxModel(new String[] {"Azienda", "Hub", "Ospedale"}));
+        tipologiaComboBox.setModel(new DefaultComboBoxModel(new String[] {"","Azienda", "Hub", "Ospedale"}));
 
         ricercaButton.setText("Avvia ricerca");
         ricercaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -246,19 +258,25 @@ public class Cittadino extends javax.swing.JFrame {
         );
 
         pack();
+        tipologiaComboBox.setSelectedIndex(-1);
     }                  
 
     /*
      * Il metodo va a ricercare i centri vaccinali consoni ai parametri di ricerca
      * aggiungendo i risultati nel combobox
      */
-    private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {   
-    	
+    private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
     	
         String nome = nomeTextField.getText().toLowerCase();
         String comune = comuneTextField.getText().toLowerCase();
-        String tipologia = (String)tipologiaComboBox.getSelectedItem();
-        tipologia = tipologia.toLowerCase();
+        String tipologia="";
+        
+        try {
+        	tipologia = (String)tipologiaComboBox.getSelectedItem();
+            tipologia = tipologia.toLowerCase();
+        }catch(Exception e) {
+        	
+        }
         String request="";
         
         if(!nome.isBlank()) {
@@ -266,30 +284,46 @@ public class Cittadino extends javax.swing.JFrame {
         	out.println(request);
         	
         }
-        else if(!comune.isBlank()) {
-        	request = "cercaComune;"+comune+";"+tipologia;
-        	out.println(request);
-        	
-        }else {
-        	request = "cercaTipologia;"+tipologia;
-        	out.println(request);
+        else {
+        	if(!tipologia.equals("")) {
+        		if(!comune.isBlank()) {
+                	if(!tipologia.isBlank() ) {
+                		request = "cercaComune;"+comune+";"+tipologia;
+                    	out.println(request);
+                	}                	
+                }else {
+                	request = "cercaTipologia;"+tipologia;
+                	out.println(request);
+                }
+        	}
+        	else
+        		JOptionPane.showMessageDialog(jPanel2, "Si prega di selezionare una tipologia");
         }
         
-        listaComboBox.removeAllItems();
-        String response= in.readLine();
-    	System.out.println(response);
-		String[] risposta =response.split(";");
-		
-		for(String r : risposta) {
-			listaComboBox.addItem(r);
-		}
+    	listaComboBox.removeAllItems();
+        
+        //riempi il combo solo se ha fatto la ricerca
+        if(!request.equals("")) {
+        	try {
+                String response= in.readLine();
+            	System.out.println(response);
+        		String[] risposta =response.split(";");
+        		
+        		for(String r : risposta) {
+        			listaComboBox.addItem(r);
+        		}
+            }catch(Exception e) {
+            	
+            }
+        }
 		
     }                                             
     
     /*
      * Porta alla schermata di login per autenticarsi come operatori
      */
-    private void operatoriLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    private void operatoriLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    	scelta = "operatore";
     	setVisible(false);
 		Login r=new Login();
 		r.setVisible(true);
@@ -299,10 +333,13 @@ public class Cittadino extends javax.swing.JFrame {
      * Porta alla schermata di login per poi potersi prenotare per una nuova dose
      */
     private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {  
-    	selectedCV = (String)listaComboBox.getSelectedItem();
-    	scelta = "prenota";
+    	String s=(String)listaComboBox.getSelectedItem();
     	
-    	if(!selectedCV.equals("")) {
+    	
+    	if(s!=null) {
+    		setSelectedCV(s);        	
+        	scelta = "prenota";
+    		
     		setVisible(false);
     		Login r=new Login();
     		r.setVisible(true);
@@ -316,10 +353,12 @@ public class Cittadino extends javax.swing.JFrame {
      * Porta alla schermata di login per poi potersi registrare un nuovo evento avverso
      */
     private void eventoAvversoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-    	selectedCV = (String)listaComboBox.getSelectedItem();
-    	scelta = "sintomi";
-    	
-    	if(!selectedCV.equals("")) {
+    	String s=(String)listaComboBox.getSelectedItem();
+    	    	
+    	if(s!=null) {
+    		setSelectedCV(s);
+        	scelta = "sintomi";
+    		
     		setVisible(false);
     		Login r = new Login();
     		r.setVisible(true);
@@ -354,9 +393,7 @@ public class Cittadino extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         try {
-			socket = new Socket(SERVER_IP, SERVER_PORT);
-			out = new PrintStream( socket.getOutputStream() );
-			in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -393,7 +430,7 @@ public class Cittadino extends javax.swing.JFrame {
 	}
 	
 	public static String getSelectedCV() {
-		return idutente;
+		return selectedCV;
 	}
 	public static void setSelectedCV(String selectedCV) {
 		Cittadino.selectedCV = selectedCV;
