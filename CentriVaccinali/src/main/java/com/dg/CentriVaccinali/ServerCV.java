@@ -174,9 +174,6 @@ public class ServerCV extends javax.swing.JFrame {
         	passwordField.setText("");
         	JOptionPane.showMessageDialog(jPanel, "Credenziali corrette, rimango in attesa di connessioni...");
         }else {
-        	urlTextField.setText("");
-        	adminTextField.setText("");
-        	passwordField.setText("");
         	JOptionPane.showMessageDialog(jPanel, "Credenziali non corrette, riprovare");
         }
     }                                        

@@ -38,7 +38,6 @@ public class Login extends JFrame {
 	private JPasswordField jpsw;
 	private JTextField jemail;
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -50,98 +49,107 @@ public class Login extends JFrame {
 		setContentPane(login);
 		SpringLayout sl_login = new SpringLayout();
 		login.setLayout(sl_login);
-		
+
 		JLabel lblNewLabel = new JLabel("Login");
 		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, login);
 		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, login);
 		sl_login.putConstraint(SpringLayout.EAST, lblNewLabel, -147, SpringLayout.EAST, login);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		login.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("E-mail");
 		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 19, SpringLayout.SOUTH, lblNewLabel);
 		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel_1, 0, SpringLayout.WEST, lblNewLabel);
 		login.add(lblNewLabel_1);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Password");
 		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 23, SpringLayout.SOUTH, lblNewLabel_1);
 		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel_2, 0, SpringLayout.WEST, lblNewLabel);
 		sl_login.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -140, SpringLayout.SOUTH, login);
 		login.add(lblNewLabel_2);
-		
+
 		jpsw = new JPasswordField();
 		sl_login.putConstraint(SpringLayout.NORTH, jpsw, -3, SpringLayout.NORTH, lblNewLabel_2);
 		sl_login.putConstraint(SpringLayout.WEST, jpsw, 49, SpringLayout.EAST, lblNewLabel_2);
 		sl_login.putConstraint(SpringLayout.EAST, jpsw, -18, SpringLayout.EAST, login);
 		login.add(jpsw);
-		
-		
+
 		jemail = new JTextField();
 		sl_login.putConstraint(SpringLayout.WEST, jemail, 72, SpringLayout.EAST, lblNewLabel_1);
 		sl_login.putConstraint(SpringLayout.SOUTH, jemail, -12, SpringLayout.NORTH, jpsw);
 		sl_login.putConstraint(SpringLayout.EAST, jemail, 0, SpringLayout.EAST, jpsw);
 		login.add(jemail);
 		jemail.setColumns(10);
-		
+
 		jpsw.setText("c");
 		jemail.setText("c");
-		
+
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			/*
-			 * Viene invocato quando si clicca sul bottone Login, verifica che le credenziali
-			 * siano corrette e reidirizza l'utente alla finetra desiderata
+			 * Viene invocato quando si clicca sul bottone Login, verifica che le
+			 * credenziali siano corrette e reidirizza l'utente alla finetra desiderata
 			 */
 			public void actionPerformed(ActionEvent e) {
-				String email= jemail.getText();
-				String psw=String.valueOf(jpsw.getPassword());
-				
-				try {
-					String request="login;"+email+";"+psw;
-					Cittadino.getOut().println(request);
-					
-					String[] risposta =Cittadino.getIn().readLine().split(";");					
-					
-					if(risposta[0].equals("t")) {
-						setVisible(false);
-		            	OperatoreVaccinale s=new OperatoreVaccinale();
-		            	s.setVisible(true);
-					}
-					if(risposta[0].equals("f")) {
-		            	setVisible(false);
-		            	Cittadino.setIdutente(risposta[1]);
-		            	if(Cittadino.getScelta().equals("prenota")) {
-		            		Prenota p=new Prenota();
-		            		p.setVisible(true);
-		            	}else if (Cittadino.getScelta().equals("sintomi")) {	
-		            		Sintomi s=new Sintomi();
-		            		s.setVisible(true);
-		            	}
-		            	
-					}
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				String email = jemail.getText();
+				String psw = String.valueOf(jpsw.getPassword());
 
+				if (!email.equals("") && !psw.equals("")) {
+					try {
+						String request = "login;" + email + ";" + psw;
+						Cittadino.getOut().println(request);
+
+						String[] risposta = Cittadino.getIn().readLine().split(";");
+						Cittadino.setIdutente(risposta[1]);
+						
+						if (risposta[0].equals("t")) {
+
+							setVisible(false);
+							OperatoreVaccinale s = new OperatoreVaccinale();
+							s.setVisible(true);
+
+						}
+						
+						if (Cittadino.getScelta().equals("operatore") && risposta[0].equals("f")) {
+							JOptionPane.showMessageDialog(login, "L'utente scelto non e' admin");
+						}
+
+						if (risposta[0].equals("f")) {
+
+							if (Cittadino.getScelta().equals("prenota")) {
+								setVisible(false);
+								Prenota p = new Prenota();
+								p.setVisible(true);
+							}
+							if (Cittadino.getScelta().equals("sintomi")) {
+								setVisible(false);
+								Sintomi s = new Sintomi();
+								s.setVisible(true);
+							}
+						}
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				} else
+					JOptionPane.showMessageDialog(login, "Nome utente o password mancanti");
 			}
 		});
 		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton, -10, SpringLayout.SOUTH, login);
 		sl_login.putConstraint(SpringLayout.EAST, btnNewButton, -10, SpringLayout.EAST, login);
 		login.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("Registrati");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			/*
 			 * Serve per fare in modo che un utente si possa registrare al portale e poter
-			 * effettuare il vaccino.
-			 * Porta alla schermata di registrazione
+			 * effettuare il vaccino. Porta alla schermata di registrazione
 			 */
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Registrati r=new Registrati();
+				Registrati r = new Registrati();
 				r.setVisible(true);
-				
+
 			}
 		});
 		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton_1, 0, SpringLayout.NORTH, btnNewButton);

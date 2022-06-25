@@ -24,7 +24,10 @@ public class Prenota extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Classe che si occupa di chiedere la data in cui si vuole prenotare il vaccino, in modo poi di registrare la prenotazione
+	 * 
+	 * @author Giacomelli Davide 741844
+	 * @author Gioele Vicini 747818
 	 */
 	public Prenota() {
         initComponents();
@@ -44,14 +47,20 @@ public class Prenota extends JFrame {
         		String giorno=jgiorno.getSelectedItem().toString();
         		String mese=jmese.getSelectedItem().toString();
         		String anno=janno.getSelectedItem().toString();
-        		
-        		String outString="prenotaVacc;"+Cittadino.getIdutente()+";"
-        					+giorno+"-"+mese+"-"+anno+";"+Cittadino.getSelectedCV();
+        		String selectedCV=Cittadino.getSelectedCV();
+        		String idUtente=Cittadino.getIdutente();
+        				
+        		String outString="prenotaVacc;"+idUtente+";"
+        					+giorno+"-"+mese+"-"+anno+";"+selectedCV;
         		Cittadino.getOut().println(outString);
         		
+        		
         		try {
-					if(Cittadino.getIn().readLine().equals("OK")) {
+        			String s=Cittadino.getIn().readLine();
+					if(s.equals("OK")) {
 						JOptionPane.showMessageDialog(null, "Prenotazione avvenuta");
+						Cittadino c= new Cittadino();
+						c.setVisible(true);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Errore di prenotazione");

@@ -88,6 +88,7 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
         });
 
         tipologiaComboBox.setModel(new DefaultComboBoxModel(new String[] {"azienda", "hub", "ospedale"}));
+        tipologiaComboBox.setSelectedIndex(-1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -327,17 +328,21 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     	String tipologia = ""+tipologiaComboBox.getSelectedItem();//7
     	tipologia = tipologia.toLowerCase();
     	
-    	String request = "nuovoCentroVaccinale;"+nome+";"+comune+";"+CAP+";"+provincia
-    			+";"+indirizzo+";"+nCivico+";"+tipologia;
-    	Cittadino.getOut().println(request);
-    	
-        try {
-			if(Cittadino.getIn().readLine().equals("OK")) {
-				JOptionPane.showMessageDialog(jPanel, "Centro registrato correttamente");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	if(nome.equals("") && comune.equals("") && CAP.equals("") && provincia.equals("") 
+    			&& indirizzo.equals("") && nCivico.equals("") && tipologia!=null) {
+    		String request = "nuovoCentroVaccinale;"+nome+";"+comune+";"+CAP+";"+provincia
+        			+";"+indirizzo+";"+nCivico+";"+tipologia;
+        	Cittadino.getOut().println(request);
+        	
+            try {
+    			if(Cittadino.getIn().readLine().equals("OK")) {
+    				JOptionPane.showMessageDialog(jPanel, "Centro registrato correttamente");
+    			}
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	else JOptionPane.showMessageDialog(jPanel, "Inserire i dati mancanti");
     }           
               
     private javax.swing.JLabel CAPLabel;
