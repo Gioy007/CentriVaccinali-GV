@@ -113,21 +113,24 @@ public class Registrati extends JFrame {
 				String psw= jpsw.getText();
 				String rpsw= jrpsw.getText();
 				
-				if(psw.equals(rpsw)&& !psw.equals("")) {
-					try {
-						registraCittadino(nome, cognome, cf, email, psw);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+				if(!nome.equals("") && !cognome.equals("") && !cf.equals("") && !email.equals("") && !psw.equals("") && !rpsw.equals("")) {
+					if(psw.equals(rpsw)) {
+						try {
+							registraCittadino(nome, cognome, cf, email, psw);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						setVisible(false);
+						Login l=new Login();
+						l.setVisible(true);
 					}
-					
-					setVisible(false);
-					Login l=new Login();
-					l.setVisible(true);
+					else {
+						JOptionPane.showMessageDialog(null, "Password diverse");
+					}
 				}
-				else {
-					JOptionPane.showMessageDialog(null, "Password diverse");
-				}
+				else JOptionPane.showMessageDialog(registrati, "Si prega di inserire tutti i dati");
 			}
 		});
 		

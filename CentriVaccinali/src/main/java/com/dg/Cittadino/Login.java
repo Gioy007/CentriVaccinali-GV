@@ -101,7 +101,7 @@ public class Login extends JFrame {
 
 						String[] risposta = Cittadino.getIn().readLine().split(";");
 						Cittadino.setIdutente(risposta[1]);
-						
+
 						if (risposta[0].equals("t")) {
 
 							setVisible(false);
@@ -109,22 +109,33 @@ public class Login extends JFrame {
 							s.setVisible(true);
 
 						}
-						
-						if (Cittadino.getScelta().equals("operatore") && risposta[0].equals("f")) {
-							JOptionPane.showMessageDialog(login, "L'utente scelto non e' admin");
-						}
 
 						if (risposta[0].equals("f")) {
+
+							if (Cittadino.getScelta().equals("operatore"))
+								JOptionPane.showMessageDialog(login, "L'utente scelto non e' admin");
 
 							if (Cittadino.getScelta().equals("prenota")) {
 								setVisible(false);
 								Prenota p = new Prenota();
 								p.setVisible(true);
+								setVisible(false);
 							}
 							if (Cittadino.getScelta().equals("sintomi")) {
-								setVisible(false);
-								Sintomi s = new Sintomi();
-								s.setVisible(true);
+								Cittadino.getOut().println("vaccini;" + Cittadino.getIdutente());
+								String s = Cittadino.getIn().readLine();
+								if (!s.equals("NO")) {
+									setVisible(false);
+									Sintomi sin = new Sintomi();
+									sin.setVisible(true);
+								} else {
+									JOptionPane.showMessageDialog(null,
+											"Non puoi segnalare un evento avverso senza aver fatto il vaccino");
+									setVisible(false);
+									Cittadino c = new Cittadino();
+									c.setVisible(true);
+
+								}
 							}
 						}
 

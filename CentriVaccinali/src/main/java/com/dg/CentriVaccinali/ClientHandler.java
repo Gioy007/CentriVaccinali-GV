@@ -83,8 +83,6 @@ public class ClientHandler implements Runnable {
 					ResultSet result = statement.executeQuery(query);
 
 					result.next();
-					System.out.println(result.getString("admin"));
-					System.out.println(result.getString("userid"));
 					out.println(result.getString("admin") + ";" + result.getString("userid"));
 
 					break;
@@ -130,7 +128,6 @@ public class ClientHandler implements Runnable {
 						out.println(uno + ";" + due);
 					} catch (Exception e) {
 						out.println("0;0");
-						e.printStackTrace();
 					}
 					break;
 
@@ -176,19 +173,32 @@ public class ClientHandler implements Runnable {
 				 * Caso per soddisfare la richiesta di inserire un nuovo vaccinato nel db
 				 */
 				case "nuovoVaccinato":
-
-					System.out.println("nuovo vaccinato");
-
 					Statement stmt3 = conn.createStatement();
-					String queryGetCVbyCF = "SELECT * FROM utenti WHERE cf = '" + requestArray[1] + "'";
-					ResultSet result2 = stmt3.executeQuery(queryGetCVbyCF);
+					String queryGetIDfromCF = "SELECT * FROM utenti WHERE cf = '" + requestArray[1] + "'";
+					ResultSet result2 = stmt3.executeQuery(queryGetIDfromCF);
 					result2.next();
-					String queryNewVaccinato = "INSERT INTO vaccinati (idvacc, userid, datasomm, tipovacc, idcentrovacc)"
-							+ "VALUES ('" + requestArray[4] + "', '" + result2.getString("userid") + "', '"
-							+ requestArray[2] + "', '" + requestArray[3] + "', '" + requestArray[5] + "');";
+					String useridR= result2.getString("userid");
+					int dose=0;
+					
+					String queryDose="select max(dose) from vaccinati where userid='"+useridR+"'";
+					result2 = stmt3.executeQuery(queryDose);
+					
+					try {
+						result2.next();
+						result2.getString("max");
+					}catch(Exception e) {			
+					}
+					dose++;
+					
+					String queryNewVaccinato = "INSERT INTO vaccinati (idvacc, userid, datasomm, tipovacc, idcentrovacc, dose)"
+							+ "VALUES ('" + requestArray[4] + "', '" + useridR + "', '"
+							+ requestArray[2] + "', '" + requestArray[3] + "', '" + requestArray[5] + "', "+dose+");";
 
 					stmt3.executeUpdate(queryNewVaccinato);
 
+					String queryDelete="DELETE FROM prenotati WHERE userid='"+useridR+"';";
+					stmt3.executeUpdate(queryDelete);
+					
 					out.println("OK");
 					break;
 
@@ -236,8 +246,12 @@ public class ClientHandler implements Runnable {
 					String queryPrenota = "INSERT INTO prenotati (userid, dataprenotazione, idcentro) VALUES ('" + requestArray[1]
 							+ "','" + requestArray[2] + "','" + rsIDC.getString("idcentro") + "');";
 
-					stmt9.executeUpdate(queryPrenota);
-					out.println("OK");
+					try {
+						stmt9.executeUpdate(queryPrenota);
+						out.println("OK");
+					} catch (Exception e) {
+						out.println("NO");
+					}
 					break;
 
 				/*
@@ -257,18 +271,24 @@ public class ClientHandler implements Runnable {
 				 */
 				case "vaccini":
 					Statement stmt6 = conn.createStatement();
-					String queryVacc = "select idvacc, tipovacc from vaccinati v left join utenti on v.userid=utenti.userid "
+					String queryVacc = "select idvacc, tipovacc, dose from vaccinati v left join utenti on v.userid=utenti.userid "
 							+ "where v.userid='" + requestArray[1] + "' order by datasomm";
+					String Hvaccini="";
+					
 					ResultSet rs6 = stmt6.executeQuery(queryVacc);
-					rs6.next();
-					String Hvaccini = "";
+					
+					try {
+						rs6.next();
 
-					do {
-						Hvaccini += rs6.getString("tipovacc") + ";" + rs6.getString("idvacc") + ";";
-					} while (rs6.next());
+						do {
+							Hvaccini += rs6.getString("idvacc") + ";"+ rs6.getString("tipovacc") + ";" +  rs6.getString("dose") + ";";
+						} while (rs6.next());
 
-					Hvaccini.substring(0, Hvaccini.length() - 1);
-					out.println(Hvaccini);
+						Hvaccini.substring(0, Hvaccini.length() - 1);
+						out.println(Hvaccini);
+					} catch (Exception e) {
+						out.println("NO");
+					}
 					break;
 
 				/*
@@ -288,6 +308,17 @@ public class ClientHandler implements Runnable {
 					eventi.substring(0, eventi.length() - 1);
 					out.println(eventi);
 
+					break;
+					
+				case "aggiungiSegnalazione":
+					
+					Statement stmtAggiungiSegnalazione = conn.createStatement();
+					String queryAggiungiSegnalazione = "INSERT INTO eventiavversi(idvacc, idevento, severita, note)\r\n"
+							+ "	VALUES ('" + requestArray[1] + "', '" + requestArray[2] + "', '" + requestArray[3] + "','" + requestArray[4] + "');";
+
+					stmtAggiungiSegnalazione.executeUpdate(queryAggiungiSegnalazione);
+
+					out.println("OK");
 					break;
 
 				/*

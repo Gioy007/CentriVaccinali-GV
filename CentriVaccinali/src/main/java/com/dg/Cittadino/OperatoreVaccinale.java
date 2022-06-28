@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -175,10 +179,17 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
         cfLabel.setText("Codice Fiscale Vaccinato");
 
         dataLabel.setText("Data vaccino (gg/mm/aaaa)");
+        
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        String todaysdate = dateFormat.format(date);
+        dataTextField.setText(todaysdate);
 
         tipoVaccinoLabel.setText("Tipologia");
 
-        tipoVaccinoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AstraZeneca", "Moderna", "J&J", "Pfizer" }));
+        tipoVaccinoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"AstraZeneca", "Moderna", "J&J", "Pfizer" }));
+        tipoVaccinoComboBox.setSelectedIndex(-1);
 
         registaVaccinatoButton.setText("Registra Vaccinato");
         registaVaccinatoButton.addActionListener(new java.awt.event.ActionListener() {
@@ -297,19 +308,24 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     	String data = dataTextField.getText().toLowerCase();//2
     	String tipologia = (String)tipoVaccinoComboBox.getSelectedItem();//3
     	String ID = textField.getText();//4
-    	tipologia = tipologia.toLowerCase();
-    	
-    	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia+";"+ID+Cittadino.getSelectedCV();
-    	Cittadino.getOut().println(request);
-    	
-    	
-        try {
-			if(Cittadino.getIn().readLine().equals("OK")) {
-				JOptionPane.showMessageDialog(jPanel, "Nuovo vaccinato registrato correttamente");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	if(!cf.equals("") && !data.equals("") && !tipologia.equals("") && !ID.equals("")) {
+    		tipologia = tipologia.toLowerCase();
+        	
+        	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia+";"+ID+Cittadino.getSelectedCV();
+        	Cittadino.getOut().println(request);
+        	
+        	
+            try {
+    			if(Cittadino.getIn().readLine().equals("OK")) {
+    				JOptionPane.showMessageDialog(jPanel, "Nuovo vaccinato registrato correttamente");
+    			}
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(jPanel, "Inserire i dati mancanti");
+    	}
     	
     }                                                      
 
@@ -328,8 +344,8 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
     	String tipologia = ""+tipologiaComboBox.getSelectedItem();//7
     	tipologia = tipologia.toLowerCase();
     	
-    	if(nome.equals("") && comune.equals("") && CAP.equals("") && provincia.equals("") 
-    			&& indirizzo.equals("") && nCivico.equals("") && tipologia!=null) {
+    	if(!nome.equals("") && !comune.equals("") && !CAP.equals("") && !provincia.equals("") 
+    			&& !indirizzo.equals("") && !nCivico.equals("") && tipologia!=null) {
     		String request = "nuovoCentroVaccinale;"+nome+";"+comune+";"+CAP+";"+provincia
         			+";"+indirizzo+";"+nCivico+";"+tipologia;
         	Cittadino.getOut().println(request);
