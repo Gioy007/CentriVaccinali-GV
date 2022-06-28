@@ -47,44 +47,55 @@ public class Prenota extends JFrame {
         		String giorno=jgiorno.getSelectedItem().toString();
         		String mese=jmese.getSelectedItem().toString();
         		String anno=janno.getSelectedItem().toString();
-        		String selectedCV=Cittadino.getSelectedCV();
-        		String idUtente=Cittadino.getIdutente();
-        				
-        		String outString="prenotaVacc;"+idUtente+";"
-        					+giorno+"-"+mese+"-"+anno+";"+selectedCV;
-        		Cittadino.getOut().println(outString);
-        		
-        		
-        		try {
-        			String s=Cittadino.getIn().readLine();
-					if(s.equals("OK")) {
-						JOptionPane.showMessageDialog(null, "Prenotazione avvenuta");
-						Cittadino c= new Cittadino();
-						c.setVisible(true);
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Errore di prenotazione");
-					}
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+        		if(!giorno.equals("") && !mese.equals("") && !anno.equals("")) {
+        			String selectedCV=Cittadino.getSelectedCV();
+            		String idUtente=Cittadino.getIdutente();
+            				
+            		String outString="prenotaVacc;"+idUtente+";"
+            					+giorno+"-"+mese+"-"+anno+";"+selectedCV;
+            		Cittadino.getOut().println(outString);
+            		
+            		
+            		try {
+            			String s=Cittadino.getIn().readLine();
+    					if(s.equals("OK")) {
+    						JOptionPane.showMessageDialog(null, "Prenotazione avvenuta");
+    						Cittadino c= new Cittadino();
+    						c.setVisible(true);
+    					}
+    					else {
+    						if(s.equals("NO")) {
+    							JOptionPane.showMessageDialog(null, "C'e gia una prenotazione a questo nome");
+    						}
+    						else JOptionPane.showMessageDialog(null, "Errore di prenotazione");
+    					}
+    				} catch (Exception e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+        		}
+        		else JOptionPane.showMessageDialog(contentPane, "Si prega di selezionare una data");
         	}
         });
         jgiorno = new javax.swing.JComboBox<>();
         for(int i=1;i<32;i++) {
         	jgiorno.addItem(String.valueOf(i));
         }
+        jgiorno.setSelectedIndex(-1);
+        
         jLabel4 = new javax.swing.JLabel();
         jmese = new javax.swing.JComboBox<>();
         for(int i=1;i<13;i++) {
         	jmese.addItem(String.valueOf(i));
         }
+        jmese.setSelectedIndex(-1);
+        
         jLabel5 = new javax.swing.JLabel();
         janno = new javax.swing.JComboBox<>();
         for(int i=2022;i<2040;i++) {
         	janno.addItem(String.valueOf(i));
         }
+        janno.setSelectedIndex(-1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +109,7 @@ public class Prenota extends JFrame {
         jLabel4.setText("Mese");
 
         jLabel5.setText("Anno");
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(

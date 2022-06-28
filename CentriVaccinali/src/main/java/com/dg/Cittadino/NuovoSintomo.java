@@ -74,20 +74,26 @@ public class NuovoSintomo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String nome= jnome.getText();
 
-				String request="aggiungiSintomo;"+nome;
-				
-				try {
-					Cittadino.getOut().println(request);				
+				if(!nome.equals("")) {
+					String request="aggiungiSintomo;"+nome;
 					
-					if(Cittadino.getIn().readLine().equals("OK")) {						
-						JOptionPane.showMessageDialog(null, "Nuovo sintomo registrato");
-					}else {
-						JOptionPane.showMessageDialog(null, "Nuovo sintomo non registrato");
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}				
+					try {
+						Cittadino.getOut().println(request);				
+						
+						if(Cittadino.getIn().readLine().equals("OK")) {						
+							JOptionPane.showMessageDialog(null, "Nuovo sintomo registrato");
+							setVisible(false);
+							Sintomi s=new Sintomi();
+							s.setVisible(true);
+						}else {
+							JOptionPane.showMessageDialog(null, "Nuovo sintomo non registrato");
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}			
+				}
+				else JOptionPane.showMessageDialog(contentPane, "Inserisci il nome del nuovo sintomo");
 			}
 		});
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton, -10, SpringLayout.SOUTH, contentPane);
