@@ -32,139 +32,243 @@ import java.awt.event.ActionEvent;
  * @author Giacomelli Davide 741844
  * @author Gioele Vicini 747818
  */
-public class Login extends JFrame {
+public class Login extends javax.swing.JFrame {
 
 	private JPanel login;
 	private JPasswordField jpsw;
 	private JTextField jemail;
+	private javax.swing.JPasswordField PasswordField;
+    private javax.swing.JButton gotoRegistrationButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JTextField mailTextField; 
 
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 274, 306);
-		login = new JPanel();
-		login.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(login);
-		SpringLayout sl_login = new SpringLayout();
-		login.setLayout(sl_login);
+        initComponents();
+    }                     
+    private void initComponents() {
 
-		JLabel lblNewLabel = new JLabel("Login");
-		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, login);
-		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, login);
-		sl_login.putConstraint(SpringLayout.EAST, lblNewLabel, -147, SpringLayout.EAST, login);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		login.add(lblNewLabel);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        mailTextField = new javax.swing.JTextField();
+        PasswordField = new javax.swing.JPasswordField();
+        loginButton = new javax.swing.JButton();
+        gotoRegistrationButton = new javax.swing.JButton();
 
-		JLabel lblNewLabel_1 = new JLabel("E-mail");
-		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 19, SpringLayout.SOUTH, lblNewLabel);
-		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel_1, 0, SpringLayout.WEST, lblNewLabel);
-		login.add(lblNewLabel_1);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-		JLabel lblNewLabel_2 = new JLabel("Password");
-		sl_login.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 23, SpringLayout.SOUTH, lblNewLabel_1);
-		sl_login.putConstraint(SpringLayout.WEST, lblNewLabel_2, 0, SpringLayout.WEST, lblNewLabel);
-		sl_login.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -140, SpringLayout.SOUTH, login);
-		login.add(lblNewLabel_2);
+        jLabel1.setText("Login");
 
-		jpsw = new JPasswordField();
-		sl_login.putConstraint(SpringLayout.NORTH, jpsw, -3, SpringLayout.NORTH, lblNewLabel_2);
-		sl_login.putConstraint(SpringLayout.WEST, jpsw, 49, SpringLayout.EAST, lblNewLabel_2);
-		sl_login.putConstraint(SpringLayout.EAST, jpsw, -18, SpringLayout.EAST, login);
-		login.add(jpsw);
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
-		jemail = new JTextField();
-		sl_login.putConstraint(SpringLayout.WEST, jemail, 72, SpringLayout.EAST, lblNewLabel_1);
-		sl_login.putConstraint(SpringLayout.SOUTH, jemail, -12, SpringLayout.NORTH, jpsw);
-		sl_login.putConstraint(SpringLayout.EAST, jemail, 0, SpringLayout.EAST, jpsw);
-		login.add(jemail);
-		jemail.setColumns(10);
+        jLabel2.setText("E-Mail");
 
-		jpsw.setText("c");
-		jemail.setText("c");
+        jLabel3.setText("Password");
 
-		JButton btnNewButton = new JButton("Login");
-		btnNewButton.addActionListener(new ActionListener() {
-			/*
-			 * Viene invocato quando si clicca sul bottone Login, verifica che le
-			 * credenziali siano corrette e reidirizza l'utente alla finetra desiderata
-			 */
-			public void actionPerformed(ActionEvent e) {
-				String email = jemail.getText();
-				String psw = String.valueOf(jpsw.getPassword());
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
 
-				if (!email.equals("") && !psw.equals("")) {
-					try {
-						String request = "login;" + email + ";" + psw;
-						Cittadino.getOut().println(request);
+        gotoRegistrationButton.setText("Registrati");
+        gotoRegistrationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gotoRegistrationButtonActionPerformed(evt);
+            }
+        });
 
-						String[] risposta = Cittadino.getIn().readLine().split(";");
-						Cittadino.setIdutente(risposta[1]);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(16, 16, 16)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PasswordField)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(mailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(loginButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(gotoRegistrationButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(mailTextField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PasswordField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(gotoRegistrationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-						if (risposta[0].equals("t")) {
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-							setVisible(false);
-							OperatoreVaccinale s = new OperatoreVaccinale();
-							s.setVisible(true);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-						}
+        pack();
+    }                      
 
-						if (risposta[0].equals("f")) {
+    /*
+	 * Viene invocato quando si clicca sul bottone Login, verifica che le
+	 * credenziali siano corrette e reidirizza l'utente alla finetra desiderata
+	 */
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    	
+			String email = mailTextField.getText();
+			String psw = String.valueOf(PasswordField.getPassword());
 
-							if (Cittadino.getScelta().equals("operatore"))
-								JOptionPane.showMessageDialog(login, "L'utente scelto non e' admin");
+			if(email.contains("@") && email.contains(".") && !email.equals("")) {
+				if(psw.length()>5 && !psw.equals("")) {
+						try {
+							String request = "login;" + email + ";" + psw;
+							Cittadino.getOut().println(request);
 
-							if (Cittadino.getScelta().equals("prenota")) {
+							String[] risposta = Cittadino.getIn().readLine().split(";");
+							Cittadino.setIdutente(risposta[1]);
+
+							if (risposta[0].equals("t")) {
+
 								setVisible(false);
-								Prenota p = new Prenota();
-								p.setVisible(true);
-								setVisible(false);
+								OperatoreVaccinale s = new OperatoreVaccinale();
+								s.setVisible(true);
+
 							}
-							if (Cittadino.getScelta().equals("sintomi")) {
-								Cittadino.getOut().println("vaccini;" + Cittadino.getIdutente());
-								String s = Cittadino.getIn().readLine();
-								if (!s.equals("NO")) {
-									setVisible(false);
-									Sintomi sin = new Sintomi();
-									sin.setVisible(true);
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Non puoi segnalare un evento avverso senza aver fatto il vaccino");
-									setVisible(false);
-									Cittadino c = new Cittadino();
-									c.setVisible(true);
 
+							if (risposta[0].equals("f")) {
+
+								if (Cittadino.getScelta().equals("operatore"))
+									JOptionPane.showMessageDialog(login, "L'utente scelto non e' admin");
+
+								if (Cittadino.getScelta().equals("prenota")) {
+									setVisible(false);
+									Prenota p = new Prenota();
+									p.setVisible(true);
+									setVisible(false);
+								}
+								if (Cittadino.getScelta().equals("sintomi")) {
+									Cittadino.getOut().println("vaccini;" + Cittadino.getIdutente());
+									String s = Cittadino.getIn().readLine();
+									if (!s.equals("NO")) {
+										setVisible(false);
+										SegnalaEvento sin = new SegnalaEvento();
+										sin.setVisible(true);
+									} else {
+										JOptionPane.showMessageDialog(null,
+												"Non puoi segnalare un evento avverso senza aver fatto il vaccino");
+										setVisible(false);
+										Cittadino c = new Cittadino();
+										c.setVisible(true);
+
+									}
 								}
 							}
+
+						} catch (Exception e1) {
+							e1.printStackTrace();
 						}
-
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				} else
-					JOptionPane.showMessageDialog(login, "Nome utente o password mancanti");
+				}
+				else {
+					JOptionPane.showMessageDialog(login, "Password troppo corta");
+				}
 			}
-		});
-		sl_login.putConstraint(SpringLayout.SOUTH, btnNewButton, -10, SpringLayout.SOUTH, login);
-		sl_login.putConstraint(SpringLayout.EAST, btnNewButton, -10, SpringLayout.EAST, login);
-		login.add(btnNewButton);
-
-		JButton btnNewButton_1 = new JButton("Registrati");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			/*
-			 * Serve per fare in modo che un utente si possa registrare al portale e poter
-			 * effettuare il vaccino. Porta alla schermata di registrazione
-			 */
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Registrati r = new Registrati();
-				r.setVisible(true);
-
+			else {
+				JOptionPane.showMessageDialog(login, "Email non valida");
 			}
-		});
-		sl_login.putConstraint(SpringLayout.NORTH, btnNewButton_1, 0, SpringLayout.NORTH, btnNewButton);
-		sl_login.putConstraint(SpringLayout.EAST, btnNewButton_1, -6, SpringLayout.WEST, btnNewButton);
-		login.add(btnNewButton_1);
-	}
+		}
+    
+    
+    /*
+	 * Serve per fare in modo che un utente si possa registrare al portale e poter
+	 * effettuare il vaccino. Porta alla schermata di registrazione
+	 */
+    private void gotoRegistrationButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
+    	setVisible(false);
+		Registrati r = new Registrati();
+		r.setVisible(true);
+    }                                                      
+
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+		
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Login().setVisible(true);
+            }
+        });
+    }
+              
+               
 }
