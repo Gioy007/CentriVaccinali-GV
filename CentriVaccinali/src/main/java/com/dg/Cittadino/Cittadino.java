@@ -36,6 +36,7 @@ public class Cittadino extends javax.swing.JFrame {
 	private static String selectedCV;
 	private static String idutente;
 	private static String scelta = "";
+	private static boolean connOK=false;
 	
 	public static String getScelta() {
 		return scelta;
@@ -45,15 +46,22 @@ public class Cittadino extends javax.swing.JFrame {
 			socket = new Socket(SERVER_IP, SERVER_PORT);
 			out = new PrintStream( socket.getOutputStream() );
 			in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
-			System.out.println("GG");
-		} catch (Exception e) {			
+			connOK=true;
+		} catch (Exception e) {		
+			connOK=false;
 			e.printStackTrace();
 		}
 	}
 	
     public Cittadino() {
     	avviaSocket();
-        initComponents();
+        if(connOK) {
+        	initComponents();
+        }
+        else {
+        	JOptionPane.showMessageDialog(null, "Server non trovato");
+
+        }
     }                      
     private void initComponents() {
 

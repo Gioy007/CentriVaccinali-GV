@@ -57,7 +57,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/Server</outputDirectory>
+							<outputDirectory>${basedir}/target/Client</outputDirectory>
 							<resources>
 								<resource>
 									<directory>resources</directory>
@@ -79,7 +79,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/Server/lib</outputDirectory>
+							<outputDirectory>${project.build.directory}/Client/lib</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -95,14 +95,14 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.dg.CentriVaccinali.ServerCV</mainClass>
+							<mainClass>com.dg.Cittadino.Cittadino</mainClass>
 						</manifest>
 						<manifestEntries>
 							<Class-Path>.</Class-Path>
 						</manifestEntries>
 					</archive>
  
-					<finalName>Server/Server</finalName>
+					<finalName>Client/Client</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -36,24 +36,16 @@ import javax.swing.SpringLayout;
  * @author Gioele Vicini 747818
  */
 public class Registrati extends JFrame {
-
-	private JPanel registrati;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_4;
-	private JLabel lblNewLabel_5;
-	private JButton btnNewButton;
-	private JTextField jnome;
-	private JTextField jcognome;
-	private JTextField jcf;
-	private JTextField jemail;
-	private JTextField jpsw;
-	private JTextField jrpsw;
-
 	/**
 	 * Launch the application.
 	 */
+	
+	/*
+	 * Metodo usato per inviare una richiesta al server di registrazione con risposta
+	 */
+	public Registrati() {
+        initComponents();
+    }
 	
 	/*
 	 * Metodo usato per inviare una richiesta al server di registrazione con risposta
@@ -74,137 +66,229 @@ public class Registrati extends JFrame {
 		
 		return true;
 	}
-	/*
-	 * Creazione del frame
-	 */
-	public Registrati() {		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 569, 429);
-		registrati = new JPanel();
-		registrati.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(registrati);
+	
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        nomeTextField = new javax.swing.JTextField();
+        registrationButton = new javax.swing.JButton();
+        cognomeTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        emailTextField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cfTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
+        repeatPasswordField = new javax.swing.JPasswordField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Registrazione");
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+
+        jLabel2.setText("Nome");
+
+        jLabel3.setText("Cognome");
+
+        registrationButton.setText("Registrati");
+        registrationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrationButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("E-Mail");
+
+        jLabel5.setText("Codice Fiscale");
+
+        jLabel6.setText("Password");
+
+        jLabel7.setText("Ripeti Password");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registrationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(repeatPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                            .addComponent(passwordField)
+                            .addComponent(cfTextField)
+                            .addComponent(emailTextField)
+                            .addComponent(cognomeTextField)
+                            .addComponent(nomeTextField))))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nomeTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cognomeTextField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(repeatPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(registrationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 197, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }                  
+
+    private void registrationButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    	String nome= nomeTextField.getText();
+		String cognome= cognomeTextField.getText();
+		String cf= cfTextField.getText();
+		String email= emailTextField.getText();
+		String psw= String.valueOf(passwordField.getPassword());
+		String rpsw= String.valueOf(repeatPasswordField.getPassword());
 		
-		JLabel lblNewLabel = new JLabel("Registrazione");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		
-		lblNewLabel_1 = new JLabel("Nome");
-		
-		lblNewLabel_2 = new JLabel("Cognome");
-		
-		lblNewLabel_3 = new JLabel("CF");
-		
-		lblNewLabel_4 = new JLabel("E-mail");
-		
-		lblNewLabel_5 = new JLabel("Password");
-		
-		btnNewButton = new JButton("Registrati");
-		
-		btnNewButton.addActionListener(new ActionListener() {
-			/*
-			 * Metodo invocato quando si clicca sul pulsante registrati. 
-			 * Raccoglie i dati e controlla che la password sia uguale
-			 */
-			public void actionPerformed(ActionEvent e) {
-				
-				String nome= jnome.getText();
-				String cognome= jcognome.getText();
-				String cf= jcf.getText();
-				String email= jemail.getText();
-				String psw= jpsw.getText();
-				String rpsw= jrpsw.getText();
-				
-				if(!nome.equals("") && !cognome.equals("") && !cf.equals("") && !email.equals("") && !psw.equals("") && !rpsw.equals("")) {
-					if(psw.equals(rpsw)) {
-						try {
-							registraCittadino(nome, cognome, cf, email, psw);
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						
-						setVisible(false);
-						Login l=new Login();
-						l.setVisible(true);
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Password diverse");
-					}
+		if(!nome.equals("") && !cognome.equals("") && !cf.equals("") && !email.equals("") && !psw.equals("") && !rpsw.equals("")) {
+			if(psw.equals(rpsw)) {
+				try {
+					registraCittadino(nome, cognome, cf, email, psw);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else JOptionPane.showMessageDialog(registrati, "Si prega di inserire tutti i dati");
+				
+				setVisible(false);
+				Login l=new Login();
+				l.setVisible(true);
 			}
-		});
-		
-		JLabel lblNewLabel_6 = new JLabel("Ripeti password");
-		SpringLayout sl_registrati = new SpringLayout();
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 9, SpringLayout.SOUTH, lblNewLabel);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 114, SpringLayout.NORTH, registrati);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 12, SpringLayout.SOUTH, lblNewLabel_3);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_5, 12, SpringLayout.SOUTH, lblNewLabel_4);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_6, 12, SpringLayout.SOUTH, lblNewLabel_5);
-		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_6, 0, SpringLayout.WEST, registrati);
-		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_5, 0, SpringLayout.WEST, lblNewLabel_2);
-		sl_registrati.putConstraint(SpringLayout.EAST, lblNewLabel_5, -497, SpringLayout.EAST, registrati);
-		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_4, 0, SpringLayout.WEST, lblNewLabel_2);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 12, SpringLayout.SOUTH, lblNewLabel_1);
-		sl_registrati.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -12, SpringLayout.NORTH, lblNewLabel_3);
-		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_3, 0, SpringLayout.WEST, lblNewLabel_2);
-		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_2, 0, SpringLayout.WEST, registrati);
-		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel_1, 0, SpringLayout.WEST, registrati);
-		sl_registrati.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, registrati);
-		sl_registrati.putConstraint(SpringLayout.WEST, lblNewLabel, 0, SpringLayout.WEST, registrati);
-		sl_registrati.putConstraint(SpringLayout.SOUTH, lblNewLabel, 53, SpringLayout.NORTH, registrati);
-		registrati.setLayout(sl_registrati);
-		
-		jnome = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, jnome);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jnome, -3, SpringLayout.NORTH, lblNewLabel_1);
-		sl_registrati.putConstraint(SpringLayout.WEST, jnome, 88, SpringLayout.EAST, lblNewLabel_1);
-		jnome.setColumns(10);
-		registrati.add(jnome);
-		registrati.add(lblNewLabel_2);
-		registrati.add(lblNewLabel_3);
-		registrati.add(lblNewLabel_4);
-		registrati.add(lblNewLabel_5);
-		registrati.add(lblNewLabel);
-		registrati.add(lblNewLabel_1);
-		registrati.add(btnNewButton);
-		registrati.add(lblNewLabel_6);
-		
-		jcognome = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.WEST, jcognome, 70, SpringLayout.EAST, lblNewLabel_2);
-		sl_registrati.putConstraint(SpringLayout.EAST, jcognome, -262, SpringLayout.EAST, registrati);
-		sl_registrati.putConstraint(SpringLayout.EAST, jnome, 0, SpringLayout.EAST, jcognome);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jcognome, -3, SpringLayout.NORTH, lblNewLabel_2);
-		registrati.add(jcognome);
-		jcognome.setColumns(10);
-		
-		jcf = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.NORTH, jcf, -3, SpringLayout.NORTH, lblNewLabel_3);
-		sl_registrati.putConstraint(SpringLayout.WEST, jcf, 102, SpringLayout.EAST, lblNewLabel_3);
-		sl_registrati.putConstraint(SpringLayout.EAST, jcf, -262, SpringLayout.EAST, registrati);
-		registrati.add(jcf);
-		jcf.setColumns(10);
-		
-		jemail = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.NORTH, jemail, -3, SpringLayout.NORTH, lblNewLabel_4);
-		sl_registrati.putConstraint(SpringLayout.WEST, jemail, 115, SpringLayout.WEST, registrati);
-		registrati.add(jemail);
-		jemail.setColumns(10);
-		
-		jpsw = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.EAST, jemail, 0, SpringLayout.EAST, jpsw);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jpsw, -3, SpringLayout.NORTH, lblNewLabel_5);
-		sl_registrati.putConstraint(SpringLayout.EAST, jpsw, 281, SpringLayout.WEST, registrati);
-		registrati.add(jpsw);
-		jpsw.setColumns(10);
-		
-		jrpsw = new JTextField();
-		sl_registrati.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, jrpsw);
-		sl_registrati.putConstraint(SpringLayout.WEST, jpsw, 0, SpringLayout.WEST, jrpsw);
-		sl_registrati.putConstraint(SpringLayout.NORTH, jrpsw, -3, SpringLayout.NORTH, lblNewLabel_6);
-		sl_registrati.putConstraint(SpringLayout.WEST, jrpsw, 39, SpringLayout.EAST, lblNewLabel_6);
-		sl_registrati.putConstraint(SpringLayout.EAST, jrpsw, -262, SpringLayout.EAST, registrati);
-		registrati.add(jrpsw);
-		jrpsw.setColumns(10);
-	}
+			else {
+				JOptionPane.showMessageDialog(jPanel2, "Password diverse");
+			}
+		}
+		else JOptionPane.showMessageDialog(jPanel2, "Si prega di inserire tutti i dati");
+    }                                                  
+
+    
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Registrati.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Registrati.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Registrati.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Registrati.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Registrati().setVisible(true);
+            }
+        });
+    }
+                   
+    private javax.swing.JTextField cfTextField;
+    private javax.swing.JTextField cognomeTextField;
+    private javax.swing.JTextField emailTextField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField nomeTextField;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JButton registrationButton;
+    private javax.swing.JPasswordField repeatPasswordField;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * 
+ * */

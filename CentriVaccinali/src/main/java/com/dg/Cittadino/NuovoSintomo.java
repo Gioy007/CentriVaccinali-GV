@@ -32,73 +32,157 @@ import java.awt.event.ActionEvent;
  * @author Gioele Vicini 747818
  */
 public class NuovoSintomo extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField jnome;
-
 	/**
 	 * Creazione del frame
 	 */
 	public NuovoSintomo() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 251, 195);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		SpringLayout sl_contentPane = new SpringLayout();
-		contentPane.setLayout(sl_contentPane);
-		
-		JLabel lblNewLabel = new JLabel("Nuovo sintomo");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 0, SpringLayout.WEST, contentPane);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Nome");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 22, SpringLayout.SOUTH, lblNewLabel);
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_1, 0, SpringLayout.WEST, lblNewLabel);
-		contentPane.add(lblNewLabel_1);
-		
-		jnome = new JTextField();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, jnome, -3, SpringLayout.NORTH, lblNewLabel_1);
-		sl_contentPane.putConstraint(SpringLayout.WEST, jnome, 6, SpringLayout.EAST, lblNewLabel_1);
-		sl_contentPane.putConstraint(SpringLayout.EAST, jnome, 2, SpringLayout.EAST, lblNewLabel);
-		contentPane.add(jnome);
-		jnome.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Aggiungi");
-		btnNewButton.addActionListener(new ActionListener() {
-			/*
-			 * Metodo invocato con il click sul bottone aggiungi per registrare un nuovo tipo di sintomo
-			 */
-			public void actionPerformed(ActionEvent e) {
-				String nome= jnome.getText();
+        initComponents();
+    }
+	
+    private void initComponents() {
 
-				if(!nome.equals("")) {
-					String request="aggiungiSintomo;"+nome;
-					
-					try {
-						Cittadino.getOut().println(request);				
-						
-						if(Cittadino.getIn().readLine().equals("OK")) {						
-							JOptionPane.showMessageDialog(null, "Nuovo sintomo registrato");
-							setVisible(false);
-							Sintomi s=new Sintomi();
-							s.setVisible(true);
-						}else {
-							JOptionPane.showMessageDialog(null, "Nuovo sintomo non registrato");
-						}
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}			
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        aggiungiNuovoSintomoButton = new javax.swing.JButton();
+        nuovoSintomoTextField = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Nuovo Sintomo");
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+
+        jLabel2.setText("Sintomo");
+
+        aggiungiNuovoSintomoButton.setText("Aggiungi");
+        aggiungiNuovoSintomoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aggiungiNuovoSintomoButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(aggiungiNuovoSintomoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(59, 59, 59)
+                        .addComponent(nuovoSintomoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nuovoSintomoTextField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(aggiungiNuovoSintomoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+    
+    /*
+	 * Metodo invocato con il click sul bottone aggiungi per registrare un nuovo tipo di sintomo
+	 */
+    private void aggiungiNuovoSintomoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                           
+    	String nome= nuovoSintomoTextField.getText();
+
+		if(!nome.equals("")) {
+			String request="aggiungiSintomo;"+nome;
+			
+			try {
+				Cittadino.getOut().println(request);				
+				
+				if(Cittadino.getIn().readLine().equals("OK")) {						
+					JOptionPane.showMessageDialog(null, "Nuovo sintomo registrato");
+					setVisible(false);
+					SegnalaEvento s=new SegnalaEvento();
+					s.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "Nuovo sintomo non registrato");
 				}
-				else JOptionPane.showMessageDialog(contentPane, "Inserisci il nome del nuovo sintomo");
-			}
-		});
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton, -10, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, lblNewLabel);
-		contentPane.add(btnNewButton);
-	}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
+		}
+		else JOptionPane.showMessageDialog(rootPane, "Inserisci il nome del nuovo sintomo");
+    }                                                          
 
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(NuovoSintomo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(NuovoSintomo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(NuovoSintomo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(NuovoSintomo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+		
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NuovoSintomo().setVisible(true);
+            }
+        });
+    }
+                 
+    private javax.swing.JButton aggiungiNuovoSintomoButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField nuovoSintomoTextField;
 }
