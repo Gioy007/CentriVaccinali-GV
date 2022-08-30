@@ -164,7 +164,8 @@ public class ServerCV extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {  
         url = "jdbc:postgresql://"+urlTextField.getText()+":5432/CentriVaccinali";
         username = adminTextField.getText();
-        password = passwordField.getText();
+        password = String.valueOf(passwordField.getPassword());
+
         
         System.out.println("Controllo credenziali...");
         
