@@ -57,6 +57,8 @@ public class Registrati extends JFrame {
 
             if(Cittadino.getIn().readLine().equals("OK")) {
             	JOptionPane.showMessageDialog(null, "Registrazione avvenuta");
+            }else if(Cittadino.getIn().readLine().equals("OK")) {
+            	JOptionPane.showMessageDialog(null, "Esiste già un utente con questa email o codice fiscale");
             }
             
         } catch (Exception e) {
