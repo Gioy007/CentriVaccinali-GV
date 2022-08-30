@@ -304,24 +304,32 @@ public class OperatoreVaccinale extends javax.swing.JFrame {
      */
     private void registaVaccinatoButtonActionPerformed(java.awt.event.ActionEvent evt) {
     	
-    	String cf = cfTextField.getText().toLowerCase();	//1
+    	String cf = cfTextField.getText().toUpperCase();	//1
     	String data = dataTextField.getText().toLowerCase();//2
     	String tipologia = (String)tipoVaccinoComboBox.getSelectedItem();//3
     	String ID = textField.getText();//4
     	if(!cf.equals("") && !data.equals("") && !tipologia.equals("") && !ID.equals("")) {
-    		tipologia = tipologia.toLowerCase();
-        	
-        	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia+";"+ID+Cittadino.getSelectedCV();
-        	Cittadino.getOut().println(request);
-        	
-        	
-            try {
-    			if(Cittadino.getIn().readLine().equals("OK")) {
-    				JOptionPane.showMessageDialog(jPanel, "Nuovo vaccinato registrato correttamente");
-    			}
-    		} catch (IOException e) {
-    			e.printStackTrace();
+    		if(cf.length()==16) {
+    			tipologia = tipologia.toLowerCase();
+            	
+            	String request = "nuovoVaccinato;"+cf+";"+data+";"+tipologia+";"+ID;
+            	Cittadino.getOut().println(request);
+            	
+            	
+                try {
+        			if(Cittadino.getIn().readLine().equals("OK")) {
+        				JOptionPane.showMessageDialog(jPanel, "Nuovo vaccinato registrato correttamente");
+        			}
+        			else {
+        				JOptionPane.showMessageDialog(jPanel, "Non è stato possibile registrare il nuovo vaccinato per un problema");
+        			}
+        		} catch (IOException e) {
+        			e.printStackTrace();
+        		}
     		}
+    		else
+    			JOptionPane.showMessageDialog(jPanel, "CF non della dimensione giusta");
+
     	}
     	else {
     		JOptionPane.showMessageDialog(jPanel, "Inserire i dati mancanti");

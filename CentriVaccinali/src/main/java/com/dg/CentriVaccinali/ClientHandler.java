@@ -198,6 +198,7 @@ public class ClientHandler implements Runnable {
 					String queryGetIDfromCF = "SELECT * FROM utenti WHERE cf = '" + requestArray[1] + "'";
 					ResultSet result2 = stmt3.executeQuery(queryGetIDfromCF);
 					result2.next();
+					
 					String useridR= result2.getString("userid");
 					int dose=0;
 					
@@ -206,15 +207,23 @@ public class ClientHandler implements Runnable {
 					
 					try {
 						result2.next();
-						result2.getString("max");
-					}catch(Exception e) {			
+						dose=Integer.parseInt(result2.getString("max"));
+					}catch(Exception e) {
+						
 					}
 					dose++;
+					String idcentrovacc="";
+					
+					String queryBook="select idcentro from prenotati where userid="+useridR;
+					result2 = stmt3.executeQuery(queryBook);
+					result2.next();
+					idcentrovacc=result2.getString("idcentro");
 					
 					String queryNewVaccinato = "INSERT INTO vaccinati (idvacc, userid, datasomm, tipovacc, idcentrovacc, dose)"
 							+ "VALUES ('" + requestArray[4] + "', '" + useridR + "', '"
-							+ requestArray[2] + "', '" + requestArray[3] + "', '" + requestArray[5] + "', "+dose+");";
+							+ requestArray[2] + "', '" + requestArray[3] + "', '" + idcentrovacc + "', "+String.valueOf(dose)+");";
 
+					System.out.println(queryNewVaccinato);
 					stmt3.executeUpdate(queryNewVaccinato);
 
 					String queryDelete="DELETE FROM prenotati WHERE userid='"+useridR+"';";
