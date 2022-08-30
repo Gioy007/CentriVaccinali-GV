@@ -106,10 +106,31 @@ public class ClientHandler implements Runnable {
 
 					break;
 
+				case "sintomiAvversiAVG":
+					
+					Statement stmt33 = conn.createStatement();
+					String queryPre33 = "select idcentro from centrivaccinali where nome ='"+requestArray[1]+"'";
+					ResultSet rs33 = stmt33.executeQuery(queryPre33);
+					rs33.next();
+					String query33="select nome, avg(severita) "
+							+ "from eventiavversi natural join eventi natural join vaccinati "
+							+ "where idcentrovacc='"+rs33.getString("idcentro")+"' "
+							+ "group by nome, idevento ";
+					rs33 = stmt33.executeQuery(query33);
+
+					String sintomiAvversiAVG = "";
+					while (rs33.next()) {
+						sintomiAvversiAVG+=rs33.getString("nome")+";"+rs33.getString("avg")+";";
+					}
+
+					out.println(sintomiAvversiAVG);
+
+					break;
+					
 				/*
 				 * Caso per soddisfare la richiesta di calcolare il numero di eventi avversi e
 				 * la loro media di severita
-				 */
+				 */					
 				case "numeroMedia":
 					Statement stmt13 = conn.createStatement();
 					ResultSet rs13 = stmt13

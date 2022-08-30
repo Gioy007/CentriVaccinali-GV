@@ -146,16 +146,9 @@ public class Cittadino extends javax.swing.JFrame {
         	 */
         	public void actionPerformed(ActionEvent e) {
         		selectedCV = (String)listaComboBox.getSelectedItem();
-        		out.println("numeroMedia;"+selectedCV);
-        		
-        		try {
-					String[] response= in.readLine().split(";");
-					
-					JOptionPane.showMessageDialog(null, "Numero di eventi avversi nel centro: "+response[0]+"\nMedia di severita dei casi: "+response[1]);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-        		
+        		setVisible(false);
+        		SintomiAvversi r=new SintomiAvversi();
+        		r.setVisible(true);       		
         		
         	}
         });
