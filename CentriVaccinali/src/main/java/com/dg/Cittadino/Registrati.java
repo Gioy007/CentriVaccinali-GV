@@ -215,27 +215,79 @@ public class Registrati extends JFrame {
 		String rpsw= String.valueOf(repeatPasswordField.getPassword());
 		
 		if(!nome.equals("") && !cognome.equals("") && !cf.equals("") && !email.equals("") && !psw.equals("") && !rpsw.equals("")) {
-			if(psw.equals(rpsw)) {
-				try {
-					registraCittadino(nome, cognome, cf, email, psw);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+			if(passwordValidity(psw, rpsw)) {
+				if(chkCF(cf)) {
+					if(chkMail(email)) {
+						
+						
+						try {
+							registraCittadino(nome, cognome, cf, email, psw);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						setVisible(false);
+						Login l=new Login();
+						l.setVisible(true);
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(jPanel2, "L'e-mail inserita non è valida");
+					}
 				}
-				
-				setVisible(false);
-				Login l=new Login();
-				l.setVisible(true);
+				else {
+					JOptionPane.showMessageDialog(jPanel2, "Il codice fiscale inserito non è della lunghezza richiesta");
+				}
 			}
 			else {
-				JOptionPane.showMessageDialog(jPanel2, "Password diverse");
+				JOptionPane.showMessageDialog(jPanel2, "La password inserita non è valida (lunga almeno 8 caratteri e con un numero) oppure è stata ripetuta in maniera errata");
 			}
 		}
 		else JOptionPane.showMessageDialog(jPanel2, "Si prega di inserire tutti i dati");
     }                                                  
 
     
-    public static void main(String args[]) {
+    private boolean chkMail(String email) {
+		if(email.contains("@")) {
+			int posChiocciola = email.indexOf("@");
+			String postChiocciola = email.substring(posChiocciola+1);
+			String preChiocciola = email.substring(0, posChiocciola);
+			if(!preChiocciola.equals("")) {
+				if(postChiocciola.contains(".")) {
+					int posPunto = postChiocciola.indexOf(".");
+					String postPunto = postChiocciola.substring(posPunto+1);
+					String prePunto = postChiocciola.substring(0, posPunto);
+					if(!prePunto.equals("")) {
+						if(!postPunto.equals("")) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean chkCF(String cf) {
+		if(cf.length() == 16) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean passwordValidity(String psw, String r) {
+		if(psw.length()>=8) {
+			if(psw.contains("1") || psw.contains("2") || psw.contains("3") || psw.contains("4") || psw.contains("5") ||
+					psw.contains("6") || psw.contains("7") || psw.contains("8") || psw.contains("9") || psw.contains("0")) {
+				if(psw.equals(r))
+					return true;
+			}
+		}
+		return false;
+	}
+
+   public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -278,17 +330,3 @@ public class Registrati extends JFrame {
     private javax.swing.JPasswordField repeatPasswordField;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/*
- * 
- * */
