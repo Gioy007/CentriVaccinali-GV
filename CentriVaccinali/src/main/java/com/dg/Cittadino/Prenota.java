@@ -60,8 +60,10 @@ public class Prenota extends JFrame {
             			String s=Cittadino.getIn().readLine();
     					if(s.equals("OK")) {
     						JOptionPane.showMessageDialog(null, "Prenotazione avvenuta");
+    						setVisible(false);
     						Cittadino c= new Cittadino();
     						c.setVisible(true);
+    						
     					}
     					else {
     						if(s.equals("NO")) {
