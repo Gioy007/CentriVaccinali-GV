@@ -236,14 +236,23 @@ public class ClientHandler implements Runnable {
 				 * Caso per soddisfare la richiesta di registrare un nuovo cittadino al portale
 				 */
 				case "registraCitt":
-
+					
 					Statement stmt4 = conn.createStatement();
-					String queryRegistra = "INSERT INTO utenti (nome, cognome, cf, password, email)" + "VALUES ('"
-							+ requestArray[1] + "', '" + requestArray[2] + "', '" + requestArray[3] + "', '"
-							+ requestArray[4] + "', '" + requestArray[5] + "');";
+					String queryChkEsistenza = "SELECT * FROM utenti WHERE email = '"+ requestArray[5] +"' OR cf = '"+requestArray[3]+"'";
+					ResultSet result0 = stmt4.executeQuery(queryChkEsistenza);
+					if(result0.next()) {
+						out.println("ERRORE");
+					}else {
+						String queryRegistra = "INSERT INTO utenti (nome, cognome, cf, password, email)" + "VALUES ('"
+								+ requestArray[1] + "', '" + requestArray[2] + "', '" + requestArray[3] + "', '"
+								+ requestArray[4] + "', '" + requestArray[5] + "');";
 
-					stmt4.executeUpdate(queryRegistra);
-					out.println("OK");
+						stmt4.executeUpdate(queryRegistra);
+						out.println("OK");
+					}
+					
+
+					
 					break;
 
 				/*
