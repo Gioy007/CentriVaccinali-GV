@@ -145,10 +145,15 @@ public class Cittadino extends javax.swing.JFrame {
         	 * Visualizza un messageDialog con all'interno il numero di eventi avversi e la media della severita
         	 */
         	public void actionPerformed(ActionEvent e) {
-        		selectedCV = (String)listaComboBox.getSelectedItem();
-        		setVisible(false);
-        		SintomiAvversi r=new SintomiAvversi();
-        		r.setVisible(true);       		
+        		if(listaComboBox.getSelectedIndex()>-1){
+        			selectedCV = (String)listaComboBox.getSelectedItem();
+            		setVisible(false);
+            		SintomiAvversi r=new SintomiAvversi();
+            		r.setVisible(true);
+        		}
+        		else{
+        			JOptionPane.showMessageDialog(jPanel2, "Si prega di cercare una tipologia");
+        		}
         		
         	}
         });

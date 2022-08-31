@@ -24,7 +24,7 @@ public class SintomiAvversi extends JFrame {
 	private JLabel mediaSintomiGenerale;
 	private int n=0;
 	private int m=2;
-	private String[] columnNames = { "Evento", "Severita' media"};
+	private String[] columnNames = { "Evento", "Severita' media", "Numero casi"};
 
 	/**
 	 * Launch the application.
@@ -86,7 +86,7 @@ public class SintomiAvversi extends JFrame {
 			String[] response= Cittadino.getIn().readLine().split(";");
 
 			for(int i=0;i<response.length;i++) {
-				model.addRow(new Object[]{response[i], response[++i]});
+				model.addRow(new Object[]{response[i], response[++i], response[++i]});
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();

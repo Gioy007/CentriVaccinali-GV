@@ -112,7 +112,7 @@ public class ClientHandler implements Runnable {
 					String queryPre33 = "select idcentro from centrivaccinali where nome ='"+requestArray[1]+"'";
 					ResultSet rs33 = stmt33.executeQuery(queryPre33);
 					rs33.next();
-					String query33="select nome, avg(severita) "
+					String query33="select nome, avg(severita), count(*) "
 							+ "from eventiavversi natural join eventi natural join vaccinati "
 							+ "where idcentrovacc='"+rs33.getString("idcentro")+"' "
 							+ "group by nome, idevento ";
@@ -120,10 +120,27 @@ public class ClientHandler implements Runnable {
 
 					String sintomiAvversiAVG = "";
 					while (rs33.next()) {
-						sintomiAvversiAVG+=rs33.getString("nome")+";"+rs33.getString("avg")+";";
+						
+						Float round = (float) (Math.round(Float.parseFloat(rs33.getString("avg"))*100d)/100d);
+						sintomiAvversiAVG+=rs33.getString("nome")+";"+round.toString()+";"+rs33.getString("count")+";";
 					}
 
 					out.println(sintomiAvversiAVG);
+
+					break;
+					
+				case "infoCV":
+					Statement stmtICV = conn.createStatement();
+					ResultSet rsICV = stmtICV.executeQuery("SELECT * FROM centrivaccinali where nome='"+ requestArray[1] + "'");
+
+					String ICV = "";
+					rsICV.next();
+					
+					ICV= rsICV.getString("nome") + ";"+ rsICV.getString("comune")+ " "+ rsICV.getString("cap")+";"
+							+ rsICV.getString("indirizzo")+ ";"+ rsICV.getString("tipologia");
+					
+
+					out.println(ICV);
 
 					break;
 					
