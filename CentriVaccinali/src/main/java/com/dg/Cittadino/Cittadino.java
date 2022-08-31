@@ -1,22 +1,10 @@
 package com.dg.Cittadino;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
-
 import javax.swing.JOptionPane;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.GroupLayout;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.DefaultComboBoxModel;
 
 /*
  * Classe principale del cittadino, è la prima schermata che si apre.
@@ -319,17 +307,31 @@ public class Cittadino extends javax.swing.JFrame {
     }                                             
 
     private void infoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
+    	if(listaComboBox.getSelectedIndex()>-1) {
+    		
+    		selectedCV = (String)listaComboBox.getSelectedItem();
+    	
+    		InfoCentro r=new InfoCentro();
+    		r.setVisible(true);
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(jPanel2, "Si prega di selezionare un Centro Vaccinale");
+    	}
     }                                          
 
     private void sintomiAvversiButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         /*
-        * Visualizza un messageDialog con all'interno il numero di eventi avversi e la media della severita
+        * Visualizza un dialog con all'interno il numero di eventi avversi e la media della severita
         */
-    	selectedCV = (String)listaComboBox.getSelectedItem();
-		setVisible(false);
-		SintomiAvversi r=new SintomiAvversi();
-		r.setVisible(true);  
+    	if(listaComboBox.getSelectedIndex()>-1) {
+    		selectedCV = (String)listaComboBox.getSelectedItem();
+    		setVisible(false);
+    		SintomiAvversi r=new SintomiAvversi();
+    		r.setVisible(true);
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(jPanel2, "Si prega di selezionare un Centro Vaccinale");
+    	}
     }                                                    
 
     private void segnalaEventoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
