@@ -26,8 +26,9 @@ import javax.swing.DefaultComboBoxModel;
  * @author Giacomelli Davide 741844
  * @author Gioele Vicini 747818
  */
+
 public class Cittadino extends javax.swing.JFrame {
-	
+
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 9090;
 	private static Socket socket;
@@ -62,167 +63,159 @@ public class Cittadino extends javax.swing.JFrame {
         	JOptionPane.showMessageDialog(null, "Server non trovato");
 
         }
-    }                      
+    }     
+                
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        operatoriLoginButton = new javax.swing.JButton();
+        ricercaButton = new javax.swing.JButton();
+        nomeTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        nomeTextField = new javax.swing.JTextField();
         comuneTextField = new javax.swing.JTextField();
         tipologiaComboBox = new javax.swing.JComboBox<>();
-        ricercaButton = new javax.swing.JButton();
-        prenotaButton = new javax.swing.JButton();
-        eventoAvversoButton = new javax.swing.JButton();
-        operatoriLoginButton = new javax.swing.JButton();
         listaComboBox = new javax.swing.JComboBox<>();
+        infoButton = new javax.swing.JButton();
+        sintomiAvversiButton = new javax.swing.JButton();
+        segnalaEventoButton = new javax.swing.JButton();
+        prenotaButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Home cittadino");
+        jLabel1.setText("Home Cittadino");
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
-        jLabel2.setText("Cerca Centro Vaccinale");
-
-        jLabel3.setText("Nome:");
-
-        jLabel4.setText("Comune:");
-
-        jLabel5.setText("Tipologia:");
-
-        tipologiaComboBox.setModel(new DefaultComboBoxModel(new String[] {"","Azienda", "Hub", "Ospedale"}));
+        operatoriLoginButton.setText("Login per Operatori");
+        operatoriLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                operatoriLoginButtonActionPerformed(evt);
+            }
+        });
 
         ricercaButton.setText("Avvia ricerca");
         ricercaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-					ricercaButtonActionPerformed(evt);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                ricercaButtonActionPerformed(evt);
             }
         });
 
-        prenotaButton.setText("Prenota Centro Selezionato");        
-        prenotaButton.addActionListener(new java.awt.event.ActionListener() {  
-        	/*
-        	 * Il metodo viene invocato quando si vuole prenotare un vaccino nel centro selezionato
-        	 */
+        jLabel2.setText("Cerca Centro Vaccinale");
+
+        jLabel3.setText("Nome");
+
+        jLabel4.setText("Comune");
+
+        jLabel5.setText("Tipologia");
+
+        tipologiaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Azienda", "Hub", "Ospedale" }));
+
+        infoButton.setText("Informazioni Centro Vaccinale");
+        infoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoButtonActionPerformed(evt);
+            }
+        });
+
+        sintomiAvversiButton.setText("Sintomi avversi");
+        sintomiAvversiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sintomiAvversiButtonActionPerformed(evt);
+            }
+        });
+
+        segnalaEventoButton.setText("Segnala evento avverso nel Centro");
+        segnalaEventoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                segnalaEventoButtonActionPerformed(evt);
+            }
+        });
+
+        prenotaButton.setText("Prenota Centro Selezionato");
+        prenotaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prenotaButtonActionPerformed(evt);
             }
         });
 
-        eventoAvversoButton.setText("Segnala evento avverso nel Centro");
-        eventoAvversoButton.addActionListener(new java.awt.event.ActionListener() {
-        	/*
-        	 * Il metodo viene invocato quando si vuole registrare un evento avverso nel centro selezionato
-        	 */
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eventoAvversoButtonActionPerformed(evt);
-            }
-        });
-
-        operatoriLoginButton.setText("Login per Operatori");
-        operatoriLoginButton.addActionListener(new java.awt.event.ActionListener() {
-        	/*
-        	 * Il metodo viene invocato quando si vuole accedere da operatori vaccinali
-        	 */
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                operatoriLoginButtonActionPerformed(evt);
-            }
-        });
-        
-        JButton btnNewButton = new JButton("Sintomi avversi");
-        btnNewButton.addActionListener(new ActionListener() {
-        	/*
-        	 * Visualizza un messageDialog con all'interno il numero di eventi avversi e la media della severita
-        	 */
-        	public void actionPerformed(ActionEvent e) {
-        		selectedCV = (String)listaComboBox.getSelectedItem();
-        		setVisible(false);
-        		SintomiAvversi r=new SintomiAvversi();
-        		r.setVisible(true);       		
-        		
-        	}
-        });
-        
-
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel2Layout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(jPanel2Layout.createSequentialGroup()
-        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(jPanel2Layout.createSequentialGroup()
-        							.addComponent(jLabel5)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(tipologiaComboBox, 0, 115, Short.MAX_VALUE))
-        						.addComponent(ricercaButton, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-        						.addGroup(jPanel2Layout.createSequentialGroup()
-        							.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        								.addGroup(jPanel2Layout.createSequentialGroup()
-        									.addComponent(jLabel4)
-        									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(comuneTextField, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
-        								.addGroup(jPanel2Layout.createSequentialGroup()
-        									.addComponent(jLabel3)
-        									.addGap(18)
-        									.addComponent(nomeTextField, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-        								.addComponent(jLabel2))
-        							.addGap(0, 0, Short.MAX_VALUE)))
-        					.addGap(12)
-        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
-        						.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
-        							.addComponent(eventoAvversoButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        							.addComponent(prenotaButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        						.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
-        							.addComponent(btnNewButton, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        							.addComponent(listaComboBox, Alignment.TRAILING, 0, 196, Short.MAX_VALUE))))
-        				.addGroup(jPanel2Layout.createSequentialGroup()
-        					.addComponent(operatoriLoginButton)
-        					.addGap(0, 255, Short.MAX_VALUE)))
-        			.addContainerGap())
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(operatoriLoginButton)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ricercaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tipologiaComboBox, 0, 114, Short.MAX_VALUE)
+                                    .addComponent(comuneTextField)
+                                    .addComponent(nomeTextField))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listaComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(infoButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sintomiAvversiButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(segnalaEventoButton, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(prenotaButton)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
-        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel2Layout.createSequentialGroup()
-        			.addGap(18)
-        			.addComponent(jLabel2)
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel3)
-        				.addComponent(nomeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(listaComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel4)
-        				.addComponent(comuneTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnNewButton))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel5)
-        				.addComponent(tipologiaComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(ricercaButton)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(prenotaButton)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(eventoAvversoButton)
-        			.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-        			.addComponent(operatoriLoginButton)
-        			.addContainerGap())
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(listaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(comuneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(infoButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tipologiaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sintomiAvversiButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ricercaButton)
+                    .addComponent(segnalaEventoButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prenotaButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(operatoriLoginButton)
+                .addContainerGap())
         );
-        jPanel2.setLayout(jPanel2Layout);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -234,8 +227,7 @@ public class Cittadino extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(344, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +243,9 @@ public class Cittadino extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,16 +253,21 @@ public class Cittadino extends javax.swing.JFrame {
         );
 
         pack();
-        tipologiaComboBox.setSelectedIndex(-1);
-    }                  
+    }                      
+
+    private void operatoriLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        scelta = "operatore";
+    	setVisible(false);
+        Login r=new Login();
+        r.setVisible(true);
+    }                                                    
 
     /*
      * Il metodo va a ricercare i centri vaccinali consoni ai parametri di ricerca
      * aggiungendo i risultati nel combobox
      */
-    private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
-    	
-        String nome = nomeTextField.getText().toLowerCase();
+    private void ricercaButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+       String nome = nomeTextField.getText().toLowerCase();
         String comune = comuneTextField.getText().toLowerCase();
         String tipologia="";
         
@@ -317,88 +316,78 @@ public class Cittadino extends javax.swing.JFrame {
             	
             }
         }
-		
-    }                                             
-    
-    /*
-     * Porta alla schermata di login per autenticarsi come operatori
-     */
-    private void operatoriLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    	scelta = "operatore";
-    	setVisible(false);
-		Login r=new Login();
-		r.setVisible(true);
-    }                                                    
-    
-    /*
-     * Porta alla schermata di login per poi potersi prenotare per una nuova dose
-     */
-    private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {  
-    	String s=(String)listaComboBox.getSelectedItem();
-    	
-    	
-    	if(s!=null) {
-    		setSelectedCV(s);        	
-        	scelta = "prenota";
-    		
-    		setVisible(false);
-    		Login r=new Login();
-    		r.setVisible(true);
-    	}else {
-    		JOptionPane.showMessageDialog(jPanel2, "Si prega di selezionare un Centro Vaccinale");
-    	}
-    	
     }                                             
 
-    /*
-     * Porta alla schermata di login per poi potersi registrare un nuovo evento avverso
-     */
-    private void eventoAvversoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-    	String s=(String)listaComboBox.getSelectedItem();
+    private void infoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+    }                                          
+
+    private void sintomiAvversiButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        /*
+        * Visualizza un messageDialog con all'interno il numero di eventi avversi e la media della severita
+        */
+    	selectedCV = (String)listaComboBox.getSelectedItem();
+		setVisible(false);
+		SintomiAvversi r=new SintomiAvversi();
+		r.setVisible(true);  
+    }                                                    
+
+    private void segnalaEventoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        String s=(String)listaComboBox.getSelectedItem();
     	    	
     	if(s!=null) {
-    		setSelectedCV(s);
-        	scelta = "sintomi";
-    		
-    		setVisible(false);
-    		Login r = new Login();
-    		r.setVisible(true);
+            setSelectedCV(s);
+            scelta = "sintomi";
+
+            setVisible(false);
+            Login r = new Login();
+            r.setVisible(true);
+    	}else {
+            JOptionPane.showMessageDialog(jPanel2, "Si prega di selezionare un Centro Vaccinale");
+    	}
+    }                                                   
+
+     /*
+     * Porta alla schermata di login per poi potersi prenotare per una nuova dose
+     */
+    private void prenotaButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        String s=(String)listaComboBox.getSelectedItem();
+    	
+    	if(s!=null) {
+            setSelectedCV(s);        	
+            scelta = "prenota";
+
+            setVisible(false);
+            Login r=new Login();
+            r.setVisible(true);
     	}else {
     		JOptionPane.showMessageDialog(jPanel2, "Si prega di selezionare un Centro Vaccinale");
     	}
-    }    
-    
+    }                                             
+
     /*
      * Get della variabile socket
      */
     public static Socket getSocket() {
-		return socket;
-	}
-    
-	/*
-	 *	Getter del printStream necessario alla scrittura dei dati 
-	 */
-	public static PrintStream getOut() {
-		return out;
-	}
-	
-	/*
-	 * Getter del bufferReader necessario alla lettura dei dati 
-	 */
-	public static BufferedReader getIn() {
-		return in;
-	}
+        return socket;
+    }
 
-    /**
-     * @param args the command line arguments
+    /*
+     *	Getter del printStream necessario alla scrittura dei dati 
      */
+    public static PrintStream getOut() {
+        return out;
+    }
+
+    /*
+     * Getter del bufferReader necessario alla lettura dei dati 
+     */
+    public static BufferedReader getIn() {
+        return in;
+    }
+	
     public static void main(String args[]) {
-        try {
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -422,7 +411,7 @@ public class Cittadino extends javax.swing.JFrame {
             }
         });
     }
-                  
+    
     public static String getIdutente() {
 		return idutente;
 	}
@@ -436,8 +425,9 @@ public class Cittadino extends javax.swing.JFrame {
 	public static void setSelectedCV(String selectedCV) {
 		Cittadino.selectedCV = selectedCV;
 	}
+
     private javax.swing.JTextField comuneTextField;
-    private javax.swing.JButton eventoAvversoButton;
+    private javax.swing.JButton infoButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -445,10 +435,12 @@ public class Cittadino extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox<String> listaComboBox;
     private javax.swing.JTextField nomeTextField;
     private javax.swing.JButton operatoriLoginButton;
     private javax.swing.JButton prenotaButton;
     private javax.swing.JButton ricercaButton;
-    private javax.swing.JComboBox<String> tipologiaComboBox;  
-    private javax.swing.JComboBox<String> listaComboBox;
+    private javax.swing.JButton segnalaEventoButton;
+    private javax.swing.JButton sintomiAvversiButton;
+    private javax.swing.JComboBox<String> tipologiaComboBox;        
 }
