@@ -35,19 +35,16 @@ import javax.swing.SpringLayout;
  * @author Giacomelli Davide 741844
  * @author Gioele Vicini 747818
  */
-public class Registrati extends JFrame {
-	/**
-	 * Launch the application.
-	 */
-	
-	/*
-	 * Metodo usato per inviare una richiesta al server di registrazione con risposta
-	 */
-	public Registrati() {
+public class Registrati extends javax.swing.JFrame {
+
+    /**
+     * Creates new form Registrati
+     */
+    public Registrati() {
         initComponents();
     }
-	
-	/*
+
+    /*
 	 * Metodo usato per inviare una richiesta al server di registrazione con risposta
 	 */
 	private boolean registraCittadino(String nome,String cognome,String cf,String email,String psw) throws SQLException {
@@ -76,17 +73,18 @@ public class Registrati extends JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nomeTextField = new javax.swing.JTextField();
-        registrationButton = new javax.swing.JButton();
-        cognomeTextField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
         emailTextField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        registrationButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        repeatPasswordField = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        cfTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        passwordField = new javax.swing.JPasswordField();
-        repeatPasswordField = new javax.swing.JPasswordField();
+        nomeTextField = new javax.swing.JTextField();
+        cognomeTextField = new javax.swing.JTextField();
+        cfTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,9 +92,16 @@ public class Registrati extends JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
-        jLabel2.setText("Nome");
+        jLabel2.setText("E-Mail");
 
-        jLabel3.setText("Cognome");
+        jLabel3.setText("Password");
+
+        backButton.setText("<-");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         registrationButton.setText("Registrati");
         registrationButton.addActionListener(new java.awt.event.ActionListener() {
@@ -105,13 +110,13 @@ public class Registrati extends JFrame {
             }
         });
 
-        jLabel4.setText("E-Mail");
+        jLabel4.setText("Ripeti password");
 
-        jLabel5.setText("Codice Fiscale");
+        jLabel5.setText("Nome");
 
-        jLabel6.setText("Password");
+        jLabel6.setText("Cognome");
 
-        jLabel7.setText("Ripeti Password");
+        jLabel7.setText("Codice Fiscale");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,55 +125,60 @@ public class Registrati extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(registrationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registrationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(repeatPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(passwordField)
-                            .addComponent(cfTextField)
-                            .addComponent(emailTextField)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                             .addComponent(cognomeTextField)
-                            .addComponent(nomeTextField))))
+                            .addComponent(repeatPasswordField)
+                            .addComponent(passwordField)
+                            .addComponent(emailTextField)
+                            .addComponent(cfTextField))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cognomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(cfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nomeTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cognomeTextField))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel4)
+                    .addComponent(repeatPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(repeatPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(registrationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(backButton)
+                    .addComponent(registrationButton))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -180,9 +190,8 @@ public class Registrati extends JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 197, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +207,9 @@ public class Registrati extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,10 +217,16 @@ public class Registrati extends JFrame {
         );
 
         pack();
-    }                  
+    }                       
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    	setVisible(false);
+        Login log = new Login();
+        log.setVisible(true);
+    }                                          
 
     private void registrationButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-    	String nome= nomeTextField.getText();
+        String nome= nomeTextField.getText();
 		String cognome= cognomeTextField.getText();
 		String cf= cfTextField.getText();
 		String email= emailTextField.getText();
@@ -249,7 +266,6 @@ public class Registrati extends JFrame {
 		else JOptionPane.showMessageDialog(jPanel2, "Si prega di inserire tutti i dati");
     }                                                  
 
-    
     private boolean chkMail(String email) {
 		if(email.contains("@")) {
 			int posChiocciola = email.indexOf("@");
@@ -270,15 +286,15 @@ public class Registrati extends JFrame {
 		}
 		return false;
 	}
-
-	private boolean chkCF(String cf) {
+    
+    private boolean chkCF(String cf) {
 		if(cf.length() == 16) {
 			return true;
 		}
 		return false;
 	}
-
-	private boolean passwordValidity(String psw, String r) {
+    
+    private boolean passwordValidity(String psw, String r) {
 		if(psw.length()>=8) {
 			if(psw.contains("1") || psw.contains("2") || psw.contains("3") || psw.contains("4") || psw.contains("5") ||
 					psw.contains("6") || psw.contains("7") || psw.contains("8") || psw.contains("9") || psw.contains("0")) {
@@ -288,8 +304,8 @@ public class Registrati extends JFrame {
 		}
 		return false;
 	}
-
-   public static void main(String args[]) {
+    public static void main(String args[]) {
+		
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -306,14 +322,15 @@ public class Registrati extends JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Registrati.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+		
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Registrati().setVisible(true);
             }
         });
     }
-                   
+                 
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField cfTextField;
     private javax.swing.JTextField cognomeTextField;
     private javax.swing.JTextField emailTextField;
@@ -330,5 +347,5 @@ public class Registrati extends JFrame {
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton registrationButton;
     private javax.swing.JPasswordField repeatPasswordField;
+	
 }
-
