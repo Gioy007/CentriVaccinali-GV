@@ -304,7 +304,7 @@ public class Registrati extends javax.swing.JFrame {
 		}
 		return false;
 	}
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
 		
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -328,7 +328,7 @@ public class Registrati extends javax.swing.JFrame {
                 new Registrati().setVisible(true);
             }
         });
-    }
+    }*/
                  
     private javax.swing.JButton backButton;
     private javax.swing.JTextField cfTextField;

@@ -204,7 +204,7 @@ public class Login extends javax.swing.JFrame {
                             setVisible(false);
                             Prenota p = new Prenota();
                             p.setVisible(true);
-                            setVisible(false);
+                            
                         }
                         if (Cittadino.getScelta().equals("sintomi")) {
                             Cittadino.getOut().println("vaccini;" + Cittadino.getIdutente());
@@ -217,8 +217,6 @@ public class Login extends javax.swing.JFrame {
                                     JOptionPane.showMessageDialog(null,
                                                     "Non puoi segnalare un evento avverso senza aver fatto il vaccino");
                                     setVisible(false);
-                                    Cittadino c = new Cittadino();
-                                    c.setVisible(true);
                             }
                         }
                     }
@@ -246,7 +244,7 @@ public class Login extends javax.swing.JFrame {
         r.setVisible(true);
     }                                                  
 
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
 		
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -269,7 +267,7 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
-    }               
+    }*/              
     private javax.swing.JButton backButton;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel jLabel1;

@@ -262,7 +262,7 @@ public class SegnalaEvento extends javax.swing.JFrame {
         ns.setVisible(true);
     }                                                  
 
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
 		
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -286,7 +286,7 @@ public class SegnalaEvento extends javax.swing.JFrame {
                 new SegnalaEvento().setVisible(true);
             }
         });
-    }
+    }*/
 
 	private javax.swing.JButton backButton;
     private javax.swing.JComboBox<String> idVaccinoComboBox;
