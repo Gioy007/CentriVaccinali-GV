@@ -66,7 +66,9 @@ public class ClientHandler implements Runnable {
 					requestArray = new String[1];
 					requestArray[0] = request;
 				}
+
 				conn = DriverManager.getConnection(url, user, psw);
+
 				/*
 				 * Switch per soddisfare ogni richiesta possibile fatta al server
 				 */
@@ -94,8 +96,8 @@ public class ClientHandler implements Runnable {
 				case "cercaNome":
 
 					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt
-							.executeQuery("SELECT * FROM centrivaccinali" + " where nome like '%" + requestArray[1] + "%'");
+					ResultSet rs = stmt.executeQuery(
+							"SELECT * FROM centrivaccinali" + " where nome like '%" + requestArray[1] + "%'");
 
 					String centri = "";
 					while (rs.next()) {
@@ -107,47 +109,47 @@ public class ClientHandler implements Runnable {
 					break;
 
 				case "sintomiAvversiAVG":
-					
+
 					Statement stmt33 = conn.createStatement();
-					String queryPre33 = "select idcentro from centrivaccinali where nome ='"+requestArray[1]+"'";
+					String queryPre33 = "select idcentro from centrivaccinali where nome ='" + requestArray[1] + "'";
 					ResultSet rs33 = stmt33.executeQuery(queryPre33);
 					rs33.next();
-					String query33="select nome, avg(severita), count(*) "
-							+ "from eventiavversi natural join eventi natural join vaccinati "
-							+ "where idcentrovacc='"+rs33.getString("idcentro")+"' "
-							+ "group by nome, idevento ";
+					String query33 = "select nome, avg(severita), count(*) "
+							+ "from eventiavversi natural join eventi natural join vaccinati " + "where idcentrovacc='"
+							+ rs33.getString("idcentro") + "' " + "group by nome, idevento ";
 					rs33 = stmt33.executeQuery(query33);
 
 					String sintomiAvversiAVG = "";
 					while (rs33.next()) {
-						
-						Float round = (float) (Math.round(Float.parseFloat(rs33.getString("avg"))*100d)/100d);
-						sintomiAvversiAVG+=rs33.getString("nome")+";"+round.toString()+";"+rs33.getString("count")+";";
+
+						Float round = (float) (Math.round(Float.parseFloat(rs33.getString("avg")) * 100d) / 100d);
+						sintomiAvversiAVG += rs33.getString("nome") + ";" + round.toString() + ";"
+								+ rs33.getString("count") + ";";
 					}
 
 					out.println(sintomiAvversiAVG);
 
 					break;
-					
+
 				case "infoCV":
 					Statement stmtICV = conn.createStatement();
-					ResultSet rsICV = stmtICV.executeQuery("SELECT * FROM centrivaccinali where nome='"+ requestArray[1] + "'");
+					ResultSet rsICV = stmtICV
+							.executeQuery("SELECT * FROM centrivaccinali where nome='" + requestArray[1] + "'");
 
 					String ICV = "";
 					rsICV.next();
-					
-					ICV= rsICV.getString("nome") + ";"+ rsICV.getString("comune")+ " "+ rsICV.getString("cap")+";"
-							+ rsICV.getString("indirizzo")+ ";"+ rsICV.getString("tipologia");
-					
+
+					ICV = rsICV.getString("nome") + ";" + rsICV.getString("comune") + " " + rsICV.getString("cap") + ";"
+							+ rsICV.getString("indirizzo") + ";" + rsICV.getString("tipologia");
 
 					out.println(ICV);
 
 					break;
-					
+
 				/*
 				 * Caso per soddisfare la richiesta di calcolare il numero di eventi avversi e
 				 * la loro media di severita
-				 */					
+				 */
 				case "numeroMedia":
 					Statement stmt13 = conn.createStatement();
 					ResultSet rs13 = stmt13
@@ -215,37 +217,37 @@ public class ClientHandler implements Runnable {
 					String queryGetIDfromCF = "SELECT * FROM utenti WHERE cf = '" + requestArray[1] + "'";
 					ResultSet result2 = stmt3.executeQuery(queryGetIDfromCF);
 					result2.next();
-					
-					String useridR= result2.getString("userid");
-					int dose=0;
-					
-					String queryDose="select max(dose) from vaccinati where userid='"+useridR+"'";
+
+					String useridR = result2.getString("userid");
+					int dose = 0;
+
+					String queryDose = "select max(dose) from vaccinati where userid='" + useridR + "'";
 					result2 = stmt3.executeQuery(queryDose);
-					
+
 					try {
 						result2.next();
-						dose=Integer.parseInt(result2.getString("max"));
-					}catch(Exception e) {
-						
+						dose = Integer.parseInt(result2.getString("max"));
+					} catch (Exception e) {
+
 					}
 					dose++;
-					String idcentrovacc="";
-					
-					String queryBook="select idcentro from prenotati where userid="+useridR;
+					String idcentrovacc = "";
+
+					String queryBook = "select idcentro from prenotati where userid=" + useridR;
 					result2 = stmt3.executeQuery(queryBook);
 					result2.next();
-					idcentrovacc=result2.getString("idcentro");
-					
+					idcentrovacc = result2.getString("idcentro");
+
 					String queryNewVaccinato = "INSERT INTO vaccinati (idvacc, userid, datasomm, tipovacc, idcentrovacc, dose)"
-							+ "VALUES ('" + requestArray[4] + "', '" + useridR + "', '"
-							+ requestArray[2] + "', '" + requestArray[3] + "', '" + idcentrovacc + "', "+String.valueOf(dose)+");";
+							+ "VALUES ('" + requestArray[4] + "', '" + useridR + "', '" + requestArray[2] + "', '"
+							+ requestArray[3] + "', '" + idcentrovacc + "', " + String.valueOf(dose) + ");";
 
 					System.out.println(queryNewVaccinato);
 					stmt3.executeUpdate(queryNewVaccinato);
 
-					String queryDelete="DELETE FROM prenotati WHERE userid='"+useridR+"';";
+					String queryDelete = "DELETE FROM prenotati WHERE userid='" + useridR + "';";
 					stmt3.executeUpdate(queryDelete);
-					
+
 					out.println("OK");
 					break;
 
@@ -253,13 +255,14 @@ public class ClientHandler implements Runnable {
 				 * Caso per soddisfare la richiesta di registrare un nuovo cittadino al portale
 				 */
 				case "registraCitt":
-					
+
 					Statement stmt4 = conn.createStatement();
-					String queryChkEsistenza = "SELECT * FROM utenti WHERE email = '"+ requestArray[5] +"' OR cf = '"+requestArray[3]+"'";
+					String queryChkEsistenza = "SELECT * FROM utenti WHERE email = '" + requestArray[5] + "' OR cf = '"
+							+ requestArray[3] + "'";
 					ResultSet result0 = stmt4.executeQuery(queryChkEsistenza);
-					if(result0.next()) {
+					if (result0.next()) {
 						out.println("ERRORE");
-					}else {
+					} else {
 						String queryRegistra = "INSERT INTO utenti (nome, cognome, cf, password, email)" + "VALUES ('"
 								+ requestArray[1] + "', '" + requestArray[2] + "', '" + requestArray[3] + "', '"
 								+ requestArray[4] + "', '" + requestArray[5] + "');";
@@ -267,9 +270,7 @@ public class ClientHandler implements Runnable {
 						stmt4.executeUpdate(queryRegistra);
 						out.println("OK");
 					}
-					
 
-					
 					break;
 
 				/*
@@ -294,13 +295,13 @@ public class ClientHandler implements Runnable {
 				 */
 				case "prenotaVacc":
 					Statement stmt9 = conn.createStatement();
-					String queryIDC="select idcentro from centrivaccinali where nome ='"+requestArray[3]+"'";
+					String queryIDC = "select idcentro from centrivaccinali where nome ='" + requestArray[3] + "'";
 					ResultSet rsIDC = stmt9.executeQuery(queryIDC);
 
 					rsIDC.next();
-					
-					String queryPrenota = "INSERT INTO prenotati (userid, dataprenotazione, idcentro) VALUES ('" + requestArray[1]
-							+ "','" + requestArray[2] + "','" + rsIDC.getString("idcentro") + "');";
+
+					String queryPrenota = "INSERT INTO prenotati (userid, dataprenotazione, idcentro) VALUES ('"
+							+ requestArray[1] + "','" + requestArray[2] + "','" + rsIDC.getString("idcentro") + "');";
 
 					try {
 						stmt9.executeUpdate(queryPrenota);
@@ -329,15 +330,16 @@ public class ClientHandler implements Runnable {
 					Statement stmt6 = conn.createStatement();
 					String queryVacc = "select idvacc, tipovacc, dose from vaccinati v left join utenti on v.userid=utenti.userid "
 							+ "where v.userid='" + requestArray[1] + "' order by datasomm";
-					String Hvaccini="";
-					
+					String Hvaccini = "";
+
 					ResultSet rs6 = stmt6.executeQuery(queryVacc);
-					
+
 					try {
 						rs6.next();
 
 						do {
-							Hvaccini += rs6.getString("idvacc") + ";"+ rs6.getString("tipovacc") + ";" +  rs6.getString("dose") + ";";
+							Hvaccini += rs6.getString("idvacc") + ";" + rs6.getString("tipovacc") + ";"
+									+ rs6.getString("dose") + ";";
 						} while (rs6.next());
 
 						Hvaccini.substring(0, Hvaccini.length() - 1);
@@ -365,12 +367,13 @@ public class ClientHandler implements Runnable {
 					out.println(eventi);
 
 					break;
-					
+
 				case "aggiungiSegnalazione":
-					
+
 					Statement stmtAggiungiSegnalazione = conn.createStatement();
 					String queryAggiungiSegnalazione = "INSERT INTO eventiavversi(idvacc, idevento, severita, note)\r\n"
-							+ "	VALUES ('" + requestArray[1] + "', '" + requestArray[2] + "', '" + requestArray[3] + "','" + requestArray[4] + "');";
+							+ "	VALUES ('" + requestArray[1] + "', '" + requestArray[2] + "', '" + requestArray[3]
+							+ "','" + requestArray[4] + "');";
 
 					stmtAggiungiSegnalazione.executeUpdate(queryAggiungiSegnalazione);
 
@@ -386,7 +389,7 @@ public class ClientHandler implements Runnable {
 					Statement stmt8 = conn.createStatement();
 					String indirizzo = requestArray[5] + " " + requestArray[6];
 					String queryNewCV = "INSERT INTO centrivaccinali (nome, comune, indirizzo, cap, provincia, tipologia)"
-							+ "VALUES ('" + requestArray[1] + "', '" + requestArray[2] + "', '" + indirizzo+"', '"
+							+ "VALUES ('" + requestArray[1] + "', '" + requestArray[2] + "', '" + indirizzo + "', '"
 							+ requestArray[3] + "', '" + requestArray[4] + "', '" + requestArray[7] + "');";
 
 					stmt8.executeUpdate(queryNewCV);

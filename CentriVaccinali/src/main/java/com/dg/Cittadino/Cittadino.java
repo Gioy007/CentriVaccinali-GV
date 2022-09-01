@@ -1,6 +1,7 @@
 package com.dg.Cittadino;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -38,7 +39,6 @@ public class Cittadino extends javax.swing.JFrame {
 			connOK=true;
 		} catch (Exception e) {		
 			connOK=false;
-			e.printStackTrace();
 		}
 	}
 	
@@ -48,8 +48,15 @@ public class Cittadino extends javax.swing.JFrame {
         	initComponents();
         }
         else {
-        	JOptionPane.showMessageDialog(null, "Server non trovato");
-
+        	JOptionPane.showMessageDialog(null, "Server non trovato, attendo server");
+        	
+        	while(!connOK) {
+        		avviaSocket();
+        		System.out.println("Cerco");
+        		
+        	}
+        	JOptionPane.showMessageDialog(null, "Server trovato");
+        	initComponents();
         }
     }     
                 
