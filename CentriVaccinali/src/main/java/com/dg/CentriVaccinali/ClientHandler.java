@@ -386,7 +386,7 @@ public class ClientHandler implements Runnable {
 					Statement stmt8 = conn.createStatement();
 					String indirizzo = requestArray[5] + " " + requestArray[6];
 					String queryNewCV = "INSERT INTO centrivaccinali (nome, comune, indirizzo, cap, provincia, tipologia)"
-							+ "VALUES ('" + requestArray[1] + "', '" + requestArray[2] + "', '" + indirizzo
+							+ "VALUES ('" + requestArray[1] + "', '" + requestArray[2] + "', '" + indirizzo+"', '"
 							+ requestArray[3] + "', '" + requestArray[4] + "', '" + requestArray[7] + "');";
 
 					stmt8.executeUpdate(queryNewCV);

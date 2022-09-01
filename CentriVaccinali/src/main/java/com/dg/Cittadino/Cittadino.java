@@ -245,7 +245,7 @@ public class Cittadino extends javax.swing.JFrame {
 
     private void operatoriLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         scelta = "operatore";
-    	setVisible(false);
+
         Login r=new Login();
         r.setVisible(true);
     }                                                    
@@ -325,7 +325,6 @@ public class Cittadino extends javax.swing.JFrame {
         */
     	if(listaComboBox.getSelectedIndex()>-1) {
     		selectedCV = (String)listaComboBox.getSelectedItem();
-    		setVisible(false);
     		SintomiAvversi r=new SintomiAvversi();
     		r.setVisible(true);
     	}
@@ -341,7 +340,6 @@ public class Cittadino extends javax.swing.JFrame {
             setSelectedCV(s);
             scelta = "sintomi";
 
-            setVisible(false);
             Login r = new Login();
             r.setVisible(true);
     	}else {
@@ -359,7 +357,6 @@ public class Cittadino extends javax.swing.JFrame {
             setSelectedCV(s);        	
             scelta = "prenota";
 
-            setVisible(false);
             Login r=new Login();
             r.setVisible(true);
     	}else {

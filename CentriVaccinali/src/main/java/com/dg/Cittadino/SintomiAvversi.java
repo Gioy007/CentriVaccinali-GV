@@ -15,6 +15,9 @@ import java.awt.Font;
 import java.io.IOException;
 
 import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SintomiAvversi extends JFrame {
 
@@ -80,7 +83,9 @@ public class SintomiAvversi extends JFrame {
             }
         };
         
+        nomeCentro.setText(Cittadino.getSelectedCV());
         Cittadino.getOut().println("sintomiAvversiAVG;"+Cittadino.getSelectedCV());
+        
         
         try {
 			String[] response= Cittadino.getIn().readLine().split(";");
@@ -113,13 +118,24 @@ public class SintomiAvversi extends JFrame {
 		try {
 			String[] response= Cittadino.getIn().readLine().split(";");
 			System.out.println(response[1]);
-			mediaSintomiGenerale = new JLabel(response[1]);
+			Float f= (float) (Math.round(Float.parseFloat(response[1])*1000d)/1000d);
+			mediaSintomiGenerale = new JLabel(f.toString());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}		
 		sl_contentPane.putConstraint(SpringLayout.NORTH, mediaSintomiGenerale, 0, SpringLayout.NORTH, lblNewLabel);
 		sl_contentPane.putConstraint(SpringLayout.WEST, mediaSintomiGenerale, 6, SpringLayout.EAST, lblNewLabel);
 		contentPane.add(mediaSintomiGenerale);
+		
+		JButton backButton = new JButton("<--");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		sl_contentPane.putConstraint(SpringLayout.NORTH, backButton, 6, SpringLayout.SOUTH, table);
+		sl_contentPane.putConstraint(SpringLayout.EAST, backButton, 0, SpringLayout.EAST, table);
+		contentPane.add(backButton);
 
 	}
 }

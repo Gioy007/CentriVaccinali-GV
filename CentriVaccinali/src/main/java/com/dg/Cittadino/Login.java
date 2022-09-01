@@ -56,7 +56,12 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Login");
+        if(Cittadino.getScelta().equals("operatore")) {
+        	jLabel1.setText("Login Operatore Vaccinale");
+        }
+        else {
+        	jLabel1.setText("Login");
+        }
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -163,8 +168,6 @@ public class Login extends javax.swing.JFrame {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
     	setVisible(false);
-        Cittadino home = new Cittadino();
-        home.setVisible(true);
     }                                          
 
     /*

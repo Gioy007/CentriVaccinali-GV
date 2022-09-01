@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
 
 public class Prenota extends JFrame {
 
@@ -112,6 +113,13 @@ public class Prenota extends JFrame {
 
         jLabel5.setText("Anno");
         
+        btnNewButton = new JButton("<--");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		setVisible(false);
+        	}
+        });
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -121,15 +129,18 @@ public class Prenota extends JFrame {
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
         				.addComponent(jLabel1)
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jLabel2)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(jgiorno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addGap(18)
-        					.addComponent(jLabel4)
-        					.addGap(18)
-        					.addComponent(jmese, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jLabel5)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createSequentialGroup()
+        							.addComponent(jLabel2)
+        							.addPreferredGap(ComponentPlacement.UNRELATED)
+        							.addComponent(jgiorno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        							.addGap(18)
+        							.addComponent(jLabel4)
+        							.addGap(18)
+        							.addComponent(jmese, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jLabel5))
+        						.addComponent(btnNewButton))
         					.addPreferredGap(ComponentPlacement.UNRELATED)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
         						.addComponent(jButton1)
@@ -150,7 +161,9 @@ public class Prenota extends JFrame {
         				.addComponent(jLabel5)
         				.addComponent(janno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-        			.addComponent(jButton1)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jButton1)
+        				.addComponent(btnNewButton))
         			.addGap(25))
         );
         getContentPane().setLayout(layout);
@@ -169,5 +182,6 @@ public class Prenota extends JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private JButton btnNewButton;
     // End of variables declaration                   
 }
