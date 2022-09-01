@@ -79,6 +79,7 @@ public class InfoCentro extends JFrame {
 		
 		JLabel comuneLabel = new JLabel("New label");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, comuneLabel, 6, SpringLayout.SOUTH, nomeLabel);
+		sl_contentPane.putConstraint(SpringLayout.WEST, comuneLabel, 20, SpringLayout.EAST, lblNewLabel_3);
 		contentPane.add(comuneLabel);
 		
 		JLabel viaLabel = new JLabel("New label");
@@ -87,7 +88,6 @@ public class InfoCentro extends JFrame {
 		contentPane.add(viaLabel);
 		
 		JLabel tipologiaLabel = new JLabel("New label");
-		sl_contentPane.putConstraint(SpringLayout.EAST, comuneLabel, 0, SpringLayout.EAST, tipologiaLabel);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, tipologiaLabel, 0, SpringLayout.NORTH, lblNewLabel_5);
 		sl_contentPane.putConstraint(SpringLayout.WEST, tipologiaLabel, 6, SpringLayout.EAST, lblNewLabel_5);
 		contentPane.add(tipologiaLabel);
